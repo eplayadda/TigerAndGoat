@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour {
 	public static UIManager instance;
 	public MainMenuUI mainMenuUI;
 	public GamePlayUI gamePlayUI;
+	public GameOverUI gameOverUI;
 
 	void Awake()
 	{
@@ -13,7 +14,10 @@ public class UIManager : MonoBehaviour {
 			instance = this;
 	}
 
-
+	public void OnGameOver()
+	{
+		gameOverUI.gameObject.SetActive (true);
+	}
 
 	public void DisableAllUI()
 	{

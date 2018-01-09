@@ -20,9 +20,11 @@ public class TGNode : MonoBehaviour {
 		if (currNodeHolder == eNodeHolder.goat) {
 			nodeHolderSprint.sprite = BordManager.instace.goatTexture;
 			nodeHolderSprint.enabled = true;
-		} else if(currNodeHolder == eNodeHolder.tiger){
+		} else if (currNodeHolder == eNodeHolder.tiger) {
 			nodeHolderSprint.enabled = true;
 			nodeHolderSprint.sprite = BordManager.instace.tigerTexture;
+		} else {
+			nodeHolderSprint.enabled = false;
 		}
 	}
 }
