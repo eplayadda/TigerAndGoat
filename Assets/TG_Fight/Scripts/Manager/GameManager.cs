@@ -43,6 +43,7 @@ using UnityEngine;
 		
 		public void OnGameModeSelected(int pMode)
 		{
+			
 			currGameMode = (eGameMode)pMode;
 			currPlayerIdentity = ePlayerIdentity.host;
 			currTurnStatus = eTurnStatus.friend;

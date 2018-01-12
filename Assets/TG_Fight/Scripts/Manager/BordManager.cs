@@ -55,9 +55,8 @@ public class BordManager : MonoBehaviour {
         }
         else if (gameManager.currTurnStatus == eTurnStatus.my)
         {
+			Debug.Log ("AI");
 			FriendMove(pData);
-
-//            MyMove(pData);
         }
         
     }
@@ -78,6 +77,7 @@ public class BordManager : MonoBehaviour {
 					if (SetDataGoat (pData)) {
 						gameManager.currTurnStatus = eTurnStatus.my;
 						gameManager.friendAnimalType = eAnimalType.tiger;
+						StartCoroutine ("AITurn");
 					}
                 }
             }
@@ -89,6 +89,9 @@ public class BordManager : MonoBehaviour {
                 allTgNodes[pData].SetNodeHolderSprint();
 				gameManager.currTurnStatus = eTurnStatus.my;
 				gameManager.friendAnimalType = eAnimalType.tiger;
+				StartCoroutine ("AITurn");
+
+			
             }
         }
         else if(gameManager.friendAnimalType == eAnimalType.tiger)
@@ -101,7 +104,7 @@ public class BordManager : MonoBehaviour {
 			{
 				selectedGoatIndex = pData;
 			}
-			else if(selectedGoatIndex > 0 && allTgNodes[pData].currNodeHolder == eNodeHolder.none)
+			else if(selectedGoatIndex >= 0 && allTgNodes[pData].currNodeHolder == eNodeHolder.none)
 			{
 				if (SetDataTiger (pData)) {
 					gameManager.currTurnStatus = eTurnStatus.friend;
@@ -111,8 +114,14 @@ public class BordManager : MonoBehaviour {
         }
     }
 
-    void MyMove(int pData)
+	IEnumerator AITurn()
     {
+		yield return new WaitForSeconds (.4f);
+		List <int> aiMOve = new List<int> ();
+		aiMOve  = Tg_FightAI.instance.GetTigerNextMove ();
+		Debug.Log (aiMOve[0]+" "+aiMOve[1]);
+		OnInputByUser (aiMOve[0]);
+		OnInputByUser (aiMOve[1]);
     }
 
 	bool SetDataGoat(int pData)
