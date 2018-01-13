@@ -15,7 +15,7 @@ public class BordManager : MonoBehaviour {
 	public Sprite tigerTexture;
 	public Sprite goatTexture;
     int noOfTiger;
-    int noOfGoat;
+	public int noOfGoat;
 	GameManager gameManager;
 	int selectedTigerIndex;
 	public int selectedGoatIndex;

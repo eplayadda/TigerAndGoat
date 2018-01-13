@@ -11,6 +11,7 @@ public enum eNodeHolder
 };
 public class TGNode : MonoBehaviour {
     public int ID;
+	public bool isCornner;
 	public List <BranchTGNode> branchTgNodes;
 	public eNodeHolder currNodeHolder;
 	public Image nodeHolderSprint; 
