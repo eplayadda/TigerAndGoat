@@ -20,4 +20,14 @@ public class MainMenuUI : MonoBehaviour
 		uiManager.gamePlayUI.gameObject.SetActive (true);
 		GameManager.instance.OnGameModeSelected (a);
 	}
+
+	public void OnClickWhatsAppShare ()
+	{
+		UIAnimationController.Instance.OnClickShare ();
+	}
+
+	public void OnClickFBShare ()
+	{
+		UIAnimationController.Instance.OnClickShare ();
+	}
 }
