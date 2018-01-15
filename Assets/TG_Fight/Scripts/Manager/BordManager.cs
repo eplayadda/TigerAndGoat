@@ -78,8 +78,9 @@ public class BordManager : MonoBehaviour {
                 {
 					if (SetDataGoat (pData)) {
 						gameManager.currTurnStatus = eTurnStatus.my;
-						gameManager.friendAnimalType = eAnimalType.tiger;
-						StartCoroutine ("AITurnTiger");
+					//	gameManager.friendAnimalType = eAnimalType.tiger;
+						if(IsAiEnable(true))
+							StartCoroutine ("AITurnTiger");
 					}
                 }
             }
@@ -90,8 +91,9 @@ public class BordManager : MonoBehaviour {
                 allTgNodes[pData].currNodeHolder = eNodeHolder.goat;
                 allTgNodes[pData].SetNodeHolderSprint();
 				gameManager.currTurnStatus = eTurnStatus.my;
-				gameManager.friendAnimalType = eAnimalType.tiger;
-				StartCoroutine ("AITurnTiger");
+			//	gameManager.friendAnimalType = eAnimalType.tiger;
+				if(IsAiEnable(true))
+					StartCoroutine ("AITurnTiger");
 
 			
             }
@@ -110,14 +112,26 @@ public class BordManager : MonoBehaviour {
 			{
 				if (SetDataTiger (pData)) {
 					gameManager.currTurnStatus = eTurnStatus.friend;
-					gameManager.friendAnimalType = eAnimalType.goat;
-					StartCoroutine ("AITurnGoat");
+					//gameManager.friendAnimalType = eAnimalType.goat;
+					if(IsAiEnable(false))
+						StartCoroutine ("AITurnGoat");
 
 				}
 			}
         }
     }
-
+	bool IsAiEnable(bool isTiger)
+	{
+		bool isEbnable = false;
+		if (isTiger) {
+			if (gameManager.currGameMode == eGameMode.vCPU && gameManager.friendAnimalType == eAnimalType.tiger)
+				isEbnable = true;
+		} else {
+			if (gameManager.currGameMode == eGameMode.vCPU && gameManager.friendAnimalType == eAnimalType.goat)
+				isEbnable = true;
+		}
+		return isEbnable;
+	}
 	IEnumerator AITurnTiger()
     {
 		yield return new WaitForSeconds (.4f);

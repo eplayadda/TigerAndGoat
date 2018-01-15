@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuUI : MonoBehaviour
 {
+	public Toggle tigerTgl;
+	public Toggle goatTgl;
 	GameManager gameManager;
 	UIManager uiManager;
 
@@ -17,6 +20,14 @@ public class MainMenuUI : MonoBehaviour
 	{
 		gameManager.currGameStatus = eGameStatus.play;
 		uiManager.DisableAllUI ();
+		if (tigerTgl.isOn == true) {
+			gameManager.myAnimalType = eAnimalType.tiger;
+			gameManager.friendAnimalType = eAnimalType.goat;
+		}
+		if (goatTgl.isOn == true) {
+			gameManager.myAnimalType = eAnimalType.goat;
+			gameManager.friendAnimalType = eAnimalType.tiger;
+		}
 		uiManager.gamePlayUI.gameObject.SetActive (true);
 		GameManager.instance.OnGameModeSelected (a);
 	}
