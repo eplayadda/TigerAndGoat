@@ -1,6 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+	public enum eGameStatus
+	{
+		none,
+		play,
+		pause,
+		over
+	}
 	public enum eGameMode
 	{
 		none = 0,
@@ -29,6 +37,7 @@ using UnityEngine;
 
 	public class GameManager : MonoBehaviour {
 		public static GameManager instance;
+		public eGameStatus currGameStatus;
 		public eGameMode currGameMode;
 		public eTurnStatus currTurnStatus;
 		public ePlayerIdentity currPlayerIdentity;

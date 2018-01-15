@@ -30,6 +30,7 @@ public class BordManager : MonoBehaviour {
 	{
 		gameManager = GameManager.instance;
 		SetDefaultData ();
+		StartCoroutine ("AITurnGoat");
 	}
 
 	void SetDefaultData()
@@ -49,13 +50,14 @@ public class BordManager : MonoBehaviour {
 
 	public void OnInputByUser(int pData)
 	{
+		if (gameManager.currGameStatus != eGameStatus.play)
+			return;
         if (gameManager.currTurnStatus == eTurnStatus.friend)
         {
             FriendMove(pData);
         }
         else if (gameManager.currTurnStatus == eTurnStatus.my)
         {
-			Debug.Log ("AI");
 			FriendMove(pData);
         }
         
@@ -72,12 +74,12 @@ public class BordManager : MonoBehaviour {
                 {
                     selectedGoatIndex = pData;
                 }
-				else if(selectedGoatIndex > 0 && allTgNodes[pData].currNodeHolder == eNodeHolder.none)
+				else if(selectedGoatIndex >= 0 && allTgNodes[pData].currNodeHolder == eNodeHolder.none)
                 {
 					if (SetDataGoat (pData)) {
 						gameManager.currTurnStatus = eTurnStatus.my;
 						gameManager.friendAnimalType = eAnimalType.tiger;
-						StartCoroutine ("AITurn");
+						StartCoroutine ("AITurnTiger");
 					}
                 }
             }
@@ -89,7 +91,7 @@ public class BordManager : MonoBehaviour {
                 allTgNodes[pData].SetNodeHolderSprint();
 				gameManager.currTurnStatus = eTurnStatus.my;
 				gameManager.friendAnimalType = eAnimalType.tiger;
-				StartCoroutine ("AITurn");
+				StartCoroutine ("AITurnTiger");
 
 			
             }
@@ -109,21 +111,36 @@ public class BordManager : MonoBehaviour {
 				if (SetDataTiger (pData)) {
 					gameManager.currTurnStatus = eTurnStatus.friend;
 					gameManager.friendAnimalType = eAnimalType.goat;
+					StartCoroutine ("AITurnGoat");
+
 				}
 			}
         }
     }
 
-	IEnumerator AITurn()
+	IEnumerator AITurnTiger()
     {
 		yield return new WaitForSeconds (.4f);
 		List <int> aiMOve = new List<int> ();
 		aiMOve  = Tg_FightAI.instance.GetTigerNextMove ();
-		Debug.Log (aiMOve[0]+" "+aiMOve[1]);
 		OnInputByUser (aiMOve[0]);
 		OnInputByUser (aiMOve[1]);
     }
 
+	IEnumerator AITurnGoat()
+	{
+		yield return new WaitForSeconds (.4f);
+		List <int> aiMOve = new List<int> ();
+		aiMOve  = Tg_FightAI.instance.GetGoatNextMove ();
+		if (noOfGoat < gameManager.totalNoOfGoat) {
+			OnInputByUser (aiMOve [0]);
+		} else {
+			Debug.Log (aiMOve[1]+" "+aiMOve[0]);
+			OnInputByUser (aiMOve [1]);
+			OnInputByUser (aiMOve[0]);
+		}
+
+	}
 	bool SetDataGoat(int pData)
     {
 		bool correctTile = false;

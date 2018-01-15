@@ -15,6 +15,7 @@ public class MainMenuUI : MonoBehaviour
 
 	public void OnGameModeSelected (int a)
 	{
+		gameManager.currGameStatus = eGameStatus.play;
 		uiManager.DisableAllUI ();
 		uiManager.gamePlayUI.gameObject.SetActive (true);
 		GameManager.instance.OnGameModeSelected (a);

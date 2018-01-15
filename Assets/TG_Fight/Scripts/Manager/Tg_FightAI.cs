@@ -12,6 +12,7 @@ public class Tg_FightAI : MonoBehaviour {
 		if (instance == null)
 			instance = this;
 		bordManager = BordManager.instace;
+		gameManager = GameManager.instance;
 		Debug.Log ("Chadnan");
 	}
 
@@ -24,7 +25,6 @@ public class Tg_FightAI : MonoBehaviour {
 		aiMove.Clear ();
 		tempTo.Clear ();
 		tempFrom.Clear ();
-		Debug.Log (bordManager.allTgNodes.Count+" jh");
 		foreach (TGNode node in bordManager.allTgNodes) {
 			if (node.currNodeHolder == eNodeHolder.tiger) {
 				foreach (BranchTGNode brNodes in node.branchTgNodes) {
@@ -52,11 +52,10 @@ public class Tg_FightAI : MonoBehaviour {
 		}
 		aiMove.Add(indexFrom);
 		aiMove.Add(indexTo);
-		Debug.Log (indexTo+" AI Move");
 		return aiMove;
 	}
 
-	public int GetGoatNextMove()
+	public List<int> GetGoatNextMove()
 	{
 		int indexTo = -1 ;
 		int indexFrom = -1 ;
@@ -68,7 +67,10 @@ public class Tg_FightAI : MonoBehaviour {
 
 		List <TGNode> cornnerNode = new List<TGNode> ();
 		List <TGNode> emptyNode = new List<TGNode> ();
-		if (bordManager.noOfGoat >= gameManager.totalNoOfGoat) {
+		List<TGNode> nearTiger = new List<TGNode> ();
+
+		if (bordManager.noOfGoat < gameManager.totalNoOfGoat) {
+			// If Goat is less then total number of Gaot allowed
 			foreach (TGNode item in bordManager.allTgNodes) {
 				if (item.currNodeHolder == eNodeHolder.none) {
 					emptyNode.Add (item);
@@ -76,22 +78,94 @@ public class Tg_FightAI : MonoBehaviour {
 						cornnerNode.Add (item);
 				}
 			}
+			foreach (TGNode item in cornnerNode) {
+					tempTo.Add (item.ID);
+			}
+			if (tempTo.Count > 0) {
+			    return AiGoatMove(tempTo);
+			}
+			tempTo.Clear ();
+			foreach (TGNode item in emptyNode) {
+				if(SafeForGoat(item))
+					tempTo.Add (item.ID);
+			}
+			if (tempTo.Count > 0) {
+				return AiGoatMove(tempTo);
+			}
+			tempTo.Clear ();
+			foreach (TGNode item in emptyNode) {
+					tempTo.Add (item.ID);
+			}
+			if (tempTo.Count > 0) {
+				return AiGoatMove(tempTo);
+			}
 		} else {
+			// If tota; number of Goat used
+
+			// Checking Goat which is near by Tiger 
 			foreach (TGNode item in bordManager.allTgNodes) {
+				if (item.currNodeHolder == eNodeHolder.none) 
+					emptyNode.Add (item);
 				if (item.currNodeHolder == eNodeHolder.goat ) {
 					foreach (BranchTGNode brItem in item.branchTgNodes) {
 						if (brItem.firstLayerNode.currNodeHolder == eNodeHolder.tiger) {
-							
+							nearTiger.Add (item);
 						}
 					}
-					
 				}
+			}
+			foreach (TGNode item in nearTiger) {
+				foreach (BranchTGNode br in item.branchTgNodes) {
+					if (br.firstLayerNode.currNodeHolder == eNodeHolder.none) {
+						tempTo.Add (br.firstLayerNode.ID);
+						tempFrom.Add (item.ID);
+					}
+				}
+			}
+			if (tempTo.Count > 0) {
+				Debug.Log ("fjgh");
+				return AiGoatMove(tempTo,tempFrom);
+			}
+			tempTo.Clear ();
+			tempFrom.Clear ();
+			foreach (TGNode item in bordManager.allTgNodes) {
+				if (item.currNodeHolder == eNodeHolder.goat ) {
+					foreach (BranchTGNode brItem in item.branchTgNodes) {
+						if (brItem.firstLayerNode.currNodeHolder == eNodeHolder.none) {
+							tempTo.Add (brItem.firstLayerNode.ID);
+							tempFrom.Add (item.ID);
+						}
+					}
+				}
+			}
+			if (tempTo.Count > 0) {
+				Debug.Log ("fjgh");
+				return AiGoatMove(tempTo,tempFrom);
 			}
 		}
 
 
+		return aiMove;
+	}
 
-		return 0;
+	List<int> AiGoatMove(List<int> pDataTo,List<int> pDataFrom = null)
+	{
+		int a = Random.Range (0,pDataTo.Count);
+		aiMove.Add (pDataTo[a]);
+		if(pDataFrom != null)
+		aiMove.Add (pDataFrom[a]);
+		return aiMove;
+	}
+	bool SafeForGoat(TGNode node)
+	{
+		bool isSafe = true;
+		foreach (BranchTGNode item in node.branchTgNodes) {
+			if (item.firstLayerNode.currNodeHolder == eNodeHolder.tiger) {
+				isSafe = false;
+				break;
+			}
+		}
+		return isSafe;
 	}
 
 }

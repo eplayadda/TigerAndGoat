@@ -7,10 +7,13 @@ public class GameOverUI : MonoBehaviour {
 	public Text msgTxt;
 	void OnEnable()
 	{
-		if(BordManager.instace.currWinStatus == BordManager.eWinStatus.tiger)
+		if (BordManager.instace.currWinStatus == BordManager.eWinStatus.tiger) {
+			GameManager.instance.currGameStatus = eGameStatus.over;	
 			msgTxt.text = "Tiger won Game";
-		else
+		} else {
+			GameManager.instance.currGameStatus = eGameStatus.over;	
 			msgTxt.text = "Goat won Game";
+		}
 
 	}
 
