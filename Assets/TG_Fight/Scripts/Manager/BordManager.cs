@@ -30,7 +30,8 @@ public class BordManager : MonoBehaviour {
 	{
 		gameManager = GameManager.instance;
 		SetDefaultData ();
-		StartCoroutine ("AITurnGoat");
+		if(IsAiEnable(false))
+			StartCoroutine ("AITurnGoat");
 	}
 
 	void SetDefaultData()
@@ -66,7 +67,7 @@ public class BordManager : MonoBehaviour {
     void FriendMove(int pData)
     {
         pData = pData - 1;
-        if (gameManager.friendAnimalType == eAnimalType.goat)
+		if (gameManager.currTurnStatus == eTurnStatus.friend)
         {
             if (noOfGoat >= gameManager.totalNoOfGoat)
             {
@@ -98,7 +99,7 @@ public class BordManager : MonoBehaviour {
 			
             }
         }
-        else if(gameManager.friendAnimalType == eAnimalType.tiger)
+		else if(gameManager.currTurnStatus == eTurnStatus.my)
         {
 			if (!IsTigerMoveAlv ()) {
 				currWinStatus = eWinStatus.goat;
