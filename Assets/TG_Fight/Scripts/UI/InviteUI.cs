@@ -16,6 +16,7 @@ public class InviteUI : MonoBehaviour {
 	{
 		gameObject.SetActive (false);
 		if (isAccepted) {
+			ConnectionManager.Instance.IacceptChallage ();
 		} else {
 		}
 	}

@@ -38,4 +38,9 @@ public class UIManager : MonoBehaviour
 		inviteUI.gameObject.SetActive (true);
 	}
 
+	public void OnGameStartOnServer()
+	{
+		gamePlayUI.gameObject.SetActive (true);
+	}
+
 }

@@ -180,6 +180,7 @@ public class ConnectionManager : MonoBehaviour
 
 	public void ChallengeAccepted (Hub hub, MethodCallMessage msg)
 	{
+		Debug.Log ("Chalage accepted");
 //		UIManager.instance.OnChallangeAccepted ();
 	}
 
@@ -221,26 +222,26 @@ public class ConnectionManager : MonoBehaviour
 
 	public void OnInputRecived (Hub hub, MethodCallMessage msg)
 	{
-//		var str = msg.Arguments [0] as object[];
-//		Debug.Log (str [2].ToString ());
-//
-//
-//		if (str [2].ToString () == "0") {
+		var str = msg.Arguments [0] as object[];
+		Debug.Log (str [2].ToString ());
+
+
+		if (str [2].ToString () == "0") {
 //			if (GameManager.instace.currRoomStatus == GameManager.eRoomStatus.play) {
 //				string a = str [1].ToString ();
 //				UIManager.instance.FriendAnswer (a);
 //			}
-//
-//		} else if (str [2].ToString () == "1") {
-//			//int a = Convert.ToInt32(str[1]);
+
+		} else if (str [2].ToString () == "1") {
+			//int a = Convert.ToInt32(str[1]);
 //			UIManager.instance.FriendGameOver ();
-//		} else if (str [2].ToString () == "2") {
-//		} else if (str [2].ToString () == "3") {
+		} else if (str [2].ToString () == "2") {
+		} else if (str [2].ToString () == "3") {
 //			if (GameManager.instace.currRoomStatus != GameManager.eRoomStatus.play) {
-//				UIManager.instance.OnGameStartOnServer ();
+				UIManager.instance.OnGameStartOnServer ();
 //				Debug.Log ("3333");
-//			}
-//		}
+			}
+
 	}
 
 	public void Ack (Hub hub, MethodCallMessage msg)
