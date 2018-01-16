@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
 	public GamePlayUI gamePlayUI;
 	public GameOverUI gameOverUI;
 	public GameObject loginPanel;
+	public InviteUI inviteUI;
 
 	void Awake ()
 	{
@@ -31,6 +32,10 @@ public class UIManager : MonoBehaviour
 	{
 		loginPanel.SetActive (false);
 		mainMenuUI.gameObject.SetActive (true);
+	}
+	public void OnSendRequest(int price,int type)
+	{
+		inviteUI.gameObject.SetActive (true);
 	}
 
 }

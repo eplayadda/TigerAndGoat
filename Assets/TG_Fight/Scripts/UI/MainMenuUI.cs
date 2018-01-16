@@ -7,6 +7,7 @@ public class MainMenuUI : MonoBehaviour
 {
 	public Toggle tigerTgl;
 	public Toggle goatTgl;
+	public GameObject ServerRoomPanel;
 	GameManager gameManager;
 	UIManager uiManager;
 
@@ -18,8 +19,6 @@ public class MainMenuUI : MonoBehaviour
 
 	public void OnGameModeSelected (int a)
 	{
-		gameManager.currGameStatus = eGameStatus.play;
-		uiManager.DisableAllUI ();
 		if (tigerTgl.isOn == true) {
 			gameManager.myAnimalType = eAnimalType.tiger;
 			gameManager.friendAnimalType = eAnimalType.goat;
@@ -28,8 +27,14 @@ public class MainMenuUI : MonoBehaviour
 			gameManager.myAnimalType = eAnimalType.goat;
 			gameManager.friendAnimalType = eAnimalType.tiger;
 		}
-		uiManager.gamePlayUI.gameObject.SetActive (true);
-		GameManager.instance.OnGameModeSelected (a);
+		if (a < 3) {
+			uiManager.gamePlayUI.gameObject.SetActive (true);
+			gameManager.currGameStatus = eGameStatus.play;
+			uiManager.DisableAllUI ();
+			GameManager.instance.OnGameModeSelected (a);
+		} else {
+			ServerRoomPanel.SetActive (true);
+		}
 	}
 
 	public void OnClickWhatsAppShare ()
@@ -41,4 +46,15 @@ public class MainMenuUI : MonoBehaviour
 	{
 		UIAnimationController.Instance.OnClickShare ();
 	}
+
+	public void OnCreateRoom(int a)
+	{
+		uiManager.DisableAllUI ();
+		uiManager.gamePlayUI.gameObject.SetActive (true);
+		uiManager.gamePlayUI.WaittingFriendBtn ();
+		GameManager.instance.OnGameModeSelected (a);
+		ConnectionManager.Instance.OnSendRequest ("100", "0");
+	}
+
+
 }
