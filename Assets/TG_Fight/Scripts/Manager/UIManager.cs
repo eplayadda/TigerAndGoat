@@ -41,6 +41,19 @@ public class UIManager : MonoBehaviour
 	public void OnGameStartOnServer()
 	{
 		gamePlayUI.gameObject.SetActive (true);
+		gamePlayUI.OnServerGameStart ();
+	}
+
+	public void OnChallangeAccepted()
+	{
+		gamePlayUI.OnServerPlayerAccepted ();
+	}
+
+	public void OnFriendInviteAccepted()
+	{
+		DisableAllUI ();
+		gamePlayUI.gameObject.SetActive (true);
+		gamePlayUI.OnInvieAcceptedByME ();
 	}
 
 }

@@ -181,7 +181,7 @@ public class ConnectionManager : MonoBehaviour
 	public void ChallengeAccepted (Hub hub, MethodCallMessage msg)
 	{
 		Debug.Log ("Chalage accepted");
-//		UIManager.instance.OnChallangeAccepted ();
+		UIManager.instance.OnChallangeAccepted ();
 	}
 
 	List <string> inputData = new List<string> ();

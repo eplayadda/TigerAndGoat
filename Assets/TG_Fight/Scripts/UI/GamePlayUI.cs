@@ -26,19 +26,27 @@ public class GamePlayUI : MonoBehaviour {
 
 	public void OnServerPlayerAccepted()
 	{
-		waittingPanelBtn.interactable = false;
+		waittingPanelBtn.interactable = true;
 		gameManager.currGameStatus = eGameStatus.play;
 
 	}
 
 	public void OnGameStart(){
 		gameManager.currGameStatus = eGameStatus.play;
+		waitingPanel.SetActive (false);
 		ConnectionManager.Instance.OnServerGameStart ();
 	}
 
-	void OnServerGameStart()
+	public void OnServerGameStart()
 	{
 		waitingPanel.SetActive (false);
 		gameManager.currGameStatus = eGameStatus.play;
+	}
+
+	public void OnInvieAcceptedByME()
+	{
+		waitingPanel.SetActive (false);
+		GameManager.instance.OnGameModeSelected (3);
+		gameManager.currGameStatus = eGameStatus.pause;
 	}
 }
