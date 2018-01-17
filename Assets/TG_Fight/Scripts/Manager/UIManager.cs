@@ -41,6 +41,12 @@ public class UIManager : MonoBehaviour
 
 	public void OnSendRequest (int price, int type)
 	{
+		GameManager.instance.friendAnimalType = (eAnimalType)type;
+		if (type == 1)
+			type = 2;
+		else
+			type = 1;
+		GameManager.instance.myAnimalType = (eAnimalType)type;
 		inviteUI.gameObject.SetActive (true);
 	}
 
