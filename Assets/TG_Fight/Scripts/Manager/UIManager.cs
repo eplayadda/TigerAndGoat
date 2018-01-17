@@ -26,7 +26,11 @@ public class UIManager : MonoBehaviour
 	public void DisableAllUI ()
 	{
 		mainMenuUI.gameObject.SetActive (false);
-
+		loginPanel.SetActive (false);
+		gamePlayUI.gameObject.SetActive (false);
+		gameOverUI.gameObject.SetActive (false);
+		inviteUI.gameObject.SetActive (false);
+		fbFriendsPanel.gameObject.SetActive (false);
 	}
 
 	public void OnClickAsGuest ()
@@ -43,7 +47,7 @@ public class UIManager : MonoBehaviour
 	public void OnGameStartOnServer ()
 	{
 		gamePlayUI.gameObject.SetActive (true);
-		gamePlayUI.OnServerGameStart ();
+	//	gamePlayUI.OnServerGameStart ();
 	}
 
 	public void OnChallangeAccepted()

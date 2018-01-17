@@ -9,6 +9,7 @@ public class GamePlayUI : MonoBehaviour
 	UIManager uiManager;
 	public GameObject waitingPanel;
 	public Button waittingPanelBtn;
+	public GameObject waittingMsgPnl;
 
 	void OnEnable ()
 	{
@@ -24,13 +25,15 @@ public class GamePlayUI : MonoBehaviour
 
 	public void WaittingFriendBtn ()
 	{
+		waittingMsgPnl.SetActive (true);
 		waittingPanelBtn.interactable = false;
 		waitingPanel.SetActive (true);
 	}
 
 	public void OnServerPlayerAccepted ()
 	{
-		waittingPanelBtn.interactable = false;
+		waittingPanelBtn.interactable = true;
+		waittingMsgPnl.SetActive (false);
 		gameManager.currGameStatus = eGameStatus.play;
 
 	}
@@ -46,4 +49,11 @@ public class GamePlayUI : MonoBehaviour
 		waitingPanel.SetActive (false);
 		gameManager.currGameStatus = eGameStatus.play;
 	}
+	public void OnInvieAcceptedByME()
+	{
+		waitingPanel.SetActive (true);
+		waittingMsgPnl.SetActive (true);
+		waittingPanelBtn.gameObject.SetActive(false);
+	}
+
 }
