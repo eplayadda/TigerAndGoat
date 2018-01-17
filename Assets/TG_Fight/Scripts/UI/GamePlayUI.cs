@@ -41,10 +41,11 @@ public class GamePlayUI : MonoBehaviour
 	public void OnGameStart ()
 	{
 		gameManager.currGameStatus = eGameStatus.play;
+		waitingPanel.SetActive (false);
 		ConnectionManager.Instance.OnServerGameStart ();
 	}
 
-	void OnServerGameStart ()
+	public void OnServerGameStart ()
 	{
 		waitingPanel.SetActive (false);
 		gameManager.currGameStatus = eGameStatus.play;

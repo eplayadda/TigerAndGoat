@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
 	public void OnGameStartOnServer ()
 	{
 		gamePlayUI.gameObject.SetActive (true);
-	//	gamePlayUI.OnServerGameStart ();
+		gamePlayUI.OnServerGameStart ();
 	}
 
 	public void OnChallangeAccepted()
@@ -60,6 +60,8 @@ public class UIManager : MonoBehaviour
 		DisableAllUI ();
 		gamePlayUI.gameObject.SetActive (true);
 		gamePlayUI.OnInvieAcceptedByME ();
+		BordManager.instace.OnGameStart ();
+
 	}
 
 	public void OnCancleFriendList ()
