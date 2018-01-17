@@ -9,8 +9,8 @@ using UnityEngine.UI;
 
 public class FacebookHandler : MonoBehaviour
 {
-	//public GameObject FriendPrefab;
-	//public Transform parentObject;
+	public GameObject FriendPrefab;
+	public Transform parentObject;
 
 	//public GameObject FriendPrefabRoom;
 	//public Transform parentRoom;
@@ -106,7 +106,7 @@ public class FacebookHandler : MonoBehaviour
 	public void GetFriends ()
 	{
 		if (FB.IsLoggedIn) {
-			FB.API ("me?fields=id,name,friends.limit(20){first_name,picture}", HttpMethod.GET, this.GetFreindCallback);
+			FB.API ("me?fields=id,name,friends.limit(50){name,picture}", HttpMethod.GET, this.GetFreindCallback);
 		} else {
 			LoginForFriendsList ();
 		}
@@ -134,7 +134,7 @@ public class FacebookHandler : MonoBehaviour
 		//debugText.text += "\n" + isFrndsAvials.ToString ();
 //		if (isFrndsAvials)
 //			return;
-		/*DestroyFriendsList ();
+		DestroyFriendsList ();
 		string resposne = result.RawResult;
 		Debug.Log (resposne);
 		var data = (Dictionary<string, object>)result.ResultDictionary;
@@ -154,12 +154,12 @@ public class FacebookHandler : MonoBehaviour
 			g.transform.localScale = Vector3.one;
 			g.transform.position = Vector3.zero;
 			FriendsObjectList.Add (g);
-			g.GetComponent<FriendsDetails> ().Name.text = resultValue ["first_name"].ToString ();
+			g.GetComponent<FriendsDetails> ().Name.text = resultValue ["name"].ToString ();
 			Button btn = g.GetComponentInChildren<Button> ();
-			Debug.Log (resultValue ["first_name"].ToString () + "  , " + resultValue ["id"].ToString ());
+			Debug.Log (resultValue ["name"].ToString () + "  , " + resultValue ["id"].ToString ());
 			string id = resultValue ["id"].ToString ();
 			g.GetComponent<FriendsDetails> ().ID = System.Convert.ToInt64 (id);
-			AddListener (btn, id);
+			//AddListener (btn, id);
 //			if (ConnectionManager.Instance.onlineFriends.Contains (id)) {
 //				g.GetComponent<FriendsDetails> ().onlineIcon.SetActive (true);
 //			} else {
@@ -177,7 +177,7 @@ public class FacebookHandler : MonoBehaviour
 				});
 			}
 			isFrndsAvials = true;
-		}*/
+		}
 	}
 
 	private void DestroyFriendsList ()

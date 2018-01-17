@@ -3,50 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GamePlayUI : MonoBehaviour {
+public class GamePlayUI : MonoBehaviour
+{
 	GameManager gameManager;
 	UIManager uiManager;
 	public GameObject waitingPanel;
 	public Button waittingPanelBtn;
-	void OnEnable () {
+
+	void OnEnable ()
+	{
 		gameManager = GameManager.instance;
 		uiManager = UIManager.instance;
 	}
-	public void OnBackClicked()
+
+	public void OnBackClicked ()
 	{
-		uiManager.DisableAllUI ();
+		uiManager.gamePlayUI.gameObject.SetActive (false);
 		uiManager.mainMenuUI.gameObject.SetActive (true);
 	}
 
-	public void WaittingFriendBtn()
+	public void WaittingFriendBtn ()
 	{
 		waittingPanelBtn.interactable = false;
 		waitingPanel.SetActive (true);
 	}
 
-	public void OnServerPlayerAccepted()
+	public void OnServerPlayerAccepted ()
 	{
-		waittingPanelBtn.interactable = true;
+		waittingPanelBtn.interactable = false;
 		gameManager.currGameStatus = eGameStatus.play;
 
 	}
 
-	public void OnGameStart(){
+	public void OnGameStart ()
+	{
 		gameManager.currGameStatus = eGameStatus.play;
-		waitingPanel.SetActive (false);
 		ConnectionManager.Instance.OnServerGameStart ();
 	}
 
-	public void OnServerGameStart()
+	void OnServerGameStart ()
 	{
 		waitingPanel.SetActive (false);
 		gameManager.currGameStatus = eGameStatus.play;
-	}
-
-	public void OnInvieAcceptedByME()
-	{
-		waitingPanel.SetActive (false);
-		GameManager.instance.OnGameModeSelected (3);
-		gameManager.currGameStatus = eGameStatus.pause;
 	}
 }

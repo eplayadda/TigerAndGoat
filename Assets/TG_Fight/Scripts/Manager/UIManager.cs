@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
 	public GameOverUI gameOverUI;
 	public GameObject loginPanel;
 	public InviteUI inviteUI;
+	public GameObject fbFriendsPanel;
 
 	void Awake ()
 	{
@@ -25,7 +26,7 @@ public class UIManager : MonoBehaviour
 	public void DisableAllUI ()
 	{
 		mainMenuUI.gameObject.SetActive (false);
-		gamePlayUI.gameObject.SetActive (false);
+
 	}
 
 	public void OnClickAsGuest ()
@@ -33,12 +34,13 @@ public class UIManager : MonoBehaviour
 		loginPanel.SetActive (false);
 		mainMenuUI.gameObject.SetActive (true);
 	}
-	public void OnSendRequest(int price,int type)
+
+	public void OnSendRequest (int price, int type)
 	{
 		inviteUI.gameObject.SetActive (true);
 	}
 
-	public void OnGameStartOnServer()
+	public void OnGameStartOnServer ()
 	{
 		gamePlayUI.gameObject.SetActive (true);
 		gamePlayUI.OnServerGameStart ();
@@ -54,6 +56,11 @@ public class UIManager : MonoBehaviour
 		DisableAllUI ();
 		gamePlayUI.gameObject.SetActive (true);
 		gamePlayUI.OnInvieAcceptedByME ();
+	}
+
+	public void OnCancleFriendList ()
+	{
+		fbFriendsPanel.SetActive (false);
 	}
 
 }

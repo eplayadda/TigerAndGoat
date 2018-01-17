@@ -28,8 +28,6 @@ public class SocialManager : MonoBehaviour
 		
 	}
 
-
-
 	public void LoginWithFB ()
 	{
 		facebookManager.OnFacebookLogin ();
@@ -46,6 +44,12 @@ public class SocialManager : MonoBehaviour
 		Debug.Log ("RetUs");
 		//GameManager.instance.ShowRateUsPanel (false);
 		Application.OpenURL ("market://details?id=com.eplayadda.mindssmash");
+	}
+
+	public void GetFriendFB ()
+	{
+		UIManager.instance.fbFriendsPanel.SetActive (true);
+		facebookManager.GetFriends ();
 	}
 
 }
