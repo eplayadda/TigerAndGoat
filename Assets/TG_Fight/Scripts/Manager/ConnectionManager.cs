@@ -227,10 +227,11 @@ public class ConnectionManager : MonoBehaviour
 
 
 		if (str [2].ToString () == "0") {
-//			if (GameManager.instace.currRoomStatus == GameManager.eRoomStatus.play) {
-//				string a = str [1].ToString ();
-//				UIManager.instance.FriendAnswer (a);
-//			}
+			if (GameManager.instance.currGameStatus == eGameStatus.play) {
+				int a =  Convert.ToInt32( str [1].ToString ());
+				InputHandler.instance.OnInputTakenBYServer (a);
+				Debug.Log (a+" ");
+			}
 
 		} else if (str [2].ToString () == "1") {
 			//int a = Convert.ToInt32(str[1]);

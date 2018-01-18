@@ -22,10 +22,15 @@ public class MainMenuUI : MonoBehaviour
 		if (tigerTgl.isOn == true) {
 			gameManager.myAnimalType = eAnimalType.tiger;
 			gameManager.friendAnimalType = eAnimalType.goat;
+			GameManager.instance.currTurnStatus = eTurnStatus.friend;
+
+
 		}
 		if (goatTgl.isOn == true) {
 			gameManager.myAnimalType = eAnimalType.goat;
 			gameManager.friendAnimalType = eAnimalType.tiger;
+			GameManager.instance.currTurnStatus = eTurnStatus.my;
+
 		}
 		if (a < 3) {
 			gameManager.currGameStatus = eGameStatus.play;
