@@ -30,9 +30,9 @@ using UnityEngine;
 	}
 	public enum eAnimalType
 	{
-		none,
-		tiger,
-		goat
+		none = 0,
+		tiger = 1,
+		goat = 2
 	}
 
 	public class GameManager : MonoBehaviour {
