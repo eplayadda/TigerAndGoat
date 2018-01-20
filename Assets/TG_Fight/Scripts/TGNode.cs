@@ -18,6 +18,11 @@ public class TGNode : MonoBehaviour {
 
 	public void SetNodeHolderSprint()
 	{
+		Invoke ("SetImage",.001f);
+	}
+
+	void SetImage()
+	{
 		if (currNodeHolder == eNodeHolder.goat) {
 			nodeHolderSprint.sprite = BordManager.instace.goatTexture;
 			nodeHolderSprint.enabled = true;
