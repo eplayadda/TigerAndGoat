@@ -226,7 +226,7 @@ public class BordManager : MonoBehaviour {
 				allTgNodes[pData].currNodeHolder = eNodeHolder.tiger;
 				allTgNodes[selectedGoatIndex].currNodeHolder = eNodeHolder.none;
 //				allTgNodes[pData].SetNodeHolderSprint();
-//				allTgNodes[selectedGoatIndex].SetNodeHolderSprint();
+				allTgNodes[selectedGoatIndex].SetNodeHolderSprint();
 				selectedGoatIndex = -1;
 				correctTile = true;
 				if(item.secondLayerNode != null && item.secondLayerNode.ID == pData + 1 && allTgNodes[item.firstLayerNode.ID -1 ].currNodeHolder == eNodeHolder.goat)
