@@ -4,6 +4,7 @@ using UnityEngine;
 using Facebook.Unity;
 using Facebook.MiniJSON;
 using System;
+using System.Linq;
 using UnityEngine.UI;
 
 
@@ -11,7 +12,7 @@ public class FacebookHandler : MonoBehaviour
 {
 	public GameObject FriendPrefab;
 	public Transform parentObject;
-
+	private ToggleGroup toggleGroup;
 	//public GameObject FriendPrefabRoom;
 	//public Transform parentRoom;
 	//public Text debugText;
@@ -27,6 +28,7 @@ public class FacebookHandler : MonoBehaviour
 	void Start ()
 	{ 
 		FB.Init (OnInitComplete, OnHideUnity);
+		toggleGroup = SocialManager.Instance.GetComponent<ToggleGroup> ();
 	}
 
 
@@ -92,7 +94,7 @@ public class FacebookHandler : MonoBehaviour
 			Debug.Log ("LoginSuccess" + result.RawResult);
 			var token = Facebook.Unity.AccessToken.CurrentAccessToken;
 			userId = token.UserId.ToString ();
-			//ConnectionManager.Instance.myID = userId;
+			ConnectionManager.Instance.myID = userId;
 			//debugText.text += "\n" + userId;
 			UIManager.instance.mainMenuUI.gameObject.SetActive (true);
 			UIManager.instance.loginPanel.SetActive (false);
@@ -155,11 +157,12 @@ public class FacebookHandler : MonoBehaviour
 			g.transform.position = Vector3.zero;
 			FriendsObjectList.Add (g);
 			g.GetComponent<FriendsDetails> ().Name.text = resultValue ["name"].ToString ();
-			Button btn = g.GetComponentInChildren<Button> ();
+			Toggle btn = g.GetComponentInChildren<Toggle> ();
+			btn.group = toggleGroup;
 			Debug.Log (resultValue ["name"].ToString () + "  , " + resultValue ["id"].ToString ());
 			string id = resultValue ["id"].ToString ();
 			g.GetComponent<FriendsDetails> ().ID = System.Convert.ToInt64 (id);
-			//AddListener (btn, id);
+			AddListener (btn, id);
 //			if (ConnectionManager.Instance.onlineFriends.Contains (id)) {
 //				g.GetComponent<FriendsDetails> ().onlineIcon.SetActive (true);
 //			} else {
@@ -188,10 +191,15 @@ public class FacebookHandler : MonoBehaviour
 		FriendsObjectList.Clear ();
 	}
 
-	private void AddListener (Button btn, string fbID)
+	private void AddListener (Toggle btn, string fbID)
 	{
-		btn.onClick.AddListener (() => SetFriendsId (fbID));
+		btn.onValueChanged.AddListener ((bool value) => {
+			if (value)
+				SetFriendsId (fbID);
+		});
+
 	}
+
 	//	private void OnGUI ()
 	//	{
 	//		if (GUI.Button (new Rect (100, 100, 100, 50), "Login")) {
@@ -209,8 +217,9 @@ public class FacebookHandler : MonoBehaviour
 
 	public void SetFriendsId (string id)
 	{
-//		ConnectionManager.Instance.friedID = id;
-//		Debug.Log ("SetFriendsId : " + id);
+		
+		ConnectionManager.Instance.friedID = id;
+		Debug.Log ("SetFriendsId : " + id);
 //		UIManager.instance.friendsListPanel.SetActive (false);
 //		FB.API ("https" + "://graph.facebook.com/" + id + "/picture?width=128&height=128", HttpMethod.GET, delegate(IGraphResult avatarResult) {
 //			if (avatarResult.Error != null) {

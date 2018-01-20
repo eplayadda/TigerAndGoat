@@ -28,4 +28,9 @@ public class UIAnimationController : MonoBehaviour
 		else
 			LeanTween.scale (sharePanel, Vector3.zero, 0.25f).setEaseInExpo ();
 	}
+
+	public void SettingPanelAnimation (GameObject gameObject, float to)
+	{
+		LeanTween.moveLocalX (gameObject, to, 0.25f).setEase (LeanTweenType.easeInOutExpo).setOnComplete (UIManager.instance.mainMenuUI.SettingAnimationCallback);
+	}
 }

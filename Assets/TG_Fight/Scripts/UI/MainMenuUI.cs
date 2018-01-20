@@ -8,6 +8,11 @@ public class MainMenuUI : MonoBehaviour
 	public Toggle tigerTgl;
 	public Toggle goatTgl;
 	public GameObject ServerRoomPanel;
+	public GameObject settingPanle;
+
+	public Transform settingStartPos;
+	public Transform settingEndPos;
+
 	GameManager gameManager;
 	UIManager uiManager;
 
@@ -52,14 +57,44 @@ public class MainMenuUI : MonoBehaviour
 		UIAnimationController.Instance.OnClickShare ();
 	}
 
-	public void OnCreateRoom(int a)
+	public void OnCreateRoom (int a)
 	{
 		uiManager.DisableAllUI ();
 		uiManager.gamePlayUI.gameObject.SetActive (true);
 		uiManager.gamePlayUI.WaittingFriendBtn ();
 		GameManager.instance.OnGameModeSelected (a);
-		ConnectionManager.Instance.OnSendRequest ("100", (int)gameManager.friendAnimalType+"");
+		ConnectionManager.Instance.OnSendRequest ("100", (int)gameManager.friendAnimalType + "");
 	}
 
+
+	public void OnCloseServerPanel ()
+	{
+		ServerRoomPanel.SetActive (false);
+
+	}
+
+	private bool isSettingOn = false;
+
+	public void OnSettingActive ()
+	{
+		isSettingOn = true;
+		settingPanle.SetActive (true);
+		UIAnimationController.Instance.SettingPanelAnimation (settingPanle, 0);
+	}
+
+
+	public void OnClickBackSetting ()
+	{
+		isSettingOn = false;
+		UIAnimationController.Instance.SettingPanelAnimation (settingPanle, settingEndPos.localPosition.x);
+	}
+
+	public void SettingAnimationCallback ()
+	{
+		if (!isSettingOn) {
+			settingPanle.SetActive (false);
+			settingPanle.transform.position = settingStartPos.position;
+		}
+	}
 
 }
