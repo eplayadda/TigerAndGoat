@@ -5,7 +5,7 @@ using UnityEngine;
 public class InviteUI : MonoBehaviour {
 	GameManager gameManager;
 	UIManager uiManager;
-
+	public int friendAnimalType;
 	void OnEnable()
 	{
 		gameManager = GameManager.instance;
@@ -16,6 +16,17 @@ public class InviteUI : MonoBehaviour {
 	{
 		gameObject.SetActive (false);
 		if (isAccepted) {
+			GameManager.instance.currGameMode = eGameMode.vServerMulltiPlayer;
+			GameManager.instance.currPlayerIdentity = ePlayerIdentity.client;
+			GameManager.instance.myAnimalType = (eAnimalType)friendAnimalType;
+			if (friendAnimalType == 1) {
+				GameManager.instance.currTurnStatus = eTurnStatus.friend;
+				friendAnimalType = 2;
+			} else {
+				friendAnimalType = 1;
+				GameManager.instance.currTurnStatus = eTurnStatus.my;
+			}
+			GameManager.instance.friendAnimalType = (eAnimalType)friendAnimalType;
 			ConnectionManager.Instance.IacceptChallage ();
 			uiManager.OnFriendInviteAccepted ();
 		} else {

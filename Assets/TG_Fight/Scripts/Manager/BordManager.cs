@@ -55,19 +55,19 @@ public class BordManager : MonoBehaviour {
 			return;
         if (gameManager.currTurnStatus == eTurnStatus.friend)
         {
-            FriendMove(pData);
+			FriendMove(pData,gameManager.friendAnimalType);
         }
         else if (gameManager.currTurnStatus == eTurnStatus.my)
         {
-			FriendMove(pData);
+			FriendMove(pData,gameManager.myAnimalType);
         }
         
     }
 
-    void FriendMove(int pData)
+	void FriendMove(int pData,eAnimalType pCurrAnimalType)
     {
         pData = pData - 1;
-		if (gameManager.currTurnStatus == eTurnStatus.friend)
+		if (pCurrAnimalType == eAnimalType.goat)
         {
             if (noOfGoat >= gameManager.totalNoOfGoat)
             {
@@ -77,9 +77,12 @@ public class BordManager : MonoBehaviour {
                 }
 				else if(selectedGoatIndex >= 0 && allTgNodes[pData].currNodeHolder == eNodeHolder.none)
                 {
-					if (SetDataGoat (pData)) {
-						gameManager.currTurnStatus = eTurnStatus.my;
-					//	gameManager.friendAnimalType = eAnimalType.tiger;
+					if (SetDataGoat (pData)) { 
+						if(gameManager.currTurnStatus == eTurnStatus.friend)
+							gameManager.currTurnStatus = eTurnStatus.my;
+						else
+							gameManager.currTurnStatus = eTurnStatus.friend;
+
 						if(IsAiEnable(true))
 							StartCoroutine ("AITurnTiger");
 					}
@@ -91,15 +94,17 @@ public class BordManager : MonoBehaviour {
 				noOfGoat++;
                 allTgNodes[pData].currNodeHolder = eNodeHolder.goat;
                 allTgNodes[pData].SetNodeHolderSprint();
-				gameManager.currTurnStatus = eTurnStatus.my;
-			//	gameManager.friendAnimalType = eAnimalType.tiger;
+				if(gameManager.currTurnStatus == eTurnStatus.friend)
+					gameManager.currTurnStatus = eTurnStatus.my;
+				else
+					gameManager.currTurnStatus = eTurnStatus.friend;
 				if(IsAiEnable(true))
 					StartCoroutine ("AITurnTiger");
 
 			
             }
         }
-		else if(gameManager.currTurnStatus == eTurnStatus.my)
+		else if(pCurrAnimalType == eAnimalType.tiger)
         {
 			if (!IsTigerMoveAlv ()) {
 				currWinStatus = eWinStatus.goat;
@@ -112,8 +117,10 @@ public class BordManager : MonoBehaviour {
 			else if(selectedGoatIndex >= 0 && allTgNodes[pData].currNodeHolder == eNodeHolder.none)
 			{
 				if (SetDataTiger (pData)) {
-					gameManager.currTurnStatus = eTurnStatus.friend;
-					//gameManager.friendAnimalType = eAnimalType.goat;
+					if(gameManager.currTurnStatus == eTurnStatus.friend)
+						gameManager.currTurnStatus = eTurnStatus.my;
+					else
+						gameManager.currTurnStatus = eTurnStatus.friend;
 					if(IsAiEnable(false))
 						StartCoroutine ("AITurnGoat");
 

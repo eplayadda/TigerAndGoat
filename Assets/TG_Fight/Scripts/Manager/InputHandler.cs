@@ -11,13 +11,16 @@ public class InputHandler : MonoBehaviour {
 	}
 	public void OnInputTaken(int pData)
 	{
-		Debug.Log ("Data"+pData);
+		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer && GameManager.instance.currTurnStatus != eTurnStatus.my)
+			return;
         BordManager.instace.OnInputByUser(pData);
-		ConnectionManager.Instance.OnSendMeAnswer (pData+"");
+		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer)
+			ConnectionManager.Instance.OnSendMeAnswer (pData+"");
 	}
 	public void OnInputTakenBYServer(int pData)
 	{
 		BordManager.instace.OnInputByUser(pData);
+//		GameManager.instance.currTurnStatus = eTurnStatus.my;
 
 	}
 }

@@ -54,9 +54,8 @@ using UnityEngine;
 		{
 			currGameMode = (eGameMode)pMode;
 			currPlayerIdentity = ePlayerIdentity.host;
-			currTurnStatus = eTurnStatus.friend;
-           // myAnimalType = eAnimalType.tiger;
-           // friendAnimalType = eAnimalType.goat;
             BordManager.instace.OnGameStart ();
 		}
+
+
 	}

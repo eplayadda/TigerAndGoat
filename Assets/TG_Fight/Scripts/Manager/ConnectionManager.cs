@@ -154,16 +154,31 @@ public class ConnectionManager : MonoBehaviour
 		usersID.Add (pCurrSubjectType);
 		Debug.Log (myID + "Send Request" + friedID);
 		signalRConnection [HUB_NAME].Call ("SendRequest", usersID);
+		GameManager.instance.currGameMode = eGameMode.vServerMulltiPlayer;
+		int a = Convert.ToInt32 (pCurrSubjectType);
+		GameManager.instance.currPlayerIdentity = ePlayerIdentity.host;
+		GameManager.instance.friendAnimalType = (eAnimalType)a;
+		if (a == 1) {
+			GameManager.instance.currTurnStatus = eTurnStatus.my;
+			a = 2;
+		} else {
+			a = 1;
+			GameManager.instance.currTurnStatus = eTurnStatus.friend;
+		}
+		GameManager.instance.myAnimalType = (eAnimalType)a;
+
 	}
 
 	// Request Came
 	public void OnReceiveMatchDetails (Hub hub, MethodCallMessage msg)
 	{
+
 		Debug.Log ("Request came");
 		var str = msg.Arguments [0] as object[];
 		friedID = str [0].ToString ();
 		int tablePrice = Convert.ToInt32 (str [2].ToString ());
 		int subjectType = Convert.ToInt32 (str [3].ToString ());
+
 		UIManager.instance.OnSendRequest (tablePrice,subjectType);
 
 	}
