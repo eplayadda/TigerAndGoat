@@ -22,7 +22,12 @@ public class BordManager : MonoBehaviour {
 	public int selectedGoatIndex;
 	public int coutGoatKill;
 	public Text goatKillTxt;
-
+	bool isMoveAlow ;
+	public Transform markerToMove;
+	public Transform defaultPos;
+	Transform startPos;
+	Transform endPos;
+	float speed = 3f;
 	void Awake()
 	{
 		if (instace == null)
@@ -72,15 +77,21 @@ public class BordManager : MonoBehaviour {
         pData = pData - 1;
 		if (pCurrAnimalType == eAnimalType.goat)
         {
+			markerToMove.GetComponent<Image> ().sprite = goatTexture;
             if (noOfGoat >= gameManager.totalNoOfGoat)
             {
 				if (allTgNodes[pData].currNodeHolder == eNodeHolder.goat ) 
                 {
                     selectedGoatIndex = pData;
+					markerToMove.position = allTgNodes [pData].transform.position;
+
                 }
 				else if(selectedGoatIndex >= 0 && allTgNodes[pData].currNodeHolder == eNodeHolder.none)
                 {
 					if (SetDataGoat (pData)) { 
+						endPos = allTgNodes [pData].transform;
+						isMoveAlow = true;
+						markerToMove.gameObject.SetActive (true);
 						if(gameManager.currTurnStatus == eTurnStatus.friend)
 							gameManager.currTurnStatus = eTurnStatus.my;
 						else
@@ -95,7 +106,11 @@ public class BordManager : MonoBehaviour {
                 if (allTgNodes[pData ].currNodeHolder != eNodeHolder.none)
                     return;
 				noOfGoat++;
+				markerToMove.position = defaultPos.position;
+				markerToMove.gameObject.SetActive (true);
+				endPos = allTgNodes [pData].transform;
                 allTgNodes[pData].currNodeHolder = eNodeHolder.goat;
+				isMoveAlow = true;
                 allTgNodes[pData].SetNodeHolderSprint();
 				if(gameManager.currTurnStatus == eTurnStatus.friend)
 					gameManager.currTurnStatus = eTurnStatus.my;
@@ -109,6 +124,7 @@ public class BordManager : MonoBehaviour {
         }
 		else if(pCurrAnimalType == eAnimalType.tiger)
         {
+			markerToMove.GetComponent<Image> ().sprite = tigerTexture;
 			if (!IsTigerMoveAlv ()) {
 				currWinStatus = eWinStatus.goat;
 				UIManager.instance.OnGameOver ();
@@ -116,10 +132,14 @@ public class BordManager : MonoBehaviour {
 			if (allTgNodes[pData].currNodeHolder == eNodeHolder.tiger ) 
 			{
 				selectedGoatIndex = pData;
+				markerToMove.position = allTgNodes [pData].transform.position;
 			}
 			else if(selectedGoatIndex >= 0 && allTgNodes[pData].currNodeHolder == eNodeHolder.none)
 			{
 				if (SetDataTiger (pData)) {
+					endPos = allTgNodes [pData].transform;
+					isMoveAlow = true;
+					markerToMove.gameObject.SetActive (true);
 					if(gameManager.currTurnStatus == eTurnStatus.friend)
 						gameManager.currTurnStatus = eTurnStatus.my;
 					else
@@ -182,6 +202,18 @@ public class BordManager : MonoBehaviour {
 		return correctTile;
     }
 
+	void Update()
+	{
+		if (isMoveAlow) {
+			Debug.Log ("Moving");
+			markerToMove.transform.position = Vector3.MoveTowards (markerToMove.transform.position,endPos.position,speed);
+			if (Vector3.Distance (markerToMove.transform.position, endPos.position) <= .1f) {
+				isMoveAlow = false;
+				markerToMove.gameObject.SetActive (false);
+
+			}
+		}
+	}
 	bool SetDataTiger(int pData)
 	{
 		bool correctTile = false;
