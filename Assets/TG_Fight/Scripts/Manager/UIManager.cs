@@ -34,6 +34,7 @@ public class UIManager : MonoBehaviour
 
 	public void OnClickAsGuest ()
 	{
+		ConnectionManager.Instance.MakeConnection ();
 		loginPanel.SetActive (false);
 		mainMenuUI.gameObject.SetActive (true);
 	}

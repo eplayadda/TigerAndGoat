@@ -54,9 +54,19 @@ public class ConnectionManager : MonoBehaviour
 			DestroyImmediate (this.gameObject);
 			return;
 		}
-		MakeConnection ();
+//		MakeConnection ();
 	}
 
+	public void SetConnectionID(bool p)
+	{
+		if (p) {
+			myID = "1";
+			friedID = "2";
+		} else {
+			myID = "2";
+			friedID = "1";
+		}
+	}
 	public void MakeConnection ()
 	{
 		signalRConnection = null;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BordManager : MonoBehaviour {
 	public static BordManager instace ;
@@ -20,6 +21,8 @@ public class BordManager : MonoBehaviour {
 	int selectedTigerIndex;
 	public int selectedGoatIndex;
 	public int coutGoatKill;
+	public Text goatKillTxt;
+
 	void Awake()
 	{
 		if (instace == null)
@@ -196,6 +199,8 @@ public class BordManager : MonoBehaviour {
 					allTgNodes[item.firstLayerNode.ID -1].currNodeHolder = eNodeHolder.none;
 					allTgNodes[item.firstLayerNode.ID -1 ].SetNodeHolderSprint();
 					coutGoatKill++;
+					goatKillTxt.text = coutGoatKill.ToString ();
+
 					if (coutGoatKill >= 6) {
 						currWinStatus = eWinStatus.tiger;
 						UIManager.instance.OnGameOver ();

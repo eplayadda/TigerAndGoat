@@ -10,7 +10,6 @@ public class GamePlayUI : MonoBehaviour
 	public GameObject waitingPanel;
 	public Button waittingPanelBtn;
 	public GameObject waittingMsgPnl;
-
 	void OnEnable ()
 	{
 		gameManager = GameManager.instance;
