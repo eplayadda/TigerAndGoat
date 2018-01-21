@@ -11,11 +11,20 @@ public class UIManager : MonoBehaviour
 	public GameObject loginPanel;
 	public InviteUI inviteUI;
 	public GameObject fbFriendsPanel;
+	public GameObject pausePanel;
 
 	void Awake ()
 	{
 		if (instance == null)
 			instance = this;
+	}
+
+	void Update ()
+	{
+		if (Input.GetKey (KeyCode.Escape) && GameManager.instance.currGameStatus == eGameStatus.play) {
+			pausePanel.SetActive (true);
+			GameManager.instance.currGameStatus = eGameStatus.pause;
+		}
 	}
 
 	public void OnGameOver ()
