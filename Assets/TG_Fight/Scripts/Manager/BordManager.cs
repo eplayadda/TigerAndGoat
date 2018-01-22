@@ -172,8 +172,13 @@ public class BordManager : MonoBehaviour {
 		yield return new WaitForSeconds (2f);
 		List <int> aiMOve = new List<int> ();
 		aiMOve  = Tg_FightAI.instance.GetTigerNextMove ();
-		OnInputByUser (aiMOve[0]);
-		OnInputByUser (aiMOve[1]);
+		if (aiMOve [0] >= 0) {
+			OnInputByUser (aiMOve [0]);
+			OnInputByUser (aiMOve [1]);
+		} else {
+			currWinStatus = eWinStatus.goat;
+			UIManager.instance.OnGameOver ();
+		}
     }
 
 	IEnumerator AITurnGoat()

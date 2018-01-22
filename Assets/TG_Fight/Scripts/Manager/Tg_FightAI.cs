@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Tg_FightAI : MonoBehaviour {
 	public static Tg_FightAI instance;
@@ -46,12 +47,18 @@ public class Tg_FightAI : MonoBehaviour {
 			}
 		}
 		if (indexTo < 0) {
-			int a = Random.Range (0,tempTo.Count);
-			indexTo = tempTo[a];
-			indexFrom = tempFrom[a];
+			int a = UnityEngine.Random.Range (0,tempTo.Count);
+			try{
+				indexTo = tempTo[a];
+				indexFrom = tempFrom[a];
+			}
+			catch(Exception e) {
+			}
 		}
-		aiMove.Add(indexFrom);
-		aiMove.Add(indexTo);
+	//	if (tempTo.Count > 0) {
+			aiMove.Add (indexFrom);
+			aiMove.Add (indexTo);
+	//	}
 		return aiMove;
 	}
 
@@ -150,7 +157,7 @@ public class Tg_FightAI : MonoBehaviour {
 
 	List<int> AiGoatMove(List<int> pDataTo,List<int> pDataFrom = null)
 	{
-		int a = Random.Range (0,pDataTo.Count);
+		int a = UnityEngine.Random.Range (0,pDataTo.Count);
 		aiMove.Add (pDataTo[a]);
 		if(pDataFrom != null)
 		aiMove.Add (pDataFrom[a]);
