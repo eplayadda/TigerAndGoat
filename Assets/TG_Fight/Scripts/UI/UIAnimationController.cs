@@ -9,6 +9,7 @@ public class UIAnimationController : MonoBehaviour
 	public GameObject sharePanel;
 	private bool isShareOn = false;
 
+
 	void Awake ()
 	{
 		Instance = this;
@@ -32,5 +33,10 @@ public class UIAnimationController : MonoBehaviour
 	public void SettingPanelAnimation (GameObject gameObject, float to)
 	{
 		LeanTween.moveLocalX (gameObject, to, 0.25f).setEase (LeanTweenType.easeInOutExpo).setOnComplete (UIManager.instance.mainMenuUI.SettingAnimationCallback);
+	}
+
+	public void PausePanleAnimation (GameObject gameObject, float to)
+	{
+		LeanTween.moveLocalY (gameObject, to, 0.25f).setEase (LeanTweenType.easeInOutExpo).setOnComplete (UIManager.instance.pauseMenuUI.PauseMenuUICallBack);
 	}
 }

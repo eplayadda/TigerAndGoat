@@ -44,6 +44,7 @@ public class MainMenuUI : MonoBehaviour
 			GameManager.instance.OnGameModeSelected (a);
 		} else {
 			ServerRoomPanel.SetActive (true);
+			SocialManager.Instance.facebookManager.UserProfile ();
 		}
 	}
 

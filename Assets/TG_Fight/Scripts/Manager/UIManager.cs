@@ -12,6 +12,11 @@ public class UIManager : MonoBehaviour
 	public InviteUI inviteUI;
 	public GameObject fbFriendsPanel;
 	public GameObject pausePanel;
+	public PauseMenuUI pauseMenuUI;
+
+
+	public Transform pauseEntryPos;
+	public Transform pauseEndPos;
 
 	void Awake ()
 	{
@@ -24,6 +29,7 @@ public class UIManager : MonoBehaviour
 		if (Input.GetKey (KeyCode.Escape) && GameManager.instance.currGameStatus == eGameStatus.play) {
 			pausePanel.SetActive (true);
 			GameManager.instance.currGameStatus = eGameStatus.pause;
+			UIAnimationController.Instance.PausePanleAnimation (pausePanel, 0);
 		}
 	}
 

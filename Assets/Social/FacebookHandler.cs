@@ -35,12 +35,10 @@ public class FacebookHandler : MonoBehaviour
 	private void OnInitComplete ()
 	{
 		if (FB.IsInitialized) {
-			//debugText.text += "\n isInit " + FB.IsInitialized;
 			FB.ActivateApp ();
 		}
 
 		Debug.Log ("FB.Init completed: Is user logged in? " + FB.IsLoggedIn);
-		//debugText.text += "\n LoggedIn " + FB.IsLoggedIn;
 		if (FB.IsLoggedIn) {
 			UIManager.instance.loginPanel.SetActive (false);
 			var token = Facebook.Unity.AccessToken.CurrentAccessToken;
@@ -82,7 +80,6 @@ public class FacebookHandler : MonoBehaviour
 
 	private void CallFBLogin ()
 	{
-		//debugText.text += "\n CallFbLogin";
 		FB.LogInWithReadPermissions (new List<string> (){ "public_profile", "email", "user_friends" }, this.FBLoginCallBack);
 		FB.LogInWithPublishPermissions (new List<string> () { "publish_actions" }, this.FBLoginCallBack);
 	}
@@ -133,17 +130,13 @@ public class FacebookHandler : MonoBehaviour
 
 	void GetFreindCallback (IResult result)
 	{
-		//debugText.text += "\n" + isFrndsAvials.ToString ();
-//		if (isFrndsAvials)
-//			return;
+		
 		DestroyFriendsList ();
 		string resposne = result.RawResult;
 		Debug.Log (resposne);
 		var data = (Dictionary<string, object>)result.ResultDictionary;
 		var tagData = data ["friends"] as Dictionary<string,object>;
 		var resultData = tagData ["data"] as List<object>;
-		//Debug.Log (tagData ["first_name"].ToString ());
-		//debugText.text += "\n" + resultData.Count;
 		for (int i = 0; i < resultData.Count; i++) {
 			var resultValue = resultData [i] as Dictionary<string, object>;
 			var picture = resultValue ["picture"] as Dictionary<string ,object>;
@@ -217,35 +210,33 @@ public class FacebookHandler : MonoBehaviour
 
 	public void SetFriendsId (string id)
 	{
-		
 		ConnectionManager.Instance.friedID = id;
 		Debug.Log ("SetFriendsId : " + id);
-//		UIManager.instance.friendsListPanel.SetActive (false);
-//		FB.API ("https" + "://graph.facebook.com/" + id + "/picture?width=128&height=128", HttpMethod.GET, delegate(IGraphResult avatarResult) {
-//			if (avatarResult.Error != null) {
-//				Debug.Log (avatarResult.Error);
-//			} else {
-//
-//				UIManager.instance.UpdateFrindProfilePic (Sprite.Create (avatarResult.Texture, new Rect (0, 0, 128, 128), new Vector2 (0.5f, 0.5f)));
-//
-//			}
-//		});
+		FB.API ("https" + "://graph.facebook.com/" + id + "/picture?width=128&height=128", HttpMethod.GET, delegate(IGraphResult avatarResult) {
+			if (avatarResult.Error != null) {
+				Debug.Log (avatarResult.Error);
+			} else {
+
+				SocialManager.Instance.UpdateFriendProfilePic (Sprite.Create (avatarResult.Texture, new Rect (0, 0, 128, 128), new Vector2 (0.5f, 0.5f)));
+
+			}
+		});
 
 	}
 
 
 	public void DownloadImageByID (string id)
 	{
-//		Debug.Log ("ID " + id);
-//		FB.API ("https" + "://graph.facebook.com/" + id + "/picture?width=128&height=128", HttpMethod.GET, delegate(IGraphResult avatarResult) {
-//			if (avatarResult.Error != null) {
-//				Debug.Log (avatarResult.Error);
-//			} else {
-//
-//				UIManager.instance.roomPanel.GetComponent<RoomUI> ().frndPic.sprite = Sprite.Create (avatarResult.Texture, new Rect (0, 0, 128, 128), new Vector2 (0.5f, 0.5f));
-//
-//			}
-//		});
+		Debug.Log ("ID " + id);
+		FB.API ("https" + "://graph.facebook.com/" + id + "/picture?width=128&height=128", HttpMethod.GET, delegate(IGraphResult avatarResult) {
+			if (avatarResult.Error != null) {
+				Debug.Log (avatarResult.Error);
+			} else {
+
+				// = Sprite.Create (avatarResult.Texture, new Rect (0, 0, 128, 128), new Vector2 (0.5f, 0.5f));
+
+			}
+		});
 	}
 
 
@@ -275,11 +266,15 @@ public class FacebookHandler : MonoBehaviour
 		}
 	}
 
-	public void PlayerInfo ()
+	public void UserProfile ()
 	{
-		Debug.Log ("GetPlayerInfo");
-		string queryString = "/me?fields=id,first_name,picture.width(128).height(128)";
-		FB.API (queryString, HttpMethod.GET, GetPlayerInfoCallback);
+		if (FB.IsLoggedIn) {
+			Debug.Log ("GetPlayerInfo");
+			string queryString = "/me?fields=id,first_name,picture.width(128).height(128)";
+			FB.API (queryString, HttpMethod.GET, GetPlayerInfoCallback);
+		} else {
+			Debug.Log ("Login to facebook");
+		}
 	}
 
 	//	string firstName = "";
@@ -297,8 +292,8 @@ public class FacebookHandler : MonoBehaviour
 		//firstName = resultData ["first_name"].ToString ();
 		string playerImgUrl = DeserializePictureURL (result.ResultDictionary);
 		Debug.Log ("playerImgUrl " + playerImgUrl);
-		//UIManager.instance.UpdateProfilePic (playerImgUrl);
-		//GetScoreFB ();
+		SocialManager.Instance.UpdateUserProfile (playerImgUrl);
+
 	}
 
 
