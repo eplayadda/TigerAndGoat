@@ -22,6 +22,7 @@ public class BordManager : MonoBehaviour {
 	public int selectedGoatIndex;
 	public int coutGoatKill;
 	public Text goatKillTxt;
+	public Text usedGoatTxt;
 	bool isMoveAlow ;
 	public Transform markerToMove;
 	public Transform defaultPos;
@@ -107,6 +108,7 @@ public class BordManager : MonoBehaviour {
                 if (allTgNodes[pData ].currNodeHolder != eNodeHolder.none)
                     return;
 				noOfGoat++;
+				usedGoatTxt.text = (gameManager.totalNoOfGoat - noOfGoat).ToString();
 				markerToMove.position = defaultPos.position;
 				markerToMove.gameObject.SetActive (true);
 				endPos = allTgNodes [pData].transform;
