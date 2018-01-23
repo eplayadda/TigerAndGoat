@@ -60,7 +60,7 @@ public class FacebookHandler : MonoBehaviour
 			userId = token.UserId.ToString ();
 			//ConnectionManager.Instance.myID = userId;
 			//debugText.text += "\n" + userId; 
-			//ConnectionManager.Instance.MakeConnection ();
+			ConnectionManager.Instance.MakeConnection ();
 			UIManager.instance.mainMenuUI.gameObject.SetActive (true);
 			UIManager.instance.loginPanel.SetActive (false);
 		}
@@ -95,6 +95,7 @@ public class FacebookHandler : MonoBehaviour
 			//debugText.text += "\n" + userId;
 			UIManager.instance.mainMenuUI.gameObject.SetActive (true);
 			UIManager.instance.loginPanel.SetActive (false);
+			ConnectionManager.Instance.MakeConnection ();
 		} else if (result.Error != null) {
 			//debugText.text += "\n Error" + result.Error.ToString ();
 			Debug.Log ("Error in Login");
