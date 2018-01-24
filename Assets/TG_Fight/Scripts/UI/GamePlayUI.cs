@@ -18,9 +18,9 @@ public class GamePlayUI : MonoBehaviour
 
 	public void OnBackClicked ()
 	{
-		//uiManager.gamePlayUI.gameObject.SetActive (false);
-		//uiManager.mainMenuUI.gameObject.SetActive (true);
-		Application.LoadLevel (0);
+		uiManager.gamePlayUI.gameObject.SetActive (false);
+		uiManager.mainMenuUI.gameObject.SetActive (true);
+		//Application.LoadLevel (0);
 	}
 
 	public void WaittingFriendBtn ()

@@ -4,9 +4,12 @@ using UnityEngine.UI;
 using UnityEngine;
 
 public class GameOverUI : MonoBehaviour {
+	UIManager uiManager;
+
 	public Text msgTxt;
 	void OnEnable()
 	{
+		uiManager = UIManager.instance;
 		if (BordManager.instace.currWinStatus == BordManager.eWinStatus.tiger) {
 			GameManager.instance.currGameStatus = eGameStatus.over;	
 			msgTxt.text = "Tiger won Game";
@@ -19,6 +22,9 @@ public class GameOverUI : MonoBehaviour {
 
 	public void OnReplay()
 	{
-		Application.LoadLevel (0);
+		uiManager.gamePlayUI.gameObject.SetActive (false);
+		uiManager.mainMenuUI.gameObject.SetActive (true);
+		uiManager.gameOverUI.gameObject.SetActive (true);
+//		Application.LoadLevel (0);
 	}
 }

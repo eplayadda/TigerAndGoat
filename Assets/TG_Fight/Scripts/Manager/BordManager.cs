@@ -18,7 +18,6 @@ public class BordManager : MonoBehaviour {
     int noOfTiger;
 	public int noOfGoat;
 	GameManager gameManager;
-	int selectedTigerIndex;
 	public int selectedGoatIndex;
 	public int coutGoatKill;
 	public Text goatKillTxt;
@@ -38,11 +37,24 @@ public class BordManager : MonoBehaviour {
 	public void OnGameStart()
 	{
 		gameManager = GameManager.instance;
+		ResetData ();
 		SetDefaultData ();
 		if(IsAiEnable(false))
 			StartCoroutine ("AITurnGoat");
 	}
 
+	void ResetData()
+	{
+		selectedGoatIndex = -1;
+		noOfGoat = 0;
+		coutGoatKill = 0;
+		usedGoatTxt.text = gameManager.totalNoOfGoat.ToString();
+		goatKillTxt.text = "0";
+		foreach (TGNode item in allTgNodes) {
+			item.currNodeHolder = eNodeHolder.none;
+		}
+		currWinStatus = eWinStatus.none;
+	}
 	void SetDefaultData()
 	{
 		allTgNodes [0].currNodeHolder = eNodeHolder.tiger;
