@@ -72,6 +72,12 @@ public class BordManager : MonoBehaviour {
         }
         
     }
+	void MarkerReset()
+	{
+		foreach (TGNode item in allTgNodes) {
+			item.transform.GetChild (0).gameObject.SetActive (false);
+		}
+	}
 
 	void FriendMove(int pData,eAnimalType pCurrAnimalType)
     {
@@ -85,11 +91,13 @@ public class BordManager : MonoBehaviour {
                 {
                     selectedGoatIndex = pData;
 					markerToMove.position = allTgNodes [pData].transform.position;
-
+					MarkerReset ();
+					allTgNodes [selectedGoatIndex].transform.GetChild (0).gameObject.SetActive (true);
                 }
 				else if(selectedGoatIndex >= 0 && allTgNodes[pData].currNodeHolder == eNodeHolder.none)
                 {
 					if (SetDataGoat (pData)) { 
+						MarkerReset ();
 						endPos = allTgNodes [pData].transform;
 						isMoveAlow = true;
 //						speed = Vector3.Distance (markerToMove.position,endPos.position) / 5f;
@@ -136,10 +144,14 @@ public class BordManager : MonoBehaviour {
 			{
 				selectedGoatIndex = pData;
 				markerToMove.position = allTgNodes [pData].transform.position;
+				MarkerReset ();
+				allTgNodes [selectedGoatIndex].transform.GetChild (0).gameObject.SetActive (true);
+
 			}
 			else if(selectedGoatIndex >= 0 && allTgNodes[pData].currNodeHolder == eNodeHolder.none)
 			{
 				if (SetDataTiger (pData)) {
+					MarkerReset ();
 					endPos = allTgNodes [pData].transform;
 					isMoveAlow = true;
 					markerToMove.gameObject.SetActive (true);
@@ -174,6 +186,7 @@ public class BordManager : MonoBehaviour {
 		aiMOve  = Tg_FightAI.instance.GetTigerNextMove ();
 		if (aiMOve [0] >= 0) {
 			OnInputByUser (aiMOve [0]);
+			yield return new WaitForSeconds (.5f);
 			OnInputByUser (aiMOve [1]);
 		} else {
 			currWinStatus = eWinStatus.goat;
@@ -191,6 +204,7 @@ public class BordManager : MonoBehaviour {
 		} else {
 			Debug.Log (aiMOve[1]+" "+aiMOve[0]);
 			OnInputByUser (aiMOve [1]);
+			yield return new WaitForSeconds (.5f);
 			OnInputByUser (aiMOve[0]);
 		}
 

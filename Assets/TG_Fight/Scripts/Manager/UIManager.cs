@@ -35,6 +35,11 @@ public class UIManager : MonoBehaviour
 
 	public void OnGameOver ()
 	{
+		Invoke ("GameOverInvoke",1f);
+	}
+
+	void GameOverInvoke()
+	{
 		gameOverUI.gameObject.SetActive (true);
 	}
 
