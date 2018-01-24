@@ -24,7 +24,7 @@ public class GameOverUI : MonoBehaviour {
 	{
 		uiManager.gamePlayUI.gameObject.SetActive (false);
 		uiManager.mainMenuUI.gameObject.SetActive (true);
-		uiManager.gameOverUI.gameObject.SetActive (true);
+		uiManager.gameOverUI.gameObject.SetActive (false);
 //		Application.LoadLevel (0);
 	}
 }

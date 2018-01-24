@@ -22,6 +22,7 @@ public class BordManager : MonoBehaviour {
 	public int coutGoatKill;
 	public Text goatKillTxt;
 	public Text usedGoatTxt;
+	public Text turnMsg;
 	bool isMoveAlow ;
 	public Transform markerToMove;
 	public Transform defaultPos;
@@ -60,6 +61,11 @@ public class BordManager : MonoBehaviour {
 		allTgNodes [0].currNodeHolder = eNodeHolder.tiger;
 		allTgNodes [3].currNodeHolder = eNodeHolder.tiger;
 		allTgNodes [4].currNodeHolder = eNodeHolder.tiger;
+		if (gameManager.currTurnStatus == eTurnStatus.friend) {
+			turnMsg.text = "Friend";
+		} else {
+			turnMsg.text = "You";
+		}
 		SetTexture ();
 	}
 
@@ -114,10 +120,13 @@ public class BordManager : MonoBehaviour {
 						isMoveAlow = true;
 //						speed = Vector3.Distance (markerToMove.position,endPos.position) / 5f;
 						markerToMove.gameObject.SetActive (true);
-						if(gameManager.currTurnStatus == eTurnStatus.friend)
+						if (gameManager.currTurnStatus == eTurnStatus.friend) {
+							turnMsg.text = "Friend";
 							gameManager.currTurnStatus = eTurnStatus.my;
-						else
+						} else {
+							turnMsg.text = "You";
 							gameManager.currTurnStatus = eTurnStatus.friend;
+						}
 
 						if(IsAiEnable(true))
 							StartCoroutine ("AITurnTiger");
@@ -135,10 +144,13 @@ public class BordManager : MonoBehaviour {
                 allTgNodes[pData].currNodeHolder = eNodeHolder.goat;
 				isMoveAlow = true;
 //                allTgNodes[pData].SetNodeHolderSprint();
-				if(gameManager.currTurnStatus == eTurnStatus.friend)
+				if (gameManager.currTurnStatus == eTurnStatus.friend) {
+					turnMsg.text = "You";
 					gameManager.currTurnStatus = eTurnStatus.my;
-				else
+				} else {
+					turnMsg.text = "Friend";
 					gameManager.currTurnStatus = eTurnStatus.friend;
+				}
 				if(IsAiEnable(true))
 					StartCoroutine ("AITurnTiger");
 
@@ -168,10 +180,13 @@ public class BordManager : MonoBehaviour {
 					isMoveAlow = true;
 					markerToMove.gameObject.SetActive (true);
 //					speed = Vector3.Distance (markerToMove.position,endPos.position) / 5f;
-					if(gameManager.currTurnStatus == eTurnStatus.friend)
+					if (gameManager.currTurnStatus == eTurnStatus.friend) {
+						turnMsg.text = "You";
 						gameManager.currTurnStatus = eTurnStatus.my;
-					else
+					} else {
+						turnMsg.text = "Friend";
 						gameManager.currTurnStatus = eTurnStatus.friend;
+					}
 					if(IsAiEnable(false))
 						StartCoroutine ("AITurnGoat");
 
