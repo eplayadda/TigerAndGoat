@@ -121,10 +121,10 @@ public class BordManager : MonoBehaviour {
 //						speed = Vector3.Distance (markerToMove.position,endPos.position) / 5f;
 						markerToMove.gameObject.SetActive (true);
 						if (gameManager.currTurnStatus == eTurnStatus.friend) {
-							turnMsg.text = "Friend";
+							turnMsg.text = "You";
 							gameManager.currTurnStatus = eTurnStatus.my;
 						} else {
-							turnMsg.text = "You";
+							turnMsg.text = "Friend";
 							gameManager.currTurnStatus = eTurnStatus.friend;
 						}
 
