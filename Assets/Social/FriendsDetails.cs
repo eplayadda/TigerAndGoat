@@ -8,6 +8,20 @@ public class FriendsDetails : MonoBehaviour
 	public Text Name;
 	public Image ProfilePic;
 	public long ID;
-    public GameObject onlineIcon;
+	public Image onlineIcon;
+	void OnEnable()
+	{
+		onlineIcon = transform.GetChild (3).GetComponent<Image>();
+	}
+	public void SetOnline(bool isOnline)
+	{
+		if (isOnline) {
+			Debug.Log ("on");
+			onlineIcon.color = Color.yellow;
+		} else {
+			Debug.Log ("off");
+			onlineIcon.color = Color.red;
+		}
 
+	}
 }

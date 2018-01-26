@@ -157,11 +157,11 @@ public class FacebookHandler : MonoBehaviour
 			string id = resultValue ["id"].ToString ();
 			g.GetComponent<FriendsDetails> ().ID = System.Convert.ToInt64 (id);
 			AddListener (btn, id);
-//			if (ConnectionManager.Instance.onlineFriends.Contains (id)) {
-//				g.GetComponent<FriendsDetails> ().onlineIcon.SetActive (true);
-//			} else {
-//				g.GetComponent<FriendsDetails> ().onlineIcon.SetActive (false);
-//			}
+			if (ConnectionManager.Instance.onlineFriends.Contains (id)) {
+				g.GetComponent<FriendsDetails> ().SetOnline (true);
+			} else {
+				g.GetComponent<FriendsDetails> ().SetOnline(false);
+			}
 			if (!string.IsNullOrEmpty (id)) {
 				FB.API ("https" + "://graph.facebook.com/" + id + "/picture?width=128&height=128", HttpMethod.GET, delegate(IGraphResult avatarResult) {
 					if (avatarResult.Error != null) {
