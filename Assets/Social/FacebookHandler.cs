@@ -40,7 +40,7 @@ public class FacebookHandler : MonoBehaviour
 
 		Debug.Log ("FB.Init completed: Is user logged in? " + FB.IsLoggedIn);
 		if (FB.IsLoggedIn) {
-			UIManager.instance.loginPanel.SetActive (false);
+			//UIManager.instance.loginPanel.SetActive (false);
 			var token = Facebook.Unity.AccessToken.CurrentAccessToken;
 			userId = token.UserId.ToString ();
 			//ConnectionManager.Instance.myID = userId;
