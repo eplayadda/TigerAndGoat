@@ -32,6 +32,7 @@ public class SocialManager : MonoBehaviour
 
 	public void LoginWithFB ()
 	{
+		GameManager.instance.currentGameType = GameType.OnLine;
 		facebookManager.OnFacebookLogin ();
 	}
 
@@ -72,6 +73,7 @@ public class SocialManager : MonoBehaviour
 		Debug.Log (www.isDone + " " + www.error);
 		if (string.IsNullOrEmpty (www.error)) {
 			userProfile.sprite =	Sprite.Create (www.texture, new Rect (0, 0, www.texture.width, www.texture.height), new Vector2 (0.5f, 0.5f));
+			UIManager.instance.mainMenuUI.ProfilePic.sprite = userProfile.sprite;
 		}
 
 	}

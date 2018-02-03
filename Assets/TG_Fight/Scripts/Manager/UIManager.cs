@@ -35,10 +35,10 @@ public class UIManager : MonoBehaviour
 
 	public void OnGameOver ()
 	{
-		Invoke ("GameOverInvoke",1f);
+		Invoke ("GameOverInvoke", 1f);
 	}
 
-	void GameOverInvoke()
+	void GameOverInvoke ()
 	{
 		gameOverUI.gameObject.SetActive (true);
 	}
@@ -54,6 +54,7 @@ public class UIManager : MonoBehaviour
 
 	public void OnClickAsGuest ()
 	{
+		GameManager.instance.currentGameType = GameType.OffLine;
 		ConnectionManager.Instance.MakeConnection ();
 		loginPanel.SetActive (false);
 		mainMenuUI.gameObject.SetActive (true);
