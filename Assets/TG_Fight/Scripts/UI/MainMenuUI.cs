@@ -15,6 +15,8 @@ public class MainMenuUI : MonoBehaviour
 
 	GameManager gameManager;
 	UIManager uiManager;
+	public Text username;
+	public  Image ProfilePic;
 
 	void OnEnable ()
 	{

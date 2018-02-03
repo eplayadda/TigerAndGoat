@@ -39,6 +39,13 @@ public enum eAnimalType
 	goat = 2
 }
 
+public enum GameType
+{
+	None = 0,
+	OnLine = 1,
+	OffLine = 2
+}
+
 public class GameManager : MonoBehaviour
 {
 	public static GameManager instance;
@@ -48,6 +55,7 @@ public class GameManager : MonoBehaviour
 	public ePlayerIdentity currPlayerIdentity;
 	public eAnimalType myAnimalType;
 	public eAnimalType friendAnimalType;
+	public GameType currentGameType;
 	public int totalNoOfGoat;
 	public int totalNoOfTiger;
 

@@ -93,6 +93,7 @@ public class FacebookHandler : MonoBehaviour
 			userId = token.UserId.ToString ();
 			ConnectionManager.Instance.myID = userId;
 			//debugText.text += "\n" + userId;
+			UserProfile ();
 			UIManager.instance.mainMenuUI.gameObject.SetActive (true);
 			UIManager.instance.loginPanel.SetActive (false);
 			ConnectionManager.Instance.MakeConnection ();
@@ -278,7 +279,7 @@ public class FacebookHandler : MonoBehaviour
 		}
 	}
 
-	//	string firstName = "";
+	string firstName = "";
 	//
 	private void GetPlayerInfoCallback (IGraphResult result)
 	{
@@ -290,7 +291,7 @@ public class FacebookHandler : MonoBehaviour
 		Debug.Log (result.RawResult);
 	
 		Dictionary<string,object> resultData = (Dictionary<string,object>)result.ResultDictionary;
-		//firstName = resultData ["first_name"].ToString ();
+		UIManager.instance.mainMenuUI.username.text = resultData ["first_name"].ToString ();
 		string playerImgUrl = DeserializePictureURL (result.ResultDictionary);
 		Debug.Log ("playerImgUrl " + playerImgUrl);
 		SocialManager.Instance.UpdateUserProfile (playerImgUrl);
