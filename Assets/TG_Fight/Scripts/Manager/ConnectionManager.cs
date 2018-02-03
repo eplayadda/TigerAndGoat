@@ -213,7 +213,7 @@ public class ConnectionManager : MonoBehaviour
 
     public void GetOnlineFriend()
     {
-        isLatestOnline = true;
+//        isLatestOnline = true;
         signalRConnection[HUB_NAME].Call("SendOnlineFriend", myID);
     }
 
@@ -284,7 +284,8 @@ public class ConnectionManager : MonoBehaviour
         Debug.Log(str[0].ToString()+""+ str.Length);
         if (isLatestOnline)
         {
-//            SocialManager.Instance.facebookManager.GetFriends();
+			Debug.Log ("Onlime Friend");
+            SocialManager.Instance.facebookManager.GetFriends();
             isLatestOnline = false;
         }
 

@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: c737ea3e137be2245974f1cb7683e156
+timeCreated: 1517679247
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Woodys
+  fontNames:
+  - Woodys
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

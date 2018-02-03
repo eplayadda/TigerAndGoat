@@ -26,6 +26,7 @@ public class GamePlayUI : MonoBehaviour
 	public void WaittingFriendBtn ()
 	{
 		waittingMsgPnl.SetActive (true);
+		waittingPanelBtn.gameObject.SetActive(true);
 		waittingPanelBtn.interactable = false;
 		waitingPanel.SetActive (true);
 	}
