@@ -7,6 +7,7 @@ public class GameOverUI : MonoBehaviour {
 	UIManager uiManager;
 
 	public Text msgTxt;
+	public Text winStatus;
 	void OnEnable()
 	{
 		uiManager = UIManager.instance;
@@ -17,9 +18,20 @@ public class GameOverUI : MonoBehaviour {
 			GameManager.instance.currGameStatus = eGameStatus.over;	
 			msgTxt.text = "Goat won Game";
 		}
+		GameResult ();
 
 	}
 
+	void GameResult()
+	{
+		if (BordManager.instace.currWinStatus.ToString () == GameManager.instance.myAnimalType.ToString ()) {
+			ScoreHandler.instance.SetScore ();
+			winStatus.text = "You Win";
+		} else {
+			winStatus.text = "You Lose";
+
+		}
+	}
 	public void OnReplay()
 	{
 		uiManager.gamePlayUI.gameObject.SetActive (false);

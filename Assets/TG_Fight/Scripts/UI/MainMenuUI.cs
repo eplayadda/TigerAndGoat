@@ -22,6 +22,7 @@ public class MainMenuUI : MonoBehaviour
 	{
 		gameManager = GameManager.instance;
 		uiManager = UIManager.instance;
+		ScoreHandler.instance.GetCoin ();
 	}
 
 	public void OnGameModeSelected (int a)
