@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
 	public GameObject pausePanel;
 	public PauseMenuUI pauseMenuUI;
 
+	public GameObject fbLoginCheckPanel;
+
 
 	public Transform pauseEntryPos;
 	public Transform pauseEndPos;
@@ -91,6 +93,11 @@ public class UIManager : MonoBehaviour
 	public void OnCancleFriendList ()
 	{
 		fbFriendsPanel.SetActive (false);
+	}
+
+	public void OnCloseFbCheck ()
+	{
+		fbLoginCheckPanel.SetActive (false);
 	}
 
 }

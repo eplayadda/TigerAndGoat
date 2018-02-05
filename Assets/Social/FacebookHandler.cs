@@ -18,7 +18,7 @@ public class FacebookHandler : MonoBehaviour
 	//public Text debugText;
 	private string userId;
 	//private Texture profilePic;
-	//string appStoreLink = "https://play.google.com/store/apps/details?id=com.eplayadda.mindssmash";
+	string appStoreLink = "";
 	//string inviteAppLinkUrl = "https://fb.me/350820032015040";
 	private bool IsInternetAvailabe = false;
 	//public Text testText;
@@ -40,13 +40,13 @@ public class FacebookHandler : MonoBehaviour
 
 		Debug.Log ("FB.Init completed: Is user logged in? " + FB.IsLoggedIn);
 		if (FB.IsLoggedIn) {
-			//UIManager.instance.loginPanel.SetActive (false);
+			UIManager.instance.loginPanel.SetActive (false);
+			UIManager.instance.mainMenuUI.gameObject.SetActive (true);
 			var token = Facebook.Unity.AccessToken.CurrentAccessToken;
 			userId = token.UserId.ToString ();
-			//ConnectionManager.Instance.myID = userId;
+			ConnectionManager.Instance.myID = userId;
 			//debugText.text += "\n" + userId; 
-			//ConnectionManager.Instance.MakeConnection ();
-			//UIManager.instance.loading.SetActive (true);
+			ConnectionManager.Instance.MakeConnection ();
 		}
 	}
 
@@ -58,7 +58,7 @@ public class FacebookHandler : MonoBehaviour
 		} else {
 			var token = Facebook.Unity.AccessToken.CurrentAccessToken;
 			userId = token.UserId.ToString ();
-			//ConnectionManager.Instance.myID = userId;
+			ConnectionManager.Instance.myID = userId;
 			//debugText.text += "\n" + userId; 
 			ConnectionManager.Instance.MakeConnection ();
 			UIManager.instance.mainMenuUI.gameObject.SetActive (true);
@@ -97,6 +97,7 @@ public class FacebookHandler : MonoBehaviour
 			UIManager.instance.mainMenuUI.gameObject.SetActive (true);
 			UIManager.instance.loginPanel.SetActive (false);
 			ConnectionManager.Instance.MakeConnection ();
+			UIManager.instance.fbLoginCheckPanel.SetActive (false);
 		} else if (result.Error != null) {
 			//debugText.text += "\n Error" + result.Error.ToString ();
 			Debug.Log ("Error in Login");
@@ -161,7 +162,7 @@ public class FacebookHandler : MonoBehaviour
 			if (ConnectionManager.Instance.onlineFriends.Contains (id)) {
 				g.GetComponent<FriendsDetails> ().SetOnline (true);
 			} else {
-				g.GetComponent<FriendsDetails> ().SetOnline(false);
+				g.GetComponent<FriendsDetails> ().SetOnline (false);
 			}
 			if (!string.IsNullOrEmpty (id)) {
 				FB.API ("https" + "://graph.facebook.com/" + id + "/picture?width=128&height=128", HttpMethod.GET, delegate(IGraphResult avatarResult) {
@@ -249,7 +250,7 @@ public class FacebookHandler : MonoBehaviour
 			return;
 		Debug.Log ("OnFacebookShare");
 		if (FB.IsLoggedIn) {
-			//FB.ShareLink (new System.Uri (appStoreLink), "MindSsmash", "want to bit me ? Download and play the Game", null, callback: ShareCallBck);
+			FB.ShareLink (new System.Uri (appStoreLink), "MindSsmash", "want to bit me ? Download and play the Game", null, callback: ShareCallBck);
 
 		} else {
 			Debug.Log ("Please Login");

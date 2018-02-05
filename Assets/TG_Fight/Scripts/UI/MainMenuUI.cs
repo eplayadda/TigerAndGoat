@@ -45,8 +45,12 @@ public class MainMenuUI : MonoBehaviour
 			uiManager.gamePlayUI.gameObject.SetActive (true);
 			GameManager.instance.OnGameModeSelected (a);
 		} else {
-			ServerRoomPanel.SetActive (true);
-			SocialManager.Instance.facebookManager.UserProfile ();
+			if (GameManager.instance.currentGameType == GameType.OnLine) {
+				ServerRoomPanel.SetActive (true);
+				SocialManager.Instance.facebookManager.UserProfile ();
+			} else {
+				UIManager.instance.fbLoginCheckPanel.SetActive (true);
+			}
 		}
 	}
 
@@ -58,6 +62,7 @@ public class MainMenuUI : MonoBehaviour
 	public void OnClickFBShare ()
 	{
 		UIAnimationController.Instance.OnClickShare ();
+		SocialManager.Instance.ShareWithFacebook ();
 	}
 
 	public void OnCreateRoom (int a)

@@ -36,7 +36,7 @@ public class SocialManager : MonoBehaviour
 		facebookManager.OnFacebookLogin ();
 	}
 
-	public void OnClickFacebookShare ()
+	public void ShareWithFacebook ()
 	{
 		facebookManager.OnFacebookShare ();
 	}
