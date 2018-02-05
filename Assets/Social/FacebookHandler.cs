@@ -40,12 +40,13 @@ public class FacebookHandler : MonoBehaviour
 
 		Debug.Log ("FB.Init completed: Is user logged in? " + FB.IsLoggedIn);
 		if (FB.IsLoggedIn) {
+			GameManager.instance.currentGameType = GameType.OnLine;
 			UIManager.instance.loginPanel.SetActive (false);
 			UIManager.instance.mainMenuUI.gameObject.SetActive (true);
 			var token = Facebook.Unity.AccessToken.CurrentAccessToken;
 			userId = token.UserId.ToString ();
 			ConnectionManager.Instance.myID = userId;
-			//debugText.text += "\n" + userId; 
+			UserProfile ();
 			ConnectionManager.Instance.MakeConnection ();
 		}
 	}
@@ -56,10 +57,11 @@ public class FacebookHandler : MonoBehaviour
 		if (!FB.IsLoggedIn) { 
 			CallFBLogin (); 
 		} else {
+			GameManager.instance.currentGameType = GameType.OnLine;
 			var token = Facebook.Unity.AccessToken.CurrentAccessToken;
 			userId = token.UserId.ToString ();
 			ConnectionManager.Instance.myID = userId;
-			//debugText.text += "\n" + userId; 
+			UserProfile ();
 			ConnectionManager.Instance.MakeConnection ();
 			UIManager.instance.mainMenuUI.gameObject.SetActive (true);
 			UIManager.instance.loginPanel.SetActive (false);

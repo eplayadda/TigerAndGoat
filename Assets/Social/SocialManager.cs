@@ -21,6 +21,7 @@ public class SocialManager : MonoBehaviour
 	}
 
 	public FacebookHandler facebookManager;
+	public ShareApp shareApplication;
 	public Image userProfile;
 	public Image friendProfile;
 
@@ -81,6 +82,11 @@ public class SocialManager : MonoBehaviour
 	public void UpdateFriendProfilePic (Sprite profilePic)
 	{
 		friendProfile.sprite = profilePic;
+	}
+
+	public void ShareWithWhatsApp ()
+	{
+		shareApplication.shareText ();
 	}
 
 }
