@@ -62,9 +62,11 @@ public class BordManager : MonoBehaviour {
 		allTgNodes [3].currNodeHolder = eNodeHolder.tiger;
 		allTgNodes [4].currNodeHolder = eNodeHolder.tiger;
 		if (gameManager.currTurnStatus == eTurnStatus.friend) {
-			turnMsg.text = "Friend";
+			TurnMsg (false);
+//			turnMsg.text = "Friend";
 		} else {
-			turnMsg.text = "You";
+			TurnMsg (true);
+//			turnMsg.text = "You";
 		}
 		SetTexture ();
 	}
@@ -121,9 +123,11 @@ public class BordManager : MonoBehaviour {
 //						speed = Vector3.Distance (markerToMove.position,endPos.position) / 5f;
 						markerToMove.gameObject.SetActive (true);
 						if (gameManager.currTurnStatus == eTurnStatus.friend) {
-							turnMsg.text = "You";
+							TurnMsg (true);
+//							turnMsg.text = "You";
 							gameManager.currTurnStatus = eTurnStatus.my;
 						} else {
+							TurnMsg (false);
 							turnMsg.text = "Friend";
 							gameManager.currTurnStatus = eTurnStatus.friend;
 						}
@@ -145,10 +149,12 @@ public class BordManager : MonoBehaviour {
 				isMoveAlow = true;
 //                allTgNodes[pData].SetNodeHolderSprint();
 				if (gameManager.currTurnStatus == eTurnStatus.friend) {
-					turnMsg.text = "You";
+//					turnMsg.text = "You";
+					TurnMsg (true);
 					gameManager.currTurnStatus = eTurnStatus.my;
 				} else {
-					turnMsg.text = "Friend";
+//					turnMsg.text = "Friend";
+					TurnMsg (false);
 					gameManager.currTurnStatus = eTurnStatus.friend;
 				}
 				if(IsAiEnable(true))
@@ -181,10 +187,12 @@ public class BordManager : MonoBehaviour {
 					markerToMove.gameObject.SetActive (true);
 //					speed = Vector3.Distance (markerToMove.position,endPos.position) / 5f;
 					if (gameManager.currTurnStatus == eTurnStatus.friend) {
-						turnMsg.text = "You";
+//						turnMsg.text = "You";
+						TurnMsg (true);
 						gameManager.currTurnStatus = eTurnStatus.my;
 					} else {
-						turnMsg.text = "Friend";
+						TurnMsg (false);
+//						turnMsg.text = "Friend";
 						gameManager.currTurnStatus = eTurnStatus.friend;
 					}
 					if(IsAiEnable(false))
@@ -313,5 +321,35 @@ public class BordManager : MonoBehaviour {
 			}
 		}
 		return isAbvl;
+	}
+
+	void TurnMsg(bool isMe)
+	{
+			switch (gameManager.currGameMode) {
+			case eGameMode.vCPU:
+				{
+					if(!isMe)
+						turnMsg.text = "CPU";
+					else
+						turnMsg.text = "You";
+				}
+				break;
+			case eGameMode.vLocalMulltiPlayer:
+				{
+					if(!isMe)
+						turnMsg.text = "Player 2";
+					else
+						turnMsg.text = "Player 1";
+				}
+				break;
+			case eGameMode.vServerMulltiPlayer:
+				{
+					if(!isMe)
+						turnMsg.text = "Friend";
+					else
+						turnMsg.text = "You";
+				}
+				break;
+			}
 	}
 }
