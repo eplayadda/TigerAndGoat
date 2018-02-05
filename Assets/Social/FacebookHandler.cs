@@ -499,6 +499,12 @@ public class FacebookHandler : MonoBehaviour
 			InviteFriends ();
 		}
 	}
+
+	public void LogOutFB ()
+	{
+		if (FB.IsLoggedIn)
+			FB.LogOut ();
+	}
 }
 
 
