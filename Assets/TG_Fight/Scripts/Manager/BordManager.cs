@@ -28,7 +28,7 @@ public class BordManager : MonoBehaviour {
 	public Transform defaultPos;
 	Transform startPos;
 	Transform endPos;
-	float speed = 10f;
+	float speed = 20f;
 	void Awake()
 	{
 		if (instace == null)
@@ -136,6 +136,7 @@ public class BordManager : MonoBehaviour {
 							StartCoroutine ("AITurnTiger");
 					}
                 }
+
             }
             else {
                 if (allTgNodes[pData ].currNodeHolder != eNodeHolder.none)
@@ -162,6 +163,10 @@ public class BordManager : MonoBehaviour {
 
 			
             }
+			if (!IsTigerMoveAlv ()) {
+				currWinStatus = eWinStatus.goat;
+				UIManager.instance.OnGameOver ();
+			}
         }
 		else if(pCurrAnimalType == eAnimalType.tiger)
         {
@@ -265,7 +270,7 @@ public class BordManager : MonoBehaviour {
 		if (isMoveAlow) {
 			Debug.Log ("Moving");
 			markerToMove.transform.position = Vector3.MoveTowards (markerToMove.transform.position,endPos.position,speed);
-			if (Vector3.Distance (markerToMove.transform.position, endPos.position) <= .01f) {
+			if (Vector3.Distance (markerToMove.transform.position, endPos.position) <= .001f) {
 				isMoveAlow = false;
 				markerToMove.gameObject.SetActive (false);
 				SetTexture ();
