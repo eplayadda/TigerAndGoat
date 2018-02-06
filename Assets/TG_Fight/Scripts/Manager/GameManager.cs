@@ -73,17 +73,17 @@ public class GameManager : MonoBehaviour
 		BordManager.instace.OnGameStart ();
 	}
 
-	void Start ()
-	{
-		StartCoroutine (GameAllow ());
-	}
-
-	IEnumerator GameAllow ()
-	{
-		WWW www = new WWW ("http://www.eplayadda.com/datacheck/api/values");
-		yield return www;
-		Debug.Log (www.data.ToString () + "cdbs");
-	
-	}
+	//	void Start ()
+	//	{
+	//		StartCoroutine (GameAllow ());
+	//	}
+	//
+	//	IEnumerator GameAllow ()
+	//	{
+	//		WWW www = new WWW ("http://www.eplayadda.com/datacheck/api/values");
+	//		yield return www;
+	//		Debug.Log (www.data [2]);
+	//
+	//	}
 
 }

@@ -73,7 +73,7 @@ public class MainMenuUI : MonoBehaviour
 		uiManager.gamePlayUI.gameObject.SetActive (true);
 		uiManager.gamePlayUI.WaittingFriendBtn ();
 		GameManager.instance.OnGameModeSelected (a);
-		//SocialManager.Instance.facebookManager.GetFriendsNameByID (ConnectionManager.Instance.friedID);
+		SocialManager.Instance.facebookManager.GetFriendsNameByID (ConnectionManager.Instance.friedID);
 		ConnectionManager.Instance.OnSendRequest ("100", (int)gameManager.friendAnimalType + "");
 	}
 

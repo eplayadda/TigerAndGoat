@@ -282,7 +282,7 @@ public class FacebookHandler : MonoBehaviour
 		}
 	}
 
-	string firstName = "";
+	public string firstName = "";
 	//
 	private void GetPlayerInfoCallback (IGraphResult result)
 	{
@@ -508,13 +508,24 @@ public class FacebookHandler : MonoBehaviour
 
 	public void GetFriendsNameByID (string id)
 	{
-		FB.API ("https" + "://graph.facebook.com/" + id + "/name", HttpMethod.GET, delegate(IGraphResult avatarResult) {
-			if (avatarResult.Error != null) {
-				Debug.Log (avatarResult.Error);
+		FB.API ("me?fields=friends.limit(30){id,name}", HttpMethod.GET, delegate(IGraphResult result) {
+			if (result.Error != null) {
+				Debug.Log (result.Error);
 			} else {
+				
+				//Debug.Log (result.RawResult);
+				var data = (Dictionary<string, object>)result.ResultDictionary;
+				var tagData = data ["friends"] as Dictionary<string,object>;
+				var resultData = tagData ["data"] as List<object>;
+				for (int i = 0; i < resultData.Count; i++) {
+					var resultValue = resultData [i] as Dictionary<string, object>;
 
-				Debug.Log (avatarResult.RawResult);
-
+					string friendID = resultValue ["id"].ToString ();
+					if (id == friendID) {
+						UIManager.instance.inviteUI.playerNameTxt.text = resultValue ["name"].ToString ();
+						Debug.Log (resultValue ["name"].ToString ());
+					}
+				}
 			}
 		});
 	}
