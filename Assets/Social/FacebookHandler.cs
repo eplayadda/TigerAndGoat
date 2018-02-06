@@ -505,6 +505,19 @@ public class FacebookHandler : MonoBehaviour
 		if (FB.IsLoggedIn)
 			FB.LogOut ();
 	}
+
+	public void GetFriendsNameByID (string id)
+	{
+		FB.API ("https" + "://graph.facebook.com/" + id + "/name", HttpMethod.GET, delegate(IGraphResult avatarResult) {
+			if (avatarResult.Error != null) {
+				Debug.Log (avatarResult.Error);
+			} else {
+
+				Debug.Log (avatarResult.RawResult);
+
+			}
+		});
+	}
 }
 
 

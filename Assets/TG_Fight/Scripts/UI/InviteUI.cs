@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InviteUI : MonoBehaviour {
+public class InviteUI : MonoBehaviour
+{
 	GameManager gameManager;
 	UIManager uiManager;
 	public Text playerNameTxt;
 	public int friendAnimalType;
-	void OnEnable()
+
+	void OnEnable ()
 	{
 		gameManager = GameManager.instance;
 		uiManager = UIManager.instance;
 	}
 
-	public void OnInviteClicked(bool isAccepted)
+	public void OnInviteClicked (bool isAccepted)
 	{
 		gameObject.SetActive (false);
+
 		if (isAccepted) {
 			GameManager.instance.currGameMode = eGameMode.vServerMulltiPlayer;
 			GameManager.instance.currPlayerIdentity = ePlayerIdentity.client;
