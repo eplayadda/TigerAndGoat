@@ -121,7 +121,7 @@ public class BordManager : MonoBehaviour {
 						endPos = allTgNodes [pData].transform;
 						isMoveAlow = true;
 //						speed = Vector3.Distance (markerToMove.position,endPos.position) / 5f;
-						markerToMove.gameObject.SetActive (true);
+						//markerToMove.gameObject.SetActive (true);
 						if (gameManager.currTurnStatus == eTurnStatus.friend) {
 							TurnMsg (true);
 //							turnMsg.text = "You";
@@ -189,7 +189,7 @@ public class BordManager : MonoBehaviour {
 					MarkerReset ();
 					endPos = allTgNodes [pData].transform;
 					isMoveAlow = true;
-					markerToMove.gameObject.SetActive (true);
+				//	markerToMove.gameObject.SetActive (true);
 //					speed = Vector3.Distance (markerToMove.position,endPos.position) / 5f;
 					if (gameManager.currTurnStatus == eTurnStatus.friend) {
 //						turnMsg.text = "You";
@@ -268,7 +268,6 @@ public class BordManager : MonoBehaviour {
 	void Update()
 	{
 		if (isMoveAlow) {
-			Debug.Log ("Moving");
 			markerToMove.transform.position = Vector3.MoveTowards (markerToMove.transform.position,endPos.position,speed);
 			if (Vector3.Distance (markerToMove.transform.position, endPos.position) <= .001f) {
 				isMoveAlow = false;
