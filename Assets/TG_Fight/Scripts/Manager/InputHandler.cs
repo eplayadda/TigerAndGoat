@@ -13,6 +13,8 @@ public class InputHandler : MonoBehaviour {
 	{
 		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer && GameManager.instance.currTurnStatus != eTurnStatus.my)
 			return;
+		if (GameManager.instance.currGameMode == eGameMode.vCPU && GameManager.instance.currTurnStatus != eTurnStatus.my)
+			return;
         BordManager.instace.OnInputByUser(pData);
 		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer)
 			ConnectionManager.Instance.OnSendMeAnswer (pData+"");
