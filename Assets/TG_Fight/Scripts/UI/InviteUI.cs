@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InviteUI : MonoBehaviour {
 	GameManager gameManager;
 	UIManager uiManager;
+	public Text playerNameTxt;
 	public int friendAnimalType;
 	void OnEnable()
 	{
