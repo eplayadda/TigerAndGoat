@@ -57,13 +57,13 @@ public class MainMenuUI : MonoBehaviour
 
 	public void OnClickWhatsAppShare ()
 	{
-		UIAnimationController.Instance.OnClickShare ();
+		//UIAnimationController.Instance.OnClickShare ();
 		SocialManager.Instance.ShareWithWhatsApp ();
 	}
 
 	public void OnClickFBShare ()
 	{
-		UIAnimationController.Instance.OnClickShare ();
+		//UIAnimationController.Instance.OnClickShare ();
 		SocialManager.Instance.ShareWithFacebook ();
 	}
 

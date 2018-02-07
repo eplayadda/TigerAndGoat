@@ -14,7 +14,9 @@ public class UIManager : MonoBehaviour
 	public GameObject pausePanel;
 	public PauseMenuUI pauseMenuUI;
 
+	public GameObject internetCheckPanel;
 	public GameObject fbLoginCheckPanel;
+	public GameObject panelLoading;
 
 
 	public Transform pauseEntryPos;
@@ -24,6 +26,13 @@ public class UIManager : MonoBehaviour
 	{
 		if (instance == null)
 			instance = this;
+		panelLoading.SetActive (true);
+		Invoke ("LoadingDisable", 2.0f);
+	}
+
+	void LoadingDisable ()
+	{
+		panelLoading.SetActive (false);
 	}
 
 	void Update ()
@@ -98,6 +107,18 @@ public class UIManager : MonoBehaviour
 	public void OnCloseFbCheck ()
 	{
 		fbLoginCheckPanel.SetActive (false);
+	}
+
+	public void NoINternetDisplay ()
+	{
+		internetCheckPanel.SetActive (true);
+		UIAnimationController.Instance.InternetCheckPanel (internetCheckPanel, 0.25f);
+	}
+
+	public void OnCloseInternetCheck ()
+	{
+		internetCheckPanel.SetActive (false);
+		internetCheckPanel.transform.localScale = Vector3.zero;
 	}
 
 }

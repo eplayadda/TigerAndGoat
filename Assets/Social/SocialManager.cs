@@ -33,8 +33,11 @@ public class SocialManager : MonoBehaviour
 
 	public void LoginWithFB ()
 	{
-		GameManager.instance.currentGameType = GameType.OnLine;
-		facebookManager.OnFacebookLogin ();
+		if (ConnectionManager.Instance.CheckInternetConnection ()) {
+			GameManager.instance.currentGameType = GameType.OnLine;
+			facebookManager.OnFacebookLogin ();
+		} else
+			UIManager.instance.NoINternetDisplay ();
 	}
 
 	public void ShareWithFacebook ()

@@ -20,14 +20,10 @@ public class UIAnimationController : MonoBehaviour
 		//OnClickShare ();
 	}
 
-	public void OnClickShare ()
+	public void InternetCheckPanel (GameObject gameObject, float time)
 	{
-		isShareOn = !isShareOn;
-		Debug.Log ("OnClickShare");
-		if (isShareOn)
-			LeanTween.scale (sharePanel, Vector3.one, 0.25f).setEaseInSine ();
-		else
-			LeanTween.scale (sharePanel, Vector3.zero, 0.25f).setEaseInExpo ();
+		LeanTween.scale (gameObject, Vector3.one, time).setEaseOutBounce ();
+	
 	}
 
 	public void SettingPanelAnimation (GameObject gameObject, float to)

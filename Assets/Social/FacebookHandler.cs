@@ -48,6 +48,8 @@ public class FacebookHandler : MonoBehaviour
 			ConnectionManager.Instance.myID = userId;
 			UserProfile ();
 			ConnectionManager.Instance.MakeConnection ();
+		} else {
+			
 		}
 	}
 

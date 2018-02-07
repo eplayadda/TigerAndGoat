@@ -23,15 +23,17 @@ public class ConnectionManager : MonoBehaviour
 	string ACK_CONNECTED = "receiveAcknowledgement";
 	string CHALLENGEACCEPTED = "ChallengeAccepted";
 	string INPUTRECIVEC = "OnInputRecived";
-    //	string baseUrl = "http://52.11.67.198/SignalRDemo/";
-    // "http://localhost:1921/SignalRDemo";// "http://52.33.40.224/SignalRDemo";//"http://localhost:1921/SignalRDemo";
-    //string baseUrl = "http://localhost:1921/SignalRDemo2/";//"http://52.11.67.198/SignalRDemo";// "http://52.33.40.224/SignalRDemo";
-    string baseUrl = "http://www.eplayadda.com/SignalR/eLarningHub/hubs";//"http://52.11.67.198/eLarningHub/";
+	//	string baseUrl = "http://52.11.67.198/SignalRDemo/";
+	// "http://localhost:1921/SignalRDemo";// "http://52.33.40.224/SignalRDemo";//"http://localhost:1921/SignalRDemo";
+	//string baseUrl = "http://localhost:1921/SignalRDemo2/";//"http://52.11.67.198/SignalRDemo";// "http://52.33.40.224/SignalRDemo";
+	string baseUrl = "http://www.eplayadda.com/SignalR/eLarningHub/hubs";
+	//"http://52.11.67.198/eLarningHub/";
 	//string baseUrl = "http://localhost:30359/eLarningHub/eLarningHub/";
 	public string myID = "1";
 	public string friedID = "1";
-    public List<string> onlineFriends = new List<string>();
-    bool isLatestOnline; 
+	public List<string> onlineFriends = new List<string> ();
+	bool isLatestOnline;
+
 	public enum SignalRConectionStatus
 	{
 		None = 0,
@@ -56,7 +58,7 @@ public class ConnectionManager : MonoBehaviour
 //		MakeConnection ();
 	}
 
-	public void SetConnectionID(bool p)
+	public void SetConnectionID (bool p)
 	{
 		if (p) {
 			myID = "1";
@@ -66,8 +68,11 @@ public class ConnectionManager : MonoBehaviour
 			friedID = "1";
 		}
 	}
+
 	public void MakeConnection ()
 	{
+		if (!isInternetAvl)
+			return;
 		signalRConnection = null;
 
 		if (signalRConnection == null) {
@@ -154,7 +159,7 @@ public class ConnectionManager : MonoBehaviour
 	List <string> usersID = new List<string> ();
 
 	// Sending Request
-	public void OnSendRequest (string pTablePrice,string pCurrSubjectType)
+	public void OnSendRequest (string pTablePrice, string pCurrSubjectType)
 	{
 		usersID.Clear ();
 		usersID.Add (myID);
@@ -188,7 +193,7 @@ public class ConnectionManager : MonoBehaviour
 		int tablePrice = Convert.ToInt32 (str [2].ToString ());
 		int subjectType = Convert.ToInt32 (str [3].ToString ());
 
-		UIManager.instance.OnSendRequest (tablePrice,subjectType);
+		UIManager.instance.OnSendRequest (tablePrice, subjectType);
 
 	}
 
@@ -210,13 +215,13 @@ public class ConnectionManager : MonoBehaviour
 
 	List <string> inputData = new List<string> ();
 
-    public void GetOnlineFriend()
-    {
+	public void GetOnlineFriend ()
+	{
 //        isLatestOnline = true;
-        signalRConnection[HUB_NAME].Call("SendOnlineFriend", myID);
-    }
+		signalRConnection [HUB_NAME].Call ("SendOnlineFriend", myID);
+	}
 
-    public void OnServerGameStart ()
+	public void OnServerGameStart ()
 	{
 		inputData.Clear ();
 		inputData.Add (friedID);
@@ -252,9 +257,9 @@ public class ConnectionManager : MonoBehaviour
 
 		if (str [2].ToString () == "0") {
 			if (GameManager.instance.currGameStatus == eGameStatus.play) {
-				int a =  Convert.ToInt32( str [1].ToString ());
+				int a = Convert.ToInt32 (str [1].ToString ());
 				InputHandler.instance.OnInputTakenBYServer (a);
-				Debug.Log (a+" ");
+				Debug.Log (a + " ");
 			}
 
 		} else if (str [2].ToString () == "1") {
@@ -263,32 +268,52 @@ public class ConnectionManager : MonoBehaviour
 		} else if (str [2].ToString () == "2") {
 		} else if (str [2].ToString () == "3") {
 //			if (GameManager.instace.currRoomStatus != GameManager.eRoomStatus.play) {
-				UIManager.instance.OnGameStartOnServer ();
+			UIManager.instance.OnGameStartOnServer ();
 //				Debug.Log ("3333");
-			}
+		}
 
 	}
 
 	public void Ack (Hub hub, MethodCallMessage msg)
 	{
 		Debug.Log ("ACk");
-        onlineFriends.Clear();
+		onlineFriends.Clear ();
 //        UIManager.instance.OnSignalRConnected ();
-        var str = msg.Arguments[0] as object[];
-        for (int i = 0; i < str.Length; i++)
-        {
-            if(myID != str[i].ToString())
-               onlineFriends.Add(str[i].ToString());
-        }
-        Debug.Log(str[0].ToString()+""+ str.Length);
-        if (isLatestOnline)
-        {
+		var str = msg.Arguments [0] as object[];
+		for (int i = 0; i < str.Length; i++) {
+			if (myID != str [i].ToString ())
+				onlineFriends.Add (str [i].ToString ());
+		}
+		Debug.Log (str [0].ToString () + "" + str.Length);
+		if (isLatestOnline) {
 			Debug.Log ("Onlime Friend");
-            SocialManager.Instance.facebookManager.GetFriends();
-            isLatestOnline = false;
-        }
+			SocialManager.Instance.facebookManager.GetFriends ();
+			isLatestOnline = false;
+		}
 
-    }
+	}
 
+
+	bool isInternetAvl = false;
+
+	public bool CheckInternetConnection ()
+	{
+		isInternetAvl = false;
+		
+		StartCoroutine (InternetConnectionCheck ((isConnected) => {
+			isInternetAvl = true;
+		}));
+		return isInternetAvl;
+	}
+
+	private IEnumerator InternetConnectionCheck (Action<bool> action)
+	{
+		WWW www = new WWW ("www.google.com");
+		yield return www;
+		if (string.IsNullOrEmpty (www.error)) {
+			action (true);
+		} else
+			action (false);
+	}
 
 }
