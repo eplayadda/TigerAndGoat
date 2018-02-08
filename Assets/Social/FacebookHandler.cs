@@ -504,8 +504,7 @@ public class FacebookHandler : MonoBehaviour
 
 	public void LogOutFB ()
 	{
-		if (FB.IsLoggedIn)
-			FB.LogOut ();
+		FB.LogOut ();
 	}
 
 	public void GetFriendsNameByID (string id)

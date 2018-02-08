@@ -71,8 +71,6 @@ public class ConnectionManager : MonoBehaviour
 
 	public void MakeConnection ()
 	{
-		if (!isInternetAvl)
-			return;
 		signalRConnection = null;
 
 		if (signalRConnection == null) {
@@ -291,29 +289,6 @@ public class ConnectionManager : MonoBehaviour
 			isLatestOnline = false;
 		}
 
-	}
-
-
-	bool isInternetAvl = false;
-
-	public bool CheckInternetConnection ()
-	{
-		isInternetAvl = false;
-		
-		StartCoroutine (InternetConnectionCheck ((isConnected) => {
-			isInternetAvl = true;
-		}));
-		return isInternetAvl;
-	}
-
-	private IEnumerator InternetConnectionCheck (Action<bool> action)
-	{
-		WWW www = new WWW ("www.google.com");
-		yield return www;
-		if (string.IsNullOrEmpty (www.error)) {
-			action (true);
-		} else
-			action (false);
 	}
 
 }

@@ -31,13 +31,40 @@ public class SocialManager : MonoBehaviour
 		
 	}
 
-	public void LoginWithFB ()
+	public void CheckInternetConnection ()
 	{
-		if (ConnectionManager.Instance.CheckInternetConnection ()) {
+		StartCoroutine (InternetConnectionCheck (InternetConnectionCallBack));
+		//return isInternetAvl;
+	}
+
+	public void InternetConnectionCallBack (bool isConnected)
+	{
+		if (isConnected) {
 			GameManager.instance.currentGameType = GameType.OnLine;
 			facebookManager.OnFacebookLogin ();
 		} else
 			UIManager.instance.NoINternetDisplay ();
+	}
+
+	private IEnumerator InternetConnectionCheck (Action<bool> action)
+	{
+		WWW www = new WWW ("www.google.com");
+		yield return www;
+		if (string.IsNullOrEmpty (www.error)) {
+			action (true);
+		} else
+			action (false);
+	}
+
+	public void LoginWithFB ()
+	{
+		CheckInternetConnection ();
+//		ConnectionManager.Instance.CheckInternetConnection ();
+//		if (ConnectionManager.Instance.isInternetAvl) {
+//			GameManager.instance.currentGameType = GameType.OnLine;
+//			facebookManager.OnFacebookLogin ();
+//		} else
+//			UIManager.instance.NoINternetDisplay ();
 	}
 
 	public void ShareWithFacebook ()

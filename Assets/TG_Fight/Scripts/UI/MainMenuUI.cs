@@ -51,6 +51,7 @@ public class MainMenuUI : MonoBehaviour
 				SocialManager.Instance.facebookManager.UserProfile ();
 			} else {
 				UIManager.instance.fbLoginCheckPanel.SetActive (true);
+				//UIManager.instance.NoINternetDisplay ();
 			}
 		}
 	}
