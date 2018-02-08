@@ -18,9 +18,14 @@ public class UIManager : MonoBehaviour
 	public GameObject fbLoginCheckPanel;
 	public GameObject panelLoading;
 
+	public GameObject tutorialLeft;
+	public GameObject tutorialRight;
+	public GameObject tutorialParent;
 
 	public Transform pauseEntryPos;
 	public Transform pauseEndPos;
+
+	private float tutorialDelay = 5.0f;
 
 	void Awake ()
 	{
@@ -33,6 +38,7 @@ public class UIManager : MonoBehaviour
 	void LoadingDisable ()
 	{
 		panelLoading.SetActive (false);
+		TutorialReset ();
 	}
 
 	void Update ()
@@ -119,6 +125,34 @@ public class UIManager : MonoBehaviour
 	{
 		internetCheckPanel.SetActive (false);
 		internetCheckPanel.transform.localScale = Vector3.zero;
+	}
+
+	public void DisplayTutorial ()
+	{
+		if (GameManager.instance.showTutorial) {
+			tutorialParent.SetActive (true);
+			tutorialLeft.SetActive (true);
+			UIAnimationController.Instance.TutorialAnimation (tutorialLeft);
+			Invoke ("DisplayRightTutorial", tutorialDelay);
+		}
+
+	}
+
+	private void DisplayRightTutorial ()
+	{
+		tutorialLeft.SetActive (false);
+		tutorialRight.SetActive (true);
+		UIAnimationController.Instance.TutorialAnimation (tutorialRight);
+		Invoke ("TutorialReset", tutorialDelay);
+	}
+
+	private void TutorialReset ()
+	{
+		tutorialParent.SetActive (false);
+		tutorialLeft.SetActive (false);
+		tutorialRight.SetActive (false);
+		tutorialLeft.transform.localScale = Vector3.zero;
+		tutorialRight.transform.localScale = Vector3.zero;
 	}
 
 }

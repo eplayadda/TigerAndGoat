@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour
 	public int totalNoOfGoat;
 	public int totalNoOfTiger;
 
+	public bool showTutorial = false;
+
 
 	void Awake ()
 	{
