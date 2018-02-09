@@ -10,10 +10,13 @@ public class PauseMenuUI : MonoBehaviour
 		GameManager.instance.currGameStatus = eGameStatus.play;
 		UIAnimationController.Instance.PausePanleAnimation (UIManager.instance.pausePanel, UIManager.instance.pauseEndPos.localPosition.y);
 
+
 	}
 
 	public void OnClickRestart ()
 	{
+		GameManager.instance.currGameStatus = eGameStatus.play;
+		GameManager.instance.OnGameModeSelected ((int)GameManager.instance.currGameMode);
 		UIManager.instance.pausePanel.SetActive (false);
 	}
 
