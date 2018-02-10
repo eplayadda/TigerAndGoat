@@ -48,7 +48,7 @@ public class SocialManager : MonoBehaviour
 
 	private IEnumerator InternetConnectionCheck (Action<bool> action)
 	{
-		WWW www = new WWW ("www.google.com");
+		WWW www = new WWW ("https://www.google.com");
 		yield return www;
 		if (string.IsNullOrEmpty (www.error)) {
 			action (true);
@@ -61,8 +61,8 @@ public class SocialManager : MonoBehaviour
 		CheckInternetConnection ();
 //		ConnectionManager.Instance.CheckInternetConnection ();
 //		if (ConnectionManager.Instance.isInternetAvl) {
-//			GameManager.instance.currentGameType = GameType.OnLine;
-//			facebookManager.OnFacebookLogin ();
+		//GameManager.instance.currentGameType = GameType.OnLine;
+		//facebookManager.OnFacebookLogin ();
 //		} else
 //			UIManager.instance.NoINternetDisplay ();
 	}
