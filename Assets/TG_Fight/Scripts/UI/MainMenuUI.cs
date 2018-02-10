@@ -22,6 +22,7 @@ public class MainMenuUI : MonoBehaviour
 	{
 		gameManager = GameManager.instance;
 		uiManager = UIManager.instance;
+		ServerRoomPanel.SetActive (false);
 		ScoreHandler.instance.GetCoin ();
 	}
 

@@ -200,6 +200,7 @@ public class ConnectionManager : MonoBehaviour
 		usersID.Clear ();
 		usersID.Add (myID);
 		usersID.Add (friedID);
+		usersID.Add ("dd");
 		signalRConnection [HUB_NAME].Call ("IacceptedChallenge", usersID);
 
 
@@ -207,6 +208,8 @@ public class ConnectionManager : MonoBehaviour
 
 	public void ChallengeAccepted (Hub hub, MethodCallMessage msg)
 	{
+		var str = msg.Arguments [0] as object[];
+		Debug.Log (str [2].ToString ());
 		Debug.Log ("Chalage accepted");
 		UIManager.instance.OnChallangeAccepted ();
 	}
@@ -262,7 +265,7 @@ public class ConnectionManager : MonoBehaviour
 
 		} else if (str [2].ToString () == "1") {
 			//int a = Convert.ToInt32(str[1]);
-//			UIManager.instance.FriendGameOver ();
+			UIManager.instance.FriendGameOver ();
 		} else if (str [2].ToString () == "2") {
 		} else if (str [2].ToString () == "3") {
 //			if (GameManager.instace.currRoomStatus != GameManager.eRoomStatus.play) {

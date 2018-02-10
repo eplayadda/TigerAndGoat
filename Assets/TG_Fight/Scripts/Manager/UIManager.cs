@@ -44,13 +44,26 @@ public class UIManager : MonoBehaviour
 	void Update ()
 	{
 		if (Input.GetKey (KeyCode.Escape) && GameManager.instance.currGameStatus == eGameStatus.play) {
-			pausePanel.SetActive (true);
-			GameManager.instance.currGameStatus = eGameStatus.pause;
-			Time.timeScale = 0;
-			//UIAnimationController.Instance.PausePanleAnimation (pausePanel, 0);
+			if (GameManager.instance.currGameMode != eGameMode.vServerMulltiPlayer) {
+				pausePanel.SetActive (true);
+				GameManager.instance.currGameStatus = eGameStatus.pause;
+				Time.timeScale = 0;
+			} else {
+				GameManager.instance.currGameStatus = eGameStatus.none;
+				pausePanel.SetActive (false);
+				gamePlayUI.gameObject.SetActive (false);
+				mainMenuUI.gameObject.SetActive (true);
+				ConnectionManager.Instance.OnGameOverSendData ();
+				Time.timeScale = 1;
+			}
+
 		}
 	}
 
+	public void FriendGameOver()
+	{
+		Debug.Log ("Friend Game Quit");
+	}
 	public void OnGameOver ()
 	{
 		Invoke ("GameOverInvoke", 1f);
