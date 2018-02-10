@@ -176,7 +176,6 @@ public class UIManager : MonoBehaviour
 	public void OnMenuBttnClicked()
 	{
 		
-		if (GameManager.instance.currGameStatus == eGameStatus.play) {
 			if (GameManager.instance.currGameMode != eGameMode.vServerMulltiPlayer) {
 				pausePanel.SetActive (true);
 				GameManager.instance.currGameStatus = eGameStatus.pause;
@@ -186,13 +185,11 @@ public class UIManager : MonoBehaviour
 				pausePanel.SetActive (false);
 				gamePlayUI.gameObject.SetActive (false);
 				mainMenuUI.gameObject.SetActive (true);
-				ConnectionManager.Instance.OnGameOverSendData ();
 				Time.timeScale = 1;
 				friendDecliendPanel.SetActive (false);
 
 			}
 
-		}
 
 	}
 
