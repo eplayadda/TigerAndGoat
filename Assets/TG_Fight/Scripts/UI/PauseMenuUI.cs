@@ -21,12 +21,18 @@ public class PauseMenuUI : MonoBehaviour
 		GameManager.instance.currGameStatus = eGameStatus.play;
 		GameManager.instance.OnGameModeSelected ((int)GameManager.instance.currGameMode);
 		UIManager.instance.pausePanel.SetActive (false);
+		Time.timeScale = 1;
+
 	}
 
 	public void OnClickMainMenu ()
 	{
 		GameManager.instance.currGameStatus = eGameStatus.none;
 		UIManager.instance.pausePanel.SetActive (false);
+		UIManager.instance.gamePlayUI.gameObject.SetActive (false);
+		UIManager.instance.mainMenuUI.gameObject.SetActive (true);
+		Time.timeScale = 1;
+
 	}
 
 	public void OnClickQuit ()

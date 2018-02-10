@@ -47,6 +47,7 @@ public class BordManager : MonoBehaviour {
 
 	void ResetData()
 	{
+		markerToMove.position = defaultPos.position;
 		noOfGoat = 0;
 		coutGoatKill = 0;
 		usedGoatTxt.text = gameManager.totalNoOfGoat.ToString();
@@ -59,6 +60,9 @@ public class BordManager : MonoBehaviour {
 		selectedGoatIndex = -1;
 		currWinStatus = eWinStatus.none;
 		lstGameTurn = gameManager.currTurnStatus;
+		StopAllCoroutines ();
+		StopCoroutine ("AITurnTiger");
+		StopCoroutine ("AITurnGoat");
 	}
 	void SetDefaultData()
 	{
@@ -225,7 +229,10 @@ public class BordManager : MonoBehaviour {
 	}
 	IEnumerator AITurnTiger()
     {
+		Debug.Log ("AI");
 		yield return new WaitForSeconds (2f);
+		Debug.Log ("AIde");
+
 		List <int> aiMOve = new List<int> ();
 		aiMOve  = Tg_FightAI.instance.GetTigerNextMove ();
 		if (aiMOve [0] >= 0) {
