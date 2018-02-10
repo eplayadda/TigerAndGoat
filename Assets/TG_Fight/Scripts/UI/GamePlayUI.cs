@@ -19,10 +19,13 @@ public class GamePlayUI : MonoBehaviour
 
 	public void OnBackClicked ()
 	{
-//		uiManager.gamePlayUI.gameObject.SetActive (false);
-//		uiManager.mainMenuUI.gameObject.SetActive (true);
-		uiManager.OnMenuBttnClicked();
-		//Application.LoadLevel (0);
+		if (GameManager.instance.currGameMode != eGameMode.vServerMulltiPlayer) {
+			uiManager.OnMenuBttnClicked ();
+		} else {
+			uiManager.OnMenuBttnClicked ();
+			ConnectionManager.Instance.OnGameOverSendData ();
+
+		}
 	}
 
 	public void WaittingFriendBtn ()
