@@ -32,9 +32,11 @@ public class InviteUI : MonoBehaviour
 				GameManager.instance.currTurnStatus = eTurnStatus.my;
 			}
 			GameManager.instance.friendAnimalType = (eAnimalType)friendAnimalType;
-			ConnectionManager.Instance.IacceptChallage ();
+			ConnectionManager.Instance.IacceptChallage (1);
 			uiManager.OnFriendInviteAccepted ();
 		} else {
+			ConnectionManager.Instance.IacceptChallage (0);
+
 		}
 	}
 

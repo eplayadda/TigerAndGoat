@@ -21,7 +21,7 @@ public class UIManager : MonoBehaviour
 	public GameObject tutorialLeft;
 	public GameObject tutorialRight;
 	public GameObject tutorialParent;
-
+	public GameObject friendDecliendPanel;
 	public Transform pauseEntryPos;
 	public Transform pauseEndPos;
 
@@ -62,6 +62,7 @@ public class UIManager : MonoBehaviour
 
 	public void FriendGameOver()
 	{
+		OnDicliend ();
 		Debug.Log ("Friend Game Quit");
 	}
 	public void OnGameOver ()
@@ -105,9 +106,9 @@ public class UIManager : MonoBehaviour
 
 	}
 
-	public void OnChallangeAccepted ()
+	public void OnChallangeAccepted (int a)
 	{
-		gamePlayUI.OnServerPlayerAccepted ();
+		gamePlayUI.OnServerPlayerAccepted (a);
 	}
 
 	public void OnFriendInviteAccepted ()
@@ -167,6 +168,32 @@ public class UIManager : MonoBehaviour
 		tutorialRight.SetActive (false);
 		tutorialLeft.transform.localScale = Vector3.zero;
 		tutorialRight.transform.localScale = Vector3.zero;
+	}
+
+	public void OnDicliend(){
+		friendDecliendPanel.SetActive (true);
+	}
+	public void OnMenuBttnClicked()
+	{
+		
+		if (GameManager.instance.currGameStatus == eGameStatus.play) {
+			if (GameManager.instance.currGameMode != eGameMode.vServerMulltiPlayer) {
+				pausePanel.SetActive (true);
+				GameManager.instance.currGameStatus = eGameStatus.pause;
+				Time.timeScale = 0;
+			} else {
+				GameManager.instance.currGameStatus = eGameStatus.none;
+				pausePanel.SetActive (false);
+				gamePlayUI.gameObject.SetActive (false);
+				mainMenuUI.gameObject.SetActive (true);
+				ConnectionManager.Instance.OnGameOverSendData ();
+				Time.timeScale = 1;
+				friendDecliendPanel.SetActive (false);
+
+			}
+
+		}
+
 	}
 
 }

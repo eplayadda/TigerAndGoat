@@ -19,8 +19,9 @@ public class GamePlayUI : MonoBehaviour
 
 	public void OnBackClicked ()
 	{
-		uiManager.gamePlayUI.gameObject.SetActive (false);
-		uiManager.mainMenuUI.gameObject.SetActive (true);
+//		uiManager.gamePlayUI.gameObject.SetActive (false);
+//		uiManager.mainMenuUI.gameObject.SetActive (true);
+		uiManager.OnMenuBttnClicked();
 		//Application.LoadLevel (0);
 	}
 
@@ -32,11 +33,17 @@ public class GamePlayUI : MonoBehaviour
 		waitingPanel.SetActive (true);
 	}
 
-	public void OnServerPlayerAccepted ()
+	public void OnServerPlayerAccepted (int a)
 	{
-		waittingPanelBtn.interactable = true;
-		waittingMsgPnl.SetActive (false);
-		gameManager.currGameStatus = eGameStatus.play;
+		if (a == 1) {
+			waittingPanelBtn.interactable = true;
+			waittingMsgPnl.SetActive (false);
+			gameManager.currGameStatus = eGameStatus.play;
+		} else {
+			Debug.Log ("Not accpetd");
+			UIManager.instance.OnDicliend ();
+		}
+
 
 	}
 

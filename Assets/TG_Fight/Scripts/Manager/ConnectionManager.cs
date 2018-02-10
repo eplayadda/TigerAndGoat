@@ -195,12 +195,12 @@ public class ConnectionManager : MonoBehaviour
 
 	}
 
-	public void IacceptChallage ()
+	public void IacceptChallage (int a)
 	{
 		usersID.Clear ();
 		usersID.Add (myID);
 		usersID.Add (friedID);
-		usersID.Add ("dd");
+		usersID.Add (a+"");
 		signalRConnection [HUB_NAME].Call ("IacceptedChallenge", usersID);
 
 
@@ -209,9 +209,10 @@ public class ConnectionManager : MonoBehaviour
 	public void ChallengeAccepted (Hub hub, MethodCallMessage msg)
 	{
 		var str = msg.Arguments [0] as object[];
+		int a = Convert.ToInt16 (str [2].ToString ());
 		Debug.Log (str [2].ToString ());
 		Debug.Log ("Chalage accepted");
-		UIManager.instance.OnChallangeAccepted ();
+		UIManager.instance.OnChallangeAccepted (a);
 	}
 
 	List <string> inputData = new List<string> ();
