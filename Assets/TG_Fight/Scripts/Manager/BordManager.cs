@@ -29,6 +29,7 @@ public class BordManager : MonoBehaviour {
 	Transform startPos;
 	Transform endPos;
 	float speed = 20f;
+	public eTurnStatus lstGameTurn;
 	void Awake()
 	{
 		if (instace == null)
@@ -46,7 +47,6 @@ public class BordManager : MonoBehaviour {
 
 	void ResetData()
 	{
-		selectedGoatIndex = -1;
 		noOfGoat = 0;
 		coutGoatKill = 0;
 		usedGoatTxt.text = gameManager.totalNoOfGoat.ToString();
@@ -54,7 +54,11 @@ public class BordManager : MonoBehaviour {
 		foreach (TGNode item in allTgNodes) {
 			item.currNodeHolder = eNodeHolder.none;
 		}
+		if(selectedGoatIndex>=0)
+			allTgNodes [selectedGoatIndex].transform.GetChild (0).gameObject.SetActive (false);
+		selectedGoatIndex = -1;
 		currWinStatus = eWinStatus.none;
+		lstGameTurn = gameManager.currTurnStatus;
 	}
 	void SetDefaultData()
 	{

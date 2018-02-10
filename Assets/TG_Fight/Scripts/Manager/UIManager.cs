@@ -46,7 +46,8 @@ public class UIManager : MonoBehaviour
 		if (Input.GetKey (KeyCode.Escape) && GameManager.instance.currGameStatus == eGameStatus.play) {
 			pausePanel.SetActive (true);
 			GameManager.instance.currGameStatus = eGameStatus.pause;
-			UIAnimationController.Instance.PausePanleAnimation (pausePanel, 0);
+			Time.timeScale = 0;
+			//UIAnimationController.Instance.PausePanleAnimation (pausePanel, 0);
 		}
 	}
 
