@@ -9,6 +9,7 @@ public class FriendsDetails : MonoBehaviour
 	public Image ProfilePic;
 	public long ID;
 	public Image onlineIcon;
+	public Toggle tgl;
 	void OnEnable()
 	{
 		onlineIcon = transform.GetChild (3).GetComponent<Image>();
@@ -23,5 +24,11 @@ public class FriendsDetails : MonoBehaviour
 			onlineIcon.color = Color.red;
 		}
 
+	}
+
+	public void OnValueChangedToggel()
+	{
+		if (tgl.isOn)
+			ConnectionManager.Instance.friedID = Name.text;
 	}
 }

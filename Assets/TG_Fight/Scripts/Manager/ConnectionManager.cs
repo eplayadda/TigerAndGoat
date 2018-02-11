@@ -55,8 +55,16 @@ public class ConnectionManager : MonoBehaviour
 			DestroyImmediate (this.gameObject);
 			return;
 		}
-//		MakeConnection ();
+		DefaultUserName ();
+		MakeConnection ();
 	}
+	public void DefaultUserName()
+	{
+		myID = "User_" + UnityEngine.Random.Range (1000,9999);
+		UIManager.instance.mainMenuUI.username.text =myID;
+
+	}
+
 
 	public void SetConnectionID (bool p)
 	{

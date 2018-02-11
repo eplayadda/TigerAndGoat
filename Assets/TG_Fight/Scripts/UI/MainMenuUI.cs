@@ -22,8 +22,7 @@ public class MainMenuUI : MonoBehaviour
 	{
 		gameManager = GameManager.instance;
 		uiManager = UIManager.instance;
-		ServerRoomPanel.SetActive (false);
-		ScoreHandler.instance.GetCoin ();
+//		ScoreHandler.instance.GetCoin ();
 	}
 
 	public void OnGameModeSelected (int a)
@@ -49,6 +48,7 @@ public class MainMenuUI : MonoBehaviour
 			uiManager.gamePlayUI.gameObject.SetActive (true);
 			GameManager.instance.OnGameModeSelected (a);
 		} else {
+			#if UNITY_ANDROID
 			if (GameManager.instance.currentGameType == GameType.OnLine) {
 				ServerRoomPanel.SetActive (true);
 				SocialManager.Instance.facebookManager.UserProfile ();
@@ -56,6 +56,9 @@ public class MainMenuUI : MonoBehaviour
 				UIManager.instance.fbLoginCheckPanel.SetActive (true);
 				//UIManager.instance.NoINternetDisplay ();
 			}
+			#endif
+			ConnectionManager.Instance.GetOnlineFriend ();
+			ServerRoomPanel.SetActive (true);
 		}
 	}
 
@@ -77,7 +80,7 @@ public class MainMenuUI : MonoBehaviour
 		uiManager.gamePlayUI.gameObject.SetActive (true);
 		uiManager.gamePlayUI.WaittingFriendBtn ();
 		GameManager.instance.OnGameModeSelected (a);
-		SocialManager.Instance.facebookManager.GetFriendsNameByID (ConnectionManager.Instance.friedID);
+		//SocialManager.Instance.facebookManager.GetFriendsNameByID (ConnectionManager.Instance.friedID);
 		ConnectionManager.Instance.OnSendRequest ("100", (int)gameManager.friendAnimalType + "");
 	}
 
