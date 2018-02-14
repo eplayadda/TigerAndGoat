@@ -26,7 +26,8 @@ public class ConnectionManager : MonoBehaviour
 	//	string baseUrl = "http://52.11.67.198/SignalRDemo/";
 	// "http://localhost:1921/SignalRDemo";// "http://52.33.40.224/SignalRDemo";//"http://localhost:1921/SignalRDemo";
 	//string baseUrl = "http://localhost:1921/SignalRDemo2/";//"http://52.11.67.198/SignalRDemo";// "http://52.33.40.224/SignalRDemo";
-	string baseUrl = "http://www.eplayadda.com/SignalR/eLarningHub/hubs";
+	string baseUrl = "http://huliyawebapp.azurewebsites.net/SignalR/eLarningHub/hubs";
+//	string baseUrl = "http://www.eplayadda.com/SignalR/eLarningHub/hubs";
 	//"http://52.11.67.198/eLarningHub/";
 	//string baseUrl = "http://localhost:30359/eLarningHub/eLarningHub/";
 	public string myID = "1";
@@ -79,25 +80,34 @@ public class ConnectionManager : MonoBehaviour
 
 	public void MakeConnection ()
 	{
+		Debug.Log ("0ssss");
 		signalRConnection = null;
 
 		if (signalRConnection == null) {
 			try {
+				Debug.Log ("01ssss");
+
 				Uri uri = new Uri (baseUrl);
 				_newHub = new Hub (HUB_NAME);
 				signalRConnection = new Connection (uri, _newHub);
 				signalRConnection.JsonEncoder = new LitJsonEncoder ();
+				Debug.Log ("02ssss");
 
 				signalRConnection.OnStateChanged += OnSignalRStatusChange;
 				signalRConnection.OnError += OnSignalRErrorOccur;
 				signalRConnection.OnConnected += OnSignalRConnected;
 				signalRConnection.OnClosed += (con) => OnSignalRClosed ();
 				signalRConnection.OnReconnected += onSignalRReconnected;
+				Debug.Log ("03ssss");
 
 				Dictionary<string, string> dict = new Dictionary<string, string> ();
 				dict.Add (CLIENTID, myID);
 				signalRConnection.AdditionalQueryParams = dict;
+				Debug.Log ("40ssss");
+
 				signalRCoroutine = StartCoroutine ("OpenSignalRConnection");
+				Debug.Log ("05ssss");
+
 				AllOperations (); 
 
 			} catch (Exception e) {
@@ -156,6 +166,8 @@ public class ConnectionManager : MonoBehaviour
 
 	public void AllOperations ()
 	{
+		Debug.Log ("07ssss");
+
 		signalRConnection [HUB_NAME].On (GETREQUEST, OnReceiveMatchDetails);
 		signalRConnection [HUB_NAME].On (ACK_CONNECTED, Ack);
 		signalRConnection [HUB_NAME].On (CHALLENGEACCEPTED, ChallengeAccepted);
