@@ -26,7 +26,7 @@ public class ConnectionManager : MonoBehaviour
 	//	string baseUrl = "http://52.11.67.198/SignalRDemo/";
 	// "http://localhost:1921/SignalRDemo";// "http://52.33.40.224/SignalRDemo";//"http://localhost:1921/SignalRDemo";
 	//string baseUrl = "http://localhost:1921/SignalRDemo2/";//"http://52.11.67.198/SignalRDemo";// "http://52.33.40.224/SignalRDemo";
-	string baseUrl = "http://www.eplayadda.com/SignalR/eLarningHub/hubs";
+	string baseUrl = "http://huliyawebapp.azurewebsites.net/SignalR/eLarningHub/hubs";
 	//"http://52.11.67.198/eLarningHub/";
 	//string baseUrl = "http://localhost:30359/eLarningHub/eLarningHub/";
 	public string myID = "1";
@@ -200,7 +200,7 @@ public class ConnectionManager : MonoBehaviour
 		usersID.Clear ();
 		usersID.Add (myID);
 		usersID.Add (friedID);
-		usersID.Add (a+"");
+		usersID.Add (a + "");
 		signalRConnection [HUB_NAME].Call ("IacceptedChallenge", usersID);
 
 
