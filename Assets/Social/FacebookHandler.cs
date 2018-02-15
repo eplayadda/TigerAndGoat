@@ -18,7 +18,7 @@ public class FacebookHandler : MonoBehaviour
 	//public Text debugText;
 	private string userId;
 	//private Texture profilePic;
-	string appStoreLink = "";
+	string appStoreLink = "https://play.google.com/store/apps/details?id=renewin.com.huliya&hl=en";
 	//string inviteAppLinkUrl = "https://fb.me/350820032015040";
 	private bool IsInternetAvailabe = false;
 	//public Text testText;
@@ -250,8 +250,6 @@ public class FacebookHandler : MonoBehaviour
 	//Share On Facebook.
 	public void OnFacebookShare ()
 	{
-		if (!IsInternetAvailabe)
-			return;
 		Debug.Log ("OnFacebookShare");
 		if (FB.IsLoggedIn) {
 			FB.ShareLink (new System.Uri (appStoreLink), "MindSsmash", "want to bit me ? Download and play the Game", null, callback: ShareCallBck);

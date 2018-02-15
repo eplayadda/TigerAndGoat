@@ -40,6 +40,7 @@ public class SocialManager : MonoBehaviour
 	public void InternetConnectionCallBack (bool isConnected)
 	{
 		if (isConnected) {
+			
 			GameManager.instance.currentGameType = GameType.OnLine;
 			facebookManager.OnFacebookLogin ();
 		} else
@@ -69,7 +70,16 @@ public class SocialManager : MonoBehaviour
 
 	public void ShareWithFacebook ()
 	{
-		facebookManager.OnFacebookShare ();
+		StartCoroutine (InternetConnectionCheck (InternetCallBack));
+
+	}
+
+	public void InternetCallBack (bool isConnected)
+	{
+		if (isConnected) {
+
+			facebookManager.OnFacebookShare ();
+		}
 	}
 
 	public void RateUs ()
