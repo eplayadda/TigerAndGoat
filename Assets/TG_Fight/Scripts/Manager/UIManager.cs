@@ -86,6 +86,7 @@ public class UIManager : MonoBehaviour
 
 	public void OnClickAsGuest ()
 	{
+		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
 		GameManager.instance.currentGameType = GameType.OffLine;
 		ConnectionManager.Instance.MakeConnection ();
 		loginPanel.SetActive (false);

@@ -7,6 +7,8 @@ public class PauseMenuUI : MonoBehaviour
 
 	public void OnClickResume ()
 	{
+		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
+
 		Time.timeScale = 1;
 		GameManager.instance.currGameStatus = eGameStatus.play;
 		UIManager.instance.pausePanel.SetActive (false);
@@ -17,6 +19,8 @@ public class PauseMenuUI : MonoBehaviour
 
 	public void OnClickRestart ()
 	{
+		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
+
 		GameManager.instance.currTurnStatus = BordManager.instace.lstGameTurn;
 		GameManager.instance.currGameStatus = eGameStatus.play;
 		GameManager.instance.OnGameModeSelected ((int)GameManager.instance.currGameMode);
@@ -27,6 +31,8 @@ public class PauseMenuUI : MonoBehaviour
 
 	public void OnClickMainMenu ()
 	{
+		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
+
 		GameManager.instance.currGameStatus = eGameStatus.none;
 		UIManager.instance.pausePanel.SetActive (false);
 		UIManager.instance.gamePlayUI.gameObject.SetActive (false);

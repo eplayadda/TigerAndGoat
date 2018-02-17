@@ -306,7 +306,7 @@ public class BordManager : MonoBehaviour {
 //					allTgNodes[item.firstLayerNode.ID -1 ].SetNodeHolderSprint();
 					coutGoatKill++;
 					goatKillTxt.text = coutGoatKill.ToString ();
-
+					AudioManager.Instance.PlaySound (AudioManager.SoundType.LevelComplete);
 					if (coutGoatKill >= 6) {
 						currWinStatus = eWinStatus.tiger;
 						UIManager.instance.OnGameOver ();

@@ -28,6 +28,7 @@ public class MainMenuUI : MonoBehaviour
 
 	public void OnGameModeSelected (int a)
 	{
+		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
 		if (tigerTgl.isOn == true) {
 			gameManager.myAnimalType = eAnimalType.tiger;
 			gameManager.friendAnimalType = eAnimalType.goat;
@@ -61,6 +62,8 @@ public class MainMenuUI : MonoBehaviour
 
 	public void OnClickWhatsAppShare ()
 	{
+		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
+
 		//UIAnimationController.Instance.OnClickShare ();
 		SocialManager.Instance.ShareWithWhatsApp ();
 	}
@@ -92,6 +95,8 @@ public class MainMenuUI : MonoBehaviour
 
 	public void OnSettingActive ()
 	{
+		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
+
 		isSettingOn = true;
 		settingPanle.SetActive (true);
 		UIAnimationController.Instance.SettingPanelAnimation (settingPanle, 0);
@@ -100,6 +105,8 @@ public class MainMenuUI : MonoBehaviour
 
 	public void OnClickBackSetting ()
 	{
+		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
+
 		isSettingOn = false;
 		UIAnimationController.Instance.SettingPanelAnimation (settingPanle, settingEndPos.localPosition.x);
 	}

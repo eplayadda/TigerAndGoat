@@ -11,6 +11,8 @@ public class InputHandler : MonoBehaviour {
 	}
 	public void OnInputTaken(int pData)
 	{
+		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
+
 		if (GameManager.instance.currGameMode == eGameMode.vServerMulltiPlayer && GameManager.instance.currTurnStatus != eTurnStatus.my)
 			return;
 		if (GameManager.instance.currGameMode == eGameMode.vCPU && GameManager.instance.currTurnStatus != eTurnStatus.my)

@@ -29,14 +29,18 @@ public class GameOverUI : MonoBehaviour
 		if (BordManager.instace.currWinStatus.ToString () == GameManager.instance.myAnimalType.ToString ()) {
 			ScoreHandler.instance.SetScore ();
 			winStatus.text = "You Win";
+			AudioManager.Instance.PlaySound (AudioManager.SoundType.Success);
+
 		} else {
 			winStatus.text = "You Lose";
+			AudioManager.Instance.PlaySound (AudioManager.SoundType.GameOver);
 
 		}
 	}
 
 	public void OnReplay ()
 	{
+		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
 		uiManager.gamePlayUI.gameObject.SetActive (false);
 		uiManager.mainMenuUI.gameObject.SetActive (true);
 		uiManager.gameOverUI.gameObject.SetActive (false);

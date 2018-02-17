@@ -59,6 +59,7 @@ public class SocialManager : MonoBehaviour
 
 	public void LoginWithFB ()
 	{
+		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
 		CheckInternetConnection ();
 //		ConnectionManager.Instance.CheckInternetConnection ();
 //		if (ConnectionManager.Instance.isInternetAvl) {

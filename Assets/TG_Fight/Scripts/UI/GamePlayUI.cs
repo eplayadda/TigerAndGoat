@@ -19,6 +19,8 @@ public class GamePlayUI : MonoBehaviour
 
 	public void OnBackClicked ()
 	{
+		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
+
 		if (GameManager.instance.currGameMode != eGameMode.vServerMulltiPlayer) {
 			uiManager.OnMenuBttnClicked ();
 		} else {
