@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum eGameStatus
 {
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
 	public int totalNoOfTiger;
 
 	public bool showTutorial = false;
+	public Toggle _toggle;
 
 
 	void Awake ()
@@ -79,9 +81,26 @@ public class GameManager : MonoBehaviour
 	{
 		StartCoroutine (GameAllow ());
 	}
-
+	public void TutorialAllow()
+	{
+		Debug.Log (_toggle.isOn);
+		if (_toggle.isOn) {
+			showTutorial = true;
+			PlayerPrefs.SetInt ("Tutorials",1);
+		} else {
+			showTutorial = false;
+			PlayerPrefs.SetInt ("Tutorials",0);
+		}
+	}
 	IEnumerator GameAllow ()
 	{
+		if (PlayerPrefs.GetInt ("Tutorials") == 1) {
+			_toggle.isOn = true;
+			showTutorial = true;
+		} else {
+			_toggle.isOn = false;
+			showTutorial = false;
+		}
 		WWW www = new WWW ("http://www.eplayadda.com/datacheck/api/values");
 		yield return www;
 		if (string.IsNullOrEmpty (www.error)) {
