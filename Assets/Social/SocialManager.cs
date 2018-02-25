@@ -102,6 +102,13 @@ public class SocialManager : MonoBehaviour
 		UIManager.instance.fbFriendsPanel.SetActive (false);
 	}
 
+	public void LikeWithFacebook ()
+	{
+		#if UNITY_ANDROID
+		facebookManager.FacebookLike ();
+		#endif
+	}
+
 	public void UpdateUserProfile (string url)
 	{
 		Debug.Log (url);

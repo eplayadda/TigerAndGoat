@@ -528,6 +528,11 @@ public class FacebookHandler : MonoBehaviour
 			}
 		});
 	}
+
+	public void FacebookLike ()
+	{
+		Application.OpenURL ("https://www.facebook.com/akash.renewin");
+	}
 }
 
 
