@@ -25,6 +25,10 @@ public class UIManager : MonoBehaviour
 	public Transform pauseEntryPos;
 	public Transform pauseEndPos;
 
+	public GameObject exitPanel;
+	public Transform exitStartPos;
+	public Transform exitEndPos;
+
 	private float tutorialDelay = 5.0f;
 
 	void Awake ()
@@ -57,14 +61,23 @@ public class UIManager : MonoBehaviour
 				Time.timeScale = 1;
 			}
 
+		} else if (Input.GetKey (KeyCode.Escape) && GameManager.instance.currGameStatus != eGameStatus.play) {
+			ExitPanleActive ();
 		}
 	}
 
-	public void FriendGameOver()
+	public void ExitPanleActive ()
+	{
+		exitPanel.SetActive (true);
+		UIAnimationController.Instance.ExitPanleAnimation (exitPanel, exitEndPos.localPosition.x);
+	}
+
+	public void FriendGameOver ()
 	{
 		OnDicliend ();
 		Debug.Log ("Friend Game Quit");
 	}
+
 	public void OnGameOver ()
 	{
 		Invoke ("GameOverInvoke", 1f);
@@ -171,27 +184,38 @@ public class UIManager : MonoBehaviour
 		tutorialRight.transform.localScale = Vector3.zero;
 	}
 
-	public void OnDicliend(){
+	public void OnDicliend ()
+	{
 		friendDecliendPanel.SetActive (true);
 	}
-	public void OnMenuBttnClicked()
+
+	public void OnMenuBttnClicked ()
 	{
 		
-			if (GameManager.instance.currGameMode != eGameMode.vServerMulltiPlayer) {
-				pausePanel.SetActive (true);
-				GameManager.instance.currGameStatus = eGameStatus.pause;
-				Time.timeScale = 0;
-			} else {
-				GameManager.instance.currGameStatus = eGameStatus.none;
-				pausePanel.SetActive (false);
-				gamePlayUI.gameObject.SetActive (false);
-				mainMenuUI.gameObject.SetActive (true);
-				Time.timeScale = 1;
-				friendDecliendPanel.SetActive (false);
+		if (GameManager.instance.currGameMode != eGameMode.vServerMulltiPlayer) {
+			pausePanel.SetActive (true);
+			GameManager.instance.currGameStatus = eGameStatus.pause;
+			Time.timeScale = 0;
+		} else {
+			GameManager.instance.currGameStatus = eGameStatus.none;
+			pausePanel.SetActive (false);
+			gamePlayUI.gameObject.SetActive (false);
+			mainMenuUI.gameObject.SetActive (true);
+			Time.timeScale = 1;
+			friendDecliendPanel.SetActive (false);
 
-			}
+		}
+	}
 
+	public void OnClickYes ()
+	{
+		Application.Quit ();
+	}
 
+	public void OnClickNo ()
+	{
+		exitPanel.SetActive (false);
+		exitPanel.transform.localPosition = exitStartPos.localPosition;
 	}
 
 }

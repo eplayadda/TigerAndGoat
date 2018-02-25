@@ -10,6 +10,9 @@ public class GamePlayUI : MonoBehaviour
 	public GameObject waitingPanel;
 	public Button waittingPanelBtn;
 	public GameObject waittingMsgPnl;
+	public Text tigerText;
+	public Text goatText;
+
 	void OnEnable ()
 	{
 		gameManager = GameManager.instance;
@@ -33,7 +36,7 @@ public class GamePlayUI : MonoBehaviour
 	public void WaittingFriendBtn ()
 	{
 		waittingMsgPnl.SetActive (true);
-		waittingPanelBtn.gameObject.SetActive(true);
+		waittingPanelBtn.gameObject.SetActive (true);
 		waittingPanelBtn.interactable = false;
 		waitingPanel.SetActive (true);
 	}
@@ -64,11 +67,12 @@ public class GamePlayUI : MonoBehaviour
 		waitingPanel.SetActive (false);
 		gameManager.currGameStatus = eGameStatus.play;
 	}
-	public void OnInvieAcceptedByME()
+
+	public void OnInvieAcceptedByME ()
 	{
 		waitingPanel.SetActive (true);
 		waittingMsgPnl.SetActive (true);
-		waittingPanelBtn.gameObject.SetActive(false);
+		waittingPanelBtn.gameObject.SetActive (false);
 	}
 
 }

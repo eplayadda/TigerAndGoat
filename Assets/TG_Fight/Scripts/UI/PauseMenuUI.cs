@@ -12,7 +12,7 @@ public class PauseMenuUI : MonoBehaviour
 		Time.timeScale = 1;
 		GameManager.instance.currGameStatus = eGameStatus.play;
 		UIManager.instance.pausePanel.SetActive (false);
-	//UIAnimationController.Instance.PausePanleAnimation (UIManager.instance.pausePanel, UIManager.instance.pauseEndPos.localPosition.y);
+		//UIAnimationController.Instance.PausePanleAnimation (UIManager.instance.pausePanel, UIManager.instance.pauseEndPos.localPosition.y);
 
 
 	}
@@ -43,7 +43,7 @@ public class PauseMenuUI : MonoBehaviour
 
 	public void OnClickQuit ()
 	{
-		Application.Quit ();
+		UIManager.instance.ExitPanleActive ();
 	}
 
 	public void PauseMenuUICallBack ()
@@ -51,7 +51,7 @@ public class PauseMenuUI : MonoBehaviour
 		if (GameManager.instance.currGameStatus != eGameStatus.pause) {
 			Debug.Log ("Pause to Play");
 			UIManager.instance.pausePanel.SetActive (false);
-		//	UIManager.instance.pausePanel.transform.localPosition = UIManager.instance.pauseEntryPos.localPosition;
+			//	UIManager.instance.pausePanel.transform.localPosition = UIManager.instance.pauseEntryPos.localPosition;
 		}
 	}
 }

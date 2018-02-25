@@ -40,4 +40,9 @@ public class UIAnimationController : MonoBehaviour
 	{
 		LeanTween.scale (gameObject, Vector3.one, 0.25f).setEaseOutBounce ();
 	}
+
+	public void ExitPanleAnimation (GameObject gameObject, float to)
+	{
+		LeanTween.moveLocalX (gameObject, to, 0.25f).setEase (LeanTweenType.easeInOutExpo);
+	}
 }

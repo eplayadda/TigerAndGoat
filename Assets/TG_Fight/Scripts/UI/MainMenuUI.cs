@@ -9,6 +9,7 @@ public class MainMenuUI : MonoBehaviour
 	public Toggle goatTgl;
 	public GameObject ServerRoomPanel;
 	public GameObject settingPanle;
+	public GameObject selectPlayerPanel;
 
 	public Transform settingStartPos;
 	public Transform settingEndPos;
@@ -29,35 +30,53 @@ public class MainMenuUI : MonoBehaviour
 	public void OnGameModeSelected (int a)
 	{
 		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
-		if (tigerTgl.isOn == true) {
-			gameManager.myAnimalType = eAnimalType.tiger;
-			gameManager.friendAnimalType = eAnimalType.goat;
-			GameManager.instance.currTurnStatus = eTurnStatus.friend;
+		SelectPlayer (a);
+
+	}
+
+	public void SelectPlayer (int a)
+	{
+		selectPlayerPanel.SetActive (true);
 
 
-		}
-		if (goatTgl.isOn == true) {
-			gameManager.myAnimalType = eAnimalType.goat;
-			gameManager.friendAnimalType = eAnimalType.tiger;
-			GameManager.instance.currTurnStatus = eTurnStatus.my;
+		selectPlayerPanel.GetComponentInChildren<Button> ().onClick.AddListener (() => {
+			selectPlayerPanel.SetActive (false);
+			if (tigerTgl.isOn == true) {
+				gameManager.myAnimalType = eAnimalType.tiger;
+				gameManager.friendAnimalType = eAnimalType.goat;
+				GameManager.instance.currTurnStatus = eTurnStatus.friend;
+				if (a == 1) {
+					uiManager.gamePlayUI.tigerText.text = "You";
+					uiManager.gamePlayUI.goatText.text = "Computer";
+				}
 
-		}
-		if (a < 3) {
-			gameManager.currGameStatus = eGameStatus.play;
-			//GameManager.instance.showTutorial = true;
-			UIManager.instance.DisplayTutorial ();
-			uiManager.DisableAllUI ();
-			uiManager.gamePlayUI.gameObject.SetActive (true);
-			GameManager.instance.OnGameModeSelected (a);
-		} else {
-			if (GameManager.instance.currentGameType == GameType.OnLine) {
-				ServerRoomPanel.SetActive (true);
-				SocialManager.Instance.facebookManager.UserProfile ();
-			} else {
-				UIManager.instance.fbLoginCheckPanel.SetActive (true);
-				//UIManager.instance.NoINternetDisplay ();
 			}
-		}
+			if (goatTgl.isOn == true) {
+				gameManager.myAnimalType = eAnimalType.goat;
+				gameManager.friendAnimalType = eAnimalType.tiger;
+				GameManager.instance.currTurnStatus = eTurnStatus.my;
+				if (a == 1) {
+					uiManager.gamePlayUI.tigerText.text = "Computer";
+					uiManager.gamePlayUI.goatText.text = "You";
+				}
+			}
+			if (a < 3) {
+				gameManager.currGameStatus = eGameStatus.play;
+				//GameManager.instance.showTutorial = true;
+				UIManager.instance.DisplayTutorial ();
+				uiManager.DisableAllUI ();
+				uiManager.gamePlayUI.gameObject.SetActive (true);
+				GameManager.instance.OnGameModeSelected (a);
+			} else {
+				if (GameManager.instance.currentGameType == GameType.OnLine) {
+					ServerRoomPanel.SetActive (true);
+					SocialManager.Instance.facebookManager.UserProfile ();
+				} else {
+					UIManager.instance.fbLoginCheckPanel.SetActive (true);
+					//UIManager.instance.NoINternetDisplay ();
+				}
+			}
+		});
 	}
 
 	public void OnClickWhatsAppShare ()
