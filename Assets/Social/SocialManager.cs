@@ -109,6 +109,11 @@ public class SocialManager : MonoBehaviour
 		#endif
 	}
 
+	public void InviteFacebookFriend ()
+	{
+		facebookManager.InviteFriends ();
+	}
+
 	public void UpdateUserProfile (string url)
 	{
 		Debug.Log (url);

@@ -19,7 +19,7 @@ public class FacebookHandler : MonoBehaviour
 	private string userId;
 	//private Texture profilePic;
 	string appStoreLink = "https://play.google.com/store/apps/details?id=renewin.com.huliya&hl=en";
-	//string inviteAppLinkUrl = "https://fb.me/350820032015040";
+	string inviteAppLinkUrl = "https://fb.me/350820032015040";
 	private bool IsInternetAvailabe = false;
 	//public Text testText;
 	private List<string> FriendsIdList = new List<string> ();
@@ -477,7 +477,7 @@ public class FacebookHandler : MonoBehaviour
 		if (!IsInternetAvailabe)
 			return;
 		if (FB.IsLoggedIn) {
-			//FB.Mobile.AppInvite (new Uri (inviteAppLinkUrl), null, this.InviteCallback);
+			FB.Mobile.AppInvite (new Uri (appStoreLink), null, this.InviteCallback);
 		} else {
 			FB.LogInWithReadPermissions (new List<string> (){ "public_profile", "email", "user_friends" }, this.InviteFreindLoginCallback);
 			FB.LogInWithPublishPermissions (new List<string> () { "publish_actions" }, this.InviteFreindLoginCallback);
