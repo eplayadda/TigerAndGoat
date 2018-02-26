@@ -111,11 +111,14 @@ public class FacebookHandler : MonoBehaviour
 
 	public void GetFriends ()
 	{
+		if (GameManager.instance.isRandomPlayer) {
+			GetFriendAsGuest ();
+			return;
+		}
 		if (FB.IsLoggedIn) {
 			FB.API ("me?fields=id,name,friends.limit(50){name,picture}", HttpMethod.GET, this.GetFreindCallback);
 		} else {
-			GetFriendAsGuest ();
-			//LoginForFriendsList ();
+			LoginForFriendsList ();
 		}
 
 	}
