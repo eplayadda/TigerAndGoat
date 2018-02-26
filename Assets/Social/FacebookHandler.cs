@@ -111,14 +111,14 @@ public class FacebookHandler : MonoBehaviour
 
 	public void GetFriends ()
 	{
-		if (GameManager.instance.isRandomPlayer) {
-			GetFriendAsGuest ();
-			return;
-		}
+//		if (GameManager.instance.isRandomPlayer) {
+//			return;
+//		}
 		if (FB.IsLoggedIn) {
 			FB.API ("me?fields=id,name,friends.limit(50){name,picture}", HttpMethod.GET, this.GetFreindCallback);
 		} else {
-			LoginForFriendsList ();
+			GetFriendAsGuest ();
+//			LoginForFriendsList ();
 		}
 
 	}
@@ -169,9 +169,9 @@ public class FacebookHandler : MonoBehaviour
 	}
 	void GetFreindCallback (IResult result)
 	{
+		DestroyFriendsList ();
 		if(GameManager.instance.isRandomPlayer)
 			GetFriendAsGuest ();
-		DestroyFriendsList ();
 		string resposne = result.RawResult;
 		Debug.Log (resposne);
 		var data = (Dictionary<string, object>)result.ResultDictionary;
