@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
 	{
 		if (instance == null)
 			instance = this;
+		
 	}
 
 	public void OnGameModeSelected (int pMode)
@@ -79,6 +80,7 @@ public class GameManager : MonoBehaviour
 
 	void Start ()
 	{
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		StartCoroutine (GameAllow ());
 	}
 	public void TutorialAllow()

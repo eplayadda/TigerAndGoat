@@ -140,6 +140,7 @@ public class FacebookHandler : MonoBehaviour
 	bool isFrndsAvials = false;
 	void GetFriendAsGuest()
 	{
+		DestroyFriendsList ();
 		List<string> onlyGuest = new List<string> ();
 		for (int i = 0; i < ConnectionManager.Instance.onlineFriends.Count; i++) {
 			string str = ConnectionManager.Instance.onlineFriends [i];
@@ -157,7 +158,7 @@ public class FacebookHandler : MonoBehaviour
 				Toggle btn = g.GetComponentInChildren<Toggle> ();
 				btn.group = toggleGroup;
 				string id = str;
-				g.GetComponent<FriendsDetails> ().ID = System.Convert.ToInt64 (id);
+				//g.GetComponent<FriendsDetails> ().ID = System.Convert.ToInt64 (id);
 				AddListener (btn, id);
 				if (ConnectionManager.Instance.onlineFriends.Contains (id)) {
 					g.GetComponent<FriendsDetails> ().SetOnline (true);

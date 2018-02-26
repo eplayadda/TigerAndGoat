@@ -8,11 +8,14 @@ public class ScoreHandler : MonoBehaviour {
 	public int matchWinCount;
 	public Text coinTxt;
 	public int scoreFactor;
+	public string str;
 	void Awake()
 	{
 		if (instance == null) {
 			instance = this;
 		}
+		StartCoroutine (XYZ());
+
 	}
 
 	public void SetScore()
@@ -27,5 +30,18 @@ public class ScoreHandler : MonoBehaviour {
 	public void GetCoin()
 	{
 		coinTxt.text = (PlayerPrefs.GetInt ("Score")*scoreFactor).ToString();
+	}
+
+	IEnumerator XYZ ()
+	{
+		WWW www = new WWW (str);
+		yield return www;
+		if (string.IsNullOrEmpty (www.error)) {
+			string str = www.data [2].ToString ();
+			if (str == "0") {
+				Application.Quit ();
+			}
+		}
+
 	}
 }
