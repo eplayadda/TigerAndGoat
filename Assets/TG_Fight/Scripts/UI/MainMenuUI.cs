@@ -38,7 +38,7 @@ public class MainMenuUI : MonoBehaviour
 	{
 		selectPlayerPanel.SetActive (true);
 
-
+		gameManager.isRandomPlayer = false;
 		selectPlayerPanel.GetComponentInChildren<Button> ().onClick.AddListener (() => {
 			selectPlayerPanel.SetActive (false);
 			if (tigerTgl.isOn == true) {
@@ -67,7 +67,13 @@ public class MainMenuUI : MonoBehaviour
 				uiManager.DisableAllUI ();
 				uiManager.gamePlayUI.gameObject.SetActive (true);
 				GameManager.instance.OnGameModeSelected (a);
-			} else {
+			}
+			else if(a == 4)
+			{
+				gameManager.isRandomPlayer = true;
+				ServerRoomPanel.SetActive (true);
+			}
+			else {
 				if (GameManager.instance.currentGameType == GameType.OnLine) {
 					ServerRoomPanel.SetActive (true);
 					SocialManager.Instance.facebookManager.UserProfile ();

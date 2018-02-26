@@ -114,7 +114,8 @@ public class FacebookHandler : MonoBehaviour
 		if (FB.IsLoggedIn) {
 			FB.API ("me?fields=id,name,friends.limit(50){name,picture}", HttpMethod.GET, this.GetFreindCallback);
 		} else {
-			LoginForFriendsList ();
+			GetFriendAsGuest ();
+			//LoginForFriendsList ();
 		}
 
 	}
@@ -134,10 +135,39 @@ public class FacebookHandler : MonoBehaviour
 
 	[HideInInspector]
 	bool isFrndsAvials = false;
-
+	void GetFriendAsGuest()
+	{
+		List<string> onlyGuest = new List<string> ();
+		for (int i = 0; i < ConnectionManager.Instance.onlineFriends.Count; i++) {
+			string str = ConnectionManager.Instance.onlineFriends [i];
+			if (str [0] == 'G') {
+				onlyGuest.Add (str);
+				Debug.Log (str+"____________________________::::::::::");
+				//instance friends
+				GameObject g = Instantiate (FriendPrefab) as GameObject;
+				g.SetActive (true);
+				g.transform.SetParent (parentObject);
+				g.transform.localScale = Vector3.one;
+				g.transform.position = Vector3.zero;
+				FriendsObjectList.Add (g);
+				g.GetComponent<FriendsDetails> ().Name.text = str ;
+				Toggle btn = g.GetComponentInChildren<Toggle> ();
+				btn.group = toggleGroup;
+				string id = str;
+				g.GetComponent<FriendsDetails> ().ID = System.Convert.ToInt64 (id);
+				AddListener (btn, id);
+				if (ConnectionManager.Instance.onlineFriends.Contains (id)) {
+					g.GetComponent<FriendsDetails> ().SetOnline (true);
+				} else {
+					g.GetComponent<FriendsDetails> ().SetOnline (false);
+				}
+			}
+		}
+	}
 	void GetFreindCallback (IResult result)
 	{
-		
+		if(GameManager.instance.isRandomPlayer)
+			GetFriendAsGuest ();
 		DestroyFriendsList ();
 		string resposne = result.RawResult;
 		Debug.Log (resposne);

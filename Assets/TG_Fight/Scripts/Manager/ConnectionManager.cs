@@ -51,13 +51,19 @@ public class ConnectionManager : MonoBehaviour
 		if (Instance == null) {
 			Instance = this;
 			DontDestroyOnLoad (this.gameObject);
+			myID = GetRandomID ();
 		} else {
 			DestroyImmediate (this.gameObject);
 			return;
 		}
 //		MakeConnection ();
 	}
-
+	string GetRandomID()
+	{
+		string str = "";
+		str = "Guest " + UnityEngine.Random.Range (0, 10) + UnityEngine.Random.Range (0, 10) + UnityEngine.Random.Range (0, 10) + UnityEngine.Random.Range (0, 10) + UnityEngine.Random.Range (0, 10) + "";
+		return str;
+	}
 	public void SetConnectionID (bool p)
 	{
 		if (p) {

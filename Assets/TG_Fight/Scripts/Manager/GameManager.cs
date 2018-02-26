@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
 	public GameType currentGameType;
 	public int totalNoOfGoat;
 	public int totalNoOfTiger;
-
+	public bool isRandomPlayer = false;
 	public bool showTutorial = false;
 	public Toggle _toggle;
 
