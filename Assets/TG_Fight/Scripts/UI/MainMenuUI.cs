@@ -18,7 +18,7 @@ public class MainMenuUI : MonoBehaviour
 	UIManager uiManager;
 	public Text username;
 	public  Image ProfilePic;
-
+	int curMode;
 	void OnEnable ()
 	{
 		gameManager = GameManager.instance;
@@ -30,16 +30,20 @@ public class MainMenuUI : MonoBehaviour
 	public void OnGameModeSelected (int a)
 	{
 		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
-		SelectPlayer (a);
+		curMode = a;
+//		SelectPlayer ();
+		selectPlayerPanel.SetActive (true);
 
 	}
 
-	public void SelectPlayer (int a)
+	public void SelectPlayer ()
 	{
-		selectPlayerPanel.SetActive (true);
-
+		int a = curMode;
+//		selectPlayerPanel.SetActive (true);
+		Debug.Log (a+"---");
 		gameManager.isRandomPlayer = false;
-		selectPlayerPanel.GetComponentInChildren<Button> ().onClick.AddListener (() => {
+			Debug.Log (a+"--dd-");
+
 			selectPlayerPanel.SetActive (false);
 			if (tigerTgl.isOn == true) {
 				gameManager.myAnimalType = eAnimalType.tiger;
@@ -82,7 +86,6 @@ public class MainMenuUI : MonoBehaviour
 					//UIManager.instance.NoINternetDisplay ();
 				}
 			}
-		});
 	}
 
 	public void OnClickWhatsAppShare ()
