@@ -157,6 +157,12 @@ public class MainMenuUI : MonoBehaviour
 		if (!isSettingOn) {
 			settingPanle.SetActive (false);
 			settingPanle.transform.position = settingStartPos.position;
+			if (uiManager.pausePanel.activeInHierarchy) {
+				GameManager.instance.currGameStatus = eGameStatus.pause;
+				Time.timeScale = 0;
+			} else {
+				GameManager.instance.currGameStatus = eGameStatus.mainmenu;
+			}
 		}
 	}
 
