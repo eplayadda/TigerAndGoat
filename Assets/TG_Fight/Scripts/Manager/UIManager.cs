@@ -42,27 +42,45 @@ public class UIManager : MonoBehaviour
 	void LoadingDisable ()
 	{
 		panelLoading.SetActive (false);
+		SocialManager.Instance.facebookManager.mStart ();
 		TutorialReset ();
 	}
 
 	void Update ()
 	{
-		if (Input.GetKey (KeyCode.Escape) && GameManager.instance.currGameStatus == eGameStatus.play) {
-			if (GameManager.instance.currGameMode != eGameMode.vServerMulltiPlayer) {
-				pausePanel.SetActive (true);
-				GameManager.instance.currGameStatus = eGameStatus.pause;
-				Time.timeScale = 0;
-			} else {
-				GameManager.instance.currGameStatus = eGameStatus.none;
-				pausePanel.SetActive (false);
-				gamePlayUI.gameObject.SetActive (false);
-				mainMenuUI.gameObject.SetActive (true);
-				ConnectionManager.Instance.OnGameOverSendData ();
-				Time.timeScale = 1;
-			}
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			if (GameManager.instance.currGameStatus == eGameStatus.play) {
+				//if (GameManager.instance.currGameMode != eGameMode.vServerMulltiPlayer) 
+				{
+					//pausePanel.SetActive (true);
+					//GameManager.instance.currGameStatus = eGameStatus.pause;
+					//Time.timeScale = 0;
+					gamePlayUI.OnBackClicked ();
+				} 
+//					else {
+//					GameManager.instance.currGameStatus = eGameStatus.none;
+//					pausePanel.SetActive (false);
+//					gamePlayUI.gameObject.SetActive (false);
+//					mainMenuUI.gameObject.SetActive (true);
+//					ConnectionManager.Instance.OnGameOverSendData ();
+//					Time.timeScale = 1;
+//				}
 
-		} else if (Input.GetKey (KeyCode.Escape) && GameManager.instance.currGameStatus != eGameStatus.play) {
-			ExitPanleActive ();
+			}
+			if (GameManager.instance.currGameStatus == eGameStatus.pause) {
+				pauseMenuUI.OnClickResume ();
+				
+			}
+			if (GameManager.instance.currGameStatus == eGameStatus.setting) {
+				mainMenuUI.OnClickBackSetting ();
+				
+			}
+			if (GameManager.instance.currGameStatus == eGameStatus.playerselection) {
+				mainMenuUI.PlayerSelectionBack ();
+			} 
+			if (GameManager.instance.currGameStatus == eGameStatus.mainmenu) {
+				ExitPanleActive ();
+			}
 		}
 	}
 
@@ -191,11 +209,10 @@ public class UIManager : MonoBehaviour
 
 	public void OnMenuBttnClicked ()
 	{
-		
 		if (GameManager.instance.currGameMode != eGameMode.vServerMulltiPlayer) {
 			pausePanel.SetActive (true);
-			GameManager.instance.currGameStatus = eGameStatus.pause;
-			Time.timeScale = 0;
+			Invoke ("PauseDelay", 0.2f);
+
 		} else {
 			GameManager.instance.currGameStatus = eGameStatus.none;
 			pausePanel.SetActive (false);
@@ -203,8 +220,13 @@ public class UIManager : MonoBehaviour
 			mainMenuUI.gameObject.SetActive (true);
 			Time.timeScale = 1;
 			friendDecliendPanel.SetActive (false);
-
 		}
+	}
+
+	void PauseDelay ()
+	{
+		GameManager.instance.currGameStatus = eGameStatus.pause;
+		Time.timeScale = 0;
 	}
 
 	public void OnClickYes ()

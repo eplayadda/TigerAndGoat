@@ -19,12 +19,16 @@ public class MainMenuUI : MonoBehaviour
 	public Text username;
 	public  Image ProfilePic;
 	int curMode;
+
 	void OnEnable ()
 	{
+		GameManager.instance.currGameStatus = eGameStatus.mainmenu;
 		gameManager = GameManager.instance;
 		uiManager = UIManager.instance;
 		ServerRoomPanel.SetActive (false);
 		ScoreHandler.instance.GetCoin ();
+		AdsHandler.Instance.ShowBannerAdsMenuPage ();
+		AdsHandler.Instance.HideBannerAdsPausePage ();
 	}
 
 	public void OnGameModeSelected (int a)
@@ -32,60 +36,69 @@ public class MainMenuUI : MonoBehaviour
 		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
 		curMode = a;
 //		SelectPlayer ();
+		GameManager.instance.currGameStatus = eGameStatus.playerselection;
 		selectPlayerPanel.SetActive (true);
 
+	}
+
+	public void PlayerSelectionBack ()
+	{
+		Invoke ("MainMenuDelay", 0.2f);
+		selectPlayerPanel.SetActive (false);
+	}
+
+	void MainMenuDelay ()
+	{
+		GameManager.instance.currGameStatus = eGameStatus.mainmenu;
 	}
 
 	public void SelectPlayer ()
 	{
 		int a = curMode;
 //		selectPlayerPanel.SetActive (true);
-		Debug.Log (a+"---");
+		Debug.Log (a + "---");
 		gameManager.isRandomPlayer = false;
-			Debug.Log (a+"--dd-");
+		Debug.Log (a + "--dd-");
 
-			selectPlayerPanel.SetActive (false);
-			if (tigerTgl.isOn == true) {
-				gameManager.myAnimalType = eAnimalType.tiger;
-				gameManager.friendAnimalType = eAnimalType.goat;
-				GameManager.instance.currTurnStatus = eTurnStatus.friend;
-				if (a == 1) {
-					uiManager.gamePlayUI.tigerText.text = "You";
-					uiManager.gamePlayUI.goatText.text = "Computer";
-				}
+		selectPlayerPanel.SetActive (false);
+		if (tigerTgl.isOn == true) {
+			gameManager.myAnimalType = eAnimalType.tiger;
+			gameManager.friendAnimalType = eAnimalType.goat;
+			GameManager.instance.currTurnStatus = eTurnStatus.friend;
+			if (a == 1) {
+				uiManager.gamePlayUI.tigerText.text = "You";
+				uiManager.gamePlayUI.goatText.text = "Computer";
+			}
 
+		}
+		if (goatTgl.isOn == true) {
+			gameManager.myAnimalType = eAnimalType.goat;
+			gameManager.friendAnimalType = eAnimalType.tiger;
+			GameManager.instance.currTurnStatus = eTurnStatus.my;
+			if (a == 1) {
+				uiManager.gamePlayUI.tigerText.text = "Computer";
+				uiManager.gamePlayUI.goatText.text = "You";
 			}
-			if (goatTgl.isOn == true) {
-				gameManager.myAnimalType = eAnimalType.goat;
-				gameManager.friendAnimalType = eAnimalType.tiger;
-				GameManager.instance.currTurnStatus = eTurnStatus.my;
-				if (a == 1) {
-					uiManager.gamePlayUI.tigerText.text = "Computer";
-					uiManager.gamePlayUI.goatText.text = "You";
-				}
-			}
-			if (a < 3) {
-				gameManager.currGameStatus = eGameStatus.play;
-				//GameManager.instance.showTutorial = true;
-				UIManager.instance.DisplayTutorial ();
-				uiManager.DisableAllUI ();
-				uiManager.gamePlayUI.gameObject.SetActive (true);
-				GameManager.instance.OnGameModeSelected (a);
-			}
-			else if(a == 4)
-			{
-				gameManager.isRandomPlayer = true;
+		}
+		if (a < 3) {
+			gameManager.currGameStatus = eGameStatus.play;
+			//GameManager.instance.showTutorial = true;
+			UIManager.instance.DisplayTutorial ();
+			uiManager.DisableAllUI ();
+			uiManager.gamePlayUI.gameObject.SetActive (true);
+			GameManager.instance.OnGameModeSelected (a);
+		} else if (a == 4) {
+			gameManager.isRandomPlayer = true;
+			ServerRoomPanel.SetActive (true);
+		} else {
+			if (GameManager.instance.currentGameType == GameType.OnLine) {
 				ServerRoomPanel.SetActive (true);
+				SocialManager.Instance.facebookManager.UserProfile ();
+			} else {
+				UIManager.instance.fbLoginCheckPanel.SetActive (true);
+				//UIManager.instance.NoINternetDisplay ();
 			}
-			else {
-				if (GameManager.instance.currentGameType == GameType.OnLine) {
-					ServerRoomPanel.SetActive (true);
-					SocialManager.Instance.facebookManager.UserProfile ();
-				} else {
-					UIManager.instance.fbLoginCheckPanel.SetActive (true);
-					//UIManager.instance.NoINternetDisplay ();
-				}
-			}
+		}
 	}
 
 	public void OnClickWhatsAppShare ()
@@ -124,7 +137,7 @@ public class MainMenuUI : MonoBehaviour
 	public void OnSettingActive ()
 	{
 		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
-
+		GameManager.instance.currGameStatus = eGameStatus.setting;
 		isSettingOn = true;
 		settingPanle.SetActive (true);
 		UIAnimationController.Instance.SettingPanelAnimation (settingPanle, 0);

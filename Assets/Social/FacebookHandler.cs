@@ -25,7 +25,7 @@ public class FacebookHandler : MonoBehaviour
 	private List<string> FriendsIdList = new List<string> ();
 	private List<GameObject> FriendsObjectList = new List<GameObject> ();
 
-	void Start ()
+	public void mStart ()
 	{ 
 		FB.Init (OnInitComplete, OnHideUnity);
 		toggleGroup = SocialManager.Instance.GetComponent<ToggleGroup> ();
@@ -138,7 +138,8 @@ public class FacebookHandler : MonoBehaviour
 
 	[HideInInspector]
 	bool isFrndsAvials = false;
-	void GetFriendAsGuest()
+
+	void GetFriendAsGuest ()
 	{
 		DestroyFriendsList ();
 		List<string> onlyGuest = new List<string> ();
@@ -146,7 +147,7 @@ public class FacebookHandler : MonoBehaviour
 			string str = ConnectionManager.Instance.onlineFriends [i];
 			if (str [0] == 'G') {
 				onlyGuest.Add (str);
-				Debug.Log (str+"____________________________::::::::::");
+				Debug.Log (str + "____________________________::::::::::");
 				//instance friends
 				GameObject g = Instantiate (FriendPrefab) as GameObject;
 				g.SetActive (true);
@@ -154,7 +155,7 @@ public class FacebookHandler : MonoBehaviour
 				g.transform.localScale = Vector3.one;
 				g.transform.position = Vector3.zero;
 				FriendsObjectList.Add (g);
-				g.GetComponent<FriendsDetails> ().Name.text = str ;
+				g.GetComponent<FriendsDetails> ().Name.text = str;
 				Toggle btn = g.GetComponentInChildren<Toggle> ();
 				btn.group = toggleGroup;
 				string id = str;
@@ -168,10 +169,11 @@ public class FacebookHandler : MonoBehaviour
 			}
 		}
 	}
+
 	void GetFreindCallback (IResult result)
 	{
 		DestroyFriendsList ();
-		if(GameManager.instance.isRandomPlayer)
+		if (GameManager.instance.isRandomPlayer)
 			GetFriendAsGuest ();
 		string resposne = result.RawResult;
 		Debug.Log (resposne);

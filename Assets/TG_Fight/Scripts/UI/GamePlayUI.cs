@@ -18,6 +18,7 @@ public class GamePlayUI : MonoBehaviour
 		gameManager = GameManager.instance;
 		uiManager = UIManager.instance;
 		waitingPanel.SetActive (false);
+
 	}
 
 	public void OnBackClicked ()

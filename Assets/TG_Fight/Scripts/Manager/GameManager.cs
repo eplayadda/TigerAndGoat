@@ -6,8 +6,11 @@ using UnityEngine.UI;
 public enum eGameStatus
 {
 	none,
+	mainmenu,
+	playerselection,
 	play,
 	pause,
+	setting,
 	over
 }
 
@@ -83,17 +86,19 @@ public class GameManager : MonoBehaviour
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		StartCoroutine (GameAllow ());
 	}
-	public void TutorialAllow()
+
+	public void TutorialAllow ()
 	{
 		Debug.Log (_toggle.isOn);
 		if (_toggle.isOn) {
 			showTutorial = true;
-			PlayerPrefs.SetInt ("Tutorials",1);
+			PlayerPrefs.SetInt ("Tutorials", 1);
 		} else {
 			showTutorial = false;
-			PlayerPrefs.SetInt ("Tutorials",0);
+			PlayerPrefs.SetInt ("Tutorials", 0);
 		}
 	}
+
 	IEnumerator GameAllow ()
 	{
 		if (PlayerPrefs.GetInt ("Tutorials") == 1) {

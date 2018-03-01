@@ -46,6 +46,13 @@ public class PauseMenuUI : MonoBehaviour
 		UIManager.instance.ExitPanleActive ();
 	}
 
+
+	public void OnClickSetting ()
+	{
+		Time.timeScale = 1;
+		UIManager.instance.mainMenuUI.OnSettingActive ();
+	}
+
 	public void PauseMenuUICallBack ()
 	{
 		if (GameManager.instance.currGameStatus != eGameStatus.pause) {

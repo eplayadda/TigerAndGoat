@@ -9,6 +9,7 @@ public class GameOverUI : MonoBehaviour
 
 	public Text msgTxt;
 	public Text winStatus;
+	public GameObject WinnerImage;
 
 	void OnEnable ()
 	{
@@ -21,6 +22,8 @@ public class GameOverUI : MonoBehaviour
 			msgTxt.text = "Goat Win The Game";
 		}
 		GameResult ();
+		AdsHandler.Instance.HideBannerAdsMenuPage ();
+		AdsHandler.Instance.ShowBannerAdsPausePage ();
 
 	}
 
@@ -33,6 +36,7 @@ public class GameOverUI : MonoBehaviour
 
 		} else {
 			winStatus.text = "You Lose";
+			WinnerImage.SetActive (false);
 			AudioManager.Instance.PlaySound (AudioManager.SoundType.GameOver);
 
 		}
