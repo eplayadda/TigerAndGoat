@@ -117,8 +117,8 @@ public class FacebookHandler : MonoBehaviour
 		if (FB.IsLoggedIn) {
 			FB.API ("me?fields=id,name,friends.limit(50){name,picture}", HttpMethod.GET, this.GetFreindCallback);
 		} else {
-//			GetFriendAsGuest ();
-			LoginForFriendsList ();
+			GetFriendAsGuest ();
+//			LoginForFriendsList ();
 		}
 
 	}

@@ -30,6 +30,7 @@ public class ConnectionManager : MonoBehaviour
 	//"http://52.11.67.198/eLarningHub/";
 	//string baseUrl = "http://localhost:30359/eLarningHub/eLarningHub/";
 	public string myID = "1";
+	 string guestID;
 	public string friedID = "1";
 	public List<string> onlineFriends = new List<string> ();
 	bool isLatestOnline;
@@ -52,6 +53,7 @@ public class ConnectionManager : MonoBehaviour
 			Instance = this;
 			DontDestroyOnLoad (this.gameObject);
 			myID = GetRandomID ();
+			guestID = myID;
 		} else {
 			DestroyImmediate (this.gameObject);
 			return;
@@ -289,7 +291,7 @@ public class ConnectionManager : MonoBehaviour
 //        UIManager.instance.OnSignalRConnected ();
 		var str = msg.Arguments [0] as object[];
 		for (int i = 0; i < str.Length; i++) {
-			if (myID != str [i].ToString ())
+			if (myID != str [i].ToString () && guestID != str [i].ToString ())
 				onlineFriends.Add (str [i].ToString ());
 		}
 		Debug.Log (str [0].ToString () + "" + str.Length);
