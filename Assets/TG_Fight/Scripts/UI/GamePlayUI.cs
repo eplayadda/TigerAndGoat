@@ -15,6 +15,8 @@ public class GamePlayUI : MonoBehaviour
 
 	void OnEnable ()
 	{
+		AdsHandler.Instance.HideBannerAdsMenuPage ();
+		AdsHandler.Instance.HideBannerAdsPausePage ();
 		gameManager = GameManager.instance;
 		uiManager = UIManager.instance;
 		waitingPanel.SetActive (false);
@@ -23,6 +25,8 @@ public class GamePlayUI : MonoBehaviour
 
 	public void OnBackClicked ()
 	{
+		AdsHandler.Instance.HideBannerAdsMenuPage ();
+		AdsHandler.Instance.HideBannerAdsPausePage ();
 		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
 
 		if (GameManager.instance.currGameMode != eGameMode.vServerMulltiPlayer) {

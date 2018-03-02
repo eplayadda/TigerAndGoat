@@ -43,6 +43,7 @@ public class PauseMenuUI : MonoBehaviour
 
 	public void OnClickQuit ()
 	{
+		Time.timeScale = 1;
 		UIManager.instance.ExitPanleActive ();
 	}
 

@@ -11,7 +11,8 @@ public enum eGameStatus
 	play,
 	pause,
 	setting,
-	over
+	exit,
+	gameover
 }
 
 public enum eGameMode

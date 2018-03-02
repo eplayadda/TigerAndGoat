@@ -34,8 +34,7 @@ namespace GoogleMobileAds.Api
             this.client = (IBannerClient)method.Invoke(null, null);
             client.CreateBannerView(adUnitId, adSize, position);
 
-            Utils.CheckInitialization();
-            ConfigureBannerEvents();
+            configureBannerEvents();
         }
 
         // Creates a BannerView with a custom position.
@@ -49,8 +48,7 @@ namespace GoogleMobileAds.Api
             this.client = (IBannerClient)method.Invoke(null, null);
             client.CreateBannerView(adUnitId, adSize, x, y);
 
-            Utils.CheckInitialization();
-            ConfigureBannerEvents();
+            configureBannerEvents();
         }
 
         // These are the ad callback events that can be hooked into.
@@ -88,37 +86,13 @@ namespace GoogleMobileAds.Api
             client.DestroyBannerView();
         }
 
-        // Returns the height of the BannerView in pixels.
-        public float GetHeightInPixels()
-        {
-            return client.GetHeightInPixels();
-        }
-
-        // Returns the width of the BannerView in pixels.
-        public float GetWidthInPixels()
-        {
-            return client.GetWidthInPixels();
-        }
-
-        // Set the position of the BannerView using standard position.
-        public void SetPosition(AdPosition adPosition)
-        {
-            client.SetPosition(adPosition);
-        }
-
-        // Set the position of the BannerView using custom position.
-        public void SetPosition(int x, int y)
-        {
-            client.SetPosition(x, y);
-        }
-
-        private void ConfigureBannerEvents()
+        private void configureBannerEvents()
         {
             this.client.OnAdLoaded += (sender, args) =>
             {
                 if (this.OnAdLoaded != null)
                 {
-                    MobileAdsEventExecutor.executeInUpdate(() => this.OnAdLoaded(this, args));
+                    this.OnAdLoaded(this, args);
                 }
             };
 
@@ -126,7 +100,7 @@ namespace GoogleMobileAds.Api
             {
                 if (this.OnAdFailedToLoad != null)
                 {
-                    MobileAdsEventExecutor.executeInUpdate(() => this.OnAdFailedToLoad(this, args));
+                    this.OnAdFailedToLoad(this, args);
                 }
             };
 
@@ -134,7 +108,7 @@ namespace GoogleMobileAds.Api
             {
                 if (this.OnAdOpening != null)
                 {
-                    MobileAdsEventExecutor.executeInUpdate(() => this.OnAdOpening(this, args));
+                    this.OnAdOpening(this, args);
                 }
             };
 
@@ -142,7 +116,7 @@ namespace GoogleMobileAds.Api
             {
                 if (this.OnAdClosed != null)
                 {
-                    MobileAdsEventExecutor.executeInUpdate(() => this.OnAdClosed(this, args));
+                    this.OnAdClosed(this, args);
                 }
             };
 
@@ -150,15 +124,9 @@ namespace GoogleMobileAds.Api
             {
                 if (this.OnAdLeavingApplication != null)
                 {
-                    MobileAdsEventExecutor.executeInUpdate(() => this.OnAdLeavingApplication(this, args));
+                    this.OnAdLeavingApplication(this, args);
                 }
             };
-        }
-
-        // Returns the mediation adapter class name.
-        public string MediationAdapterClassName()
-        {
-            return this.client.MediationAdapterClassName();
         }
     }
 }

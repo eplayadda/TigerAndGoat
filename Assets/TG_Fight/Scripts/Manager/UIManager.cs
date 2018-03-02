@@ -44,6 +44,7 @@ public class UIManager : MonoBehaviour
 		panelLoading.SetActive (false);
 		SocialManager.Instance.facebookManager.mStart ();
 		TutorialReset ();
+		AdsHandler.Instance.ShowBannerAdsMenuPage ();
 	}
 
 	void Update ()
@@ -78,14 +79,18 @@ public class UIManager : MonoBehaviour
 			if (GameManager.instance.currGameStatus == eGameStatus.playerselection) {
 				mainMenuUI.PlayerSelectionBack ();
 			} 
-			if (GameManager.instance.currGameStatus == eGameStatus.mainmenu) {
+			if (GameManager.instance.currGameStatus == eGameStatus.mainmenu || GameManager.instance.currGameStatus == eGameStatus.gameover) {
 				ExitPanleActive ();
 			}
+//			if (GameManager.instance.currGameStatus == eGameStatus.exit) {
+//				OnClickNo ();
+//			}
 		}
 	}
 
 	public void ExitPanleActive ()
 	{
+		//GameManager.instance.currGameStatus = eGameStatus.exit;
 		exitPanel.SetActive (true);
 		UIAnimationController.Instance.ExitPanleAnimation (exitPanel, exitEndPos.localPosition.x);
 	}
@@ -238,6 +243,9 @@ public class UIManager : MonoBehaviour
 	{
 		exitPanel.SetActive (false);
 		exitPanel.transform.localPosition = exitStartPos.localPosition;
+		if (gameOverUI.isGameOver) {
+			GameManager.instance.currGameStatus = eGameStatus.gameover;
+		}
 	}
 
 }
