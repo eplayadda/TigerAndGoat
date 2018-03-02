@@ -34,8 +34,7 @@ namespace GoogleMobileAds.Api
             this.client = (INativeExpressAdClient)method.Invoke(null, null);
             this.client.CreateNativeExpressAdView(adUnitId, adSize, position);
 
-            Utils.CheckInitialization();
-            ConfigureNativeExpressAdEvents();
+            configureNativeExpressAdEvents();
         }
 
         // Creates a NativeExpressAd with a custom position.
@@ -49,8 +48,7 @@ namespace GoogleMobileAds.Api
             this.client = (INativeExpressAdClient)method.Invoke(null, null);
             this.client.CreateNativeExpressAdView(adUnitId, adSize, x, y);
 
-            Utils.CheckInitialization();
-            ConfigureNativeExpressAdEvents();
+            configureNativeExpressAdEvents();
         }
 
         // These are the ad callback events that can be hooked into.
@@ -88,53 +86,47 @@ namespace GoogleMobileAds.Api
             this.client.DestroyNativeExpressAdView();
         }
 
-        private void ConfigureNativeExpressAdEvents()
+        private void configureNativeExpressAdEvents()
         {
             this.client.OnAdLoaded += (sender, args) =>
             {
-                if (this.OnAdLoaded != null)
+                if(this.OnAdLoaded != null)
                 {
-                    MobileAdsEventExecutor.executeInUpdate(() => this.OnAdLoaded(this, args));
+                    this.OnAdLoaded(this, args);
                 }
             };
 
             this.client.OnAdFailedToLoad += (sender, args) =>
             {
-                if (this.OnAdFailedToLoad != null)
+                if(this.OnAdFailedToLoad != null)
                 {
-                    MobileAdsEventExecutor.executeInUpdate(() => this.OnAdFailedToLoad(this, args));
+                    this.OnAdFailedToLoad(this, args);
                 }
             };
 
             this.client.OnAdOpening += (sender, args) =>
             {
-                if (this.OnAdOpening != null)
+                if(this.OnAdOpening != null)
                 {
-                    MobileAdsEventExecutor.executeInUpdate(() => this.OnAdOpening(this, args));
+                    this.OnAdOpening(this, args);
                 }
             };
 
             this.client.OnAdClosed += (sender, args) =>
             {
-                if (this.OnAdClosed != null)
+                if(this.OnAdClosed != null)
                 {
-                    MobileAdsEventExecutor.executeInUpdate(() => this.OnAdClosed(this, args));
+                    this.OnAdClosed(this, args);
                 }
             };
 
             this.client.OnAdLeavingApplication += (sender, args) =>
             {
-                if (this.OnAdLeavingApplication != null)
+                if(this.OnAdLeavingApplication != null)
                 {
-                    MobileAdsEventExecutor.executeInUpdate(() => this.OnAdLeavingApplication(this, args));
+                    this.OnAdLeavingApplication(this, args);
                 }
             };
-        }
-
-        // Returns the mediation adapter class name.
-        public string MediationAdapterClassName()
-        {
-            return this.client.MediationAdapterClassName();
         }
     }
 }

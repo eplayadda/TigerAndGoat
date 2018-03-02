@@ -69,6 +69,14 @@ public class MainMenuUI : MonoBehaviour
 				uiManager.gamePlayUI.tigerText.text = "You";
 				uiManager.gamePlayUI.goatText.text = "Computer";
 			}
+			if (a == 2) {
+				uiManager.gamePlayUI.tigerText.text = "You";
+				uiManager.gamePlayUI.goatText.text = "Player 2";
+			}
+			if (a == 3) {
+				uiManager.gamePlayUI.tigerText.text = "You";
+				uiManager.gamePlayUI.goatText.text = "Friend";
+			}
 
 		}
 		if (goatTgl.isOn == true) {
@@ -77,6 +85,14 @@ public class MainMenuUI : MonoBehaviour
 			GameManager.instance.currTurnStatus = eTurnStatus.my;
 			if (a == 1) {
 				uiManager.gamePlayUI.tigerText.text = "Computer";
+				uiManager.gamePlayUI.goatText.text = "You";
+			}
+			if (a == 2) {
+				uiManager.gamePlayUI.tigerText.text = "Player 2";
+				uiManager.gamePlayUI.goatText.text = "You";
+			}
+			if (a == 3) {
+				uiManager.gamePlayUI.tigerText.text = "Friend";
 				uiManager.gamePlayUI.goatText.text = "You";
 			}
 		}
@@ -91,6 +107,8 @@ public class MainMenuUI : MonoBehaviour
 			gameManager.isRandomPlayer = true;
 			ServerRoomPanel.SetActive (true);
 		} else {
+			AdsHandler.Instance.HideBannerAdsMenuPage ();
+			AdsHandler.Instance.HideBannerAdsPausePage ();
 			if (GameManager.instance.currentGameType == GameType.OnLine) {
 				ServerRoomPanel.SetActive (true);
 				SocialManager.Instance.facebookManager.UserProfile ();

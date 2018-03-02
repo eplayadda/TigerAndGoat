@@ -141,12 +141,6 @@ namespace GoogleMobileAds.iOS
             this.NativeExpressAdViewPtr = IntPtr.Zero;
         }
 
-        // Returns the mediation adapter class name.
-        public string MediationAdapterClassName()
-        {
-            return Externs.GADUMediationAdapterClassNameForNativeExpressAdView(this.NativeExpressAdViewPtr);
-        }
-
         public void Dispose()
         {
             this.DestroyNativeExpressAdView();

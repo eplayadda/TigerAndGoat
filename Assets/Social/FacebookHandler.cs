@@ -379,8 +379,6 @@ public class FacebookHandler : MonoBehaviour
 
 	public void LoginWithFacebook ()
 	{
-		if (!IsInternetAvailabe)
-			return;
 		FB.LogInWithReadPermissions (new List<string> (){ "public_profile", "email", "user_friends" }, this.APICallback);
 		FB.LogInWithPublishPermissions (new List<string> () { "publish_actions" }, this.APICallback);
 	}
@@ -510,8 +508,6 @@ public class FacebookHandler : MonoBehaviour
 
 	public void InviteFriends ()
 	{
-		if (!IsInternetAvailabe)
-			return;
 		if (FB.IsLoggedIn) {
 			FB.Mobile.AppInvite (new Uri (appStoreLink), null, this.InviteCallback);
 		} else {
@@ -531,7 +527,7 @@ public class FacebookHandler : MonoBehaviour
 
 	private void InviteFreindLoginCallback (ILoginResult result)
 	{
-		if (!string.IsNullOrEmpty (result.Error)) {
+		if (string.IsNullOrEmpty (result.Error)) {
 			InviteFriends ();
 		}
 	}

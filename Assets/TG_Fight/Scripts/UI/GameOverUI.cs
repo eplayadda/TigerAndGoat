@@ -10,15 +10,19 @@ public class GameOverUI : MonoBehaviour
 	public Text msgTxt;
 	public Text winStatus;
 	public GameObject WinnerImage;
+	public bool isGameOver;
 
 	void OnEnable ()
 	{
+		isGameOver = true;
+		AdsHandler.Instance.ShowBannerAdsMenuPage ();
+		AdsHandler.Instance.HideBannerAdsPausePage ();
 		uiManager = UIManager.instance;
 		if (BordManager.instace.currWinStatus == BordManager.eWinStatus.tiger) {
-			GameManager.instance.currGameStatus = eGameStatus.over;	
+			GameManager.instance.currGameStatus = eGameStatus.gameover;	
 			msgTxt.text = "Tiger Win The Game";
 		} else {
-			GameManager.instance.currGameStatus = eGameStatus.over;	
+			GameManager.instance.currGameStatus = eGameStatus.gameover;	
 			msgTxt.text = "Goat Win The Game";
 		}
 		GameResult ();

@@ -91,13 +91,7 @@ namespace GoogleMobileAds.Android
             this.nativeExpressAdView.Call("destroy");
         }
 
-        // Returns the mediation adapter class name.
-        public string MediationAdapterClassName()
-        {
-            return this.nativeExpressAdView.Call<string>("getMediationAdapterClassName");
-        }
-
-#region Callbacks from UnityAdListener.
+        #region Callbacks from UnityAdListener.
 
         public void onAdLoaded()
         {
@@ -143,7 +137,7 @@ namespace GoogleMobileAds.Android
             }
         }
 
-#endregion
+        #endregion
     }
 }
 

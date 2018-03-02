@@ -30,7 +30,7 @@ public class ConnectionManager : MonoBehaviour
 	//"http://52.11.67.198/eLarningHub/";
 	//string baseUrl = "http://localhost:30359/eLarningHub/eLarningHub/";
 	public string myID = "1";
-	 string guestID;
+	string guestID;
 	public string friedID = "1";
 	public List<string> onlineFriends = new List<string> ();
 	bool isLatestOnline;
@@ -53,6 +53,7 @@ public class ConnectionManager : MonoBehaviour
 			Instance = this;
 			DontDestroyOnLoad (this.gameObject);
 			myID = GetRandomID ();
+			UIManager.instance.mainMenuUI.username.text = myID;
 			guestID = myID;
 		} else {
 			DestroyImmediate (this.gameObject);
@@ -60,12 +61,14 @@ public class ConnectionManager : MonoBehaviour
 		}
 //		MakeConnection ();
 	}
-	string GetRandomID()
+
+	string GetRandomID ()
 	{
 		string str = "";
 		str = "Guest " + UnityEngine.Random.Range (0, 10) + UnityEngine.Random.Range (0, 10) + UnityEngine.Random.Range (0, 10) + UnityEngine.Random.Range (0, 10) + UnityEngine.Random.Range (0, 10) + "";
 		return str;
 	}
+
 	public void SetConnectionID (bool p)
 	{
 		if (p) {

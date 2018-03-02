@@ -1,8 +1,7 @@
 // Copyright 2016 Google Inc. All Rights Reserved.
 
-#import <Foundation/Foundation.h>
-
-#import <GoogleMobileAds/GoogleMobileAds.h>
+@import Foundation;
+@import GoogleMobileAds;
 
 #import "GADUTypes.h"
 
@@ -24,8 +23,7 @@
 - (instancetype)initWithNativeExpressAdClientReference:
                     (GADUTypeNativeExpressAdClientRef *)nativeExpressAdClient
                                               adUnitID:(NSString *)adUnitID
-                                                 width:(CGFloat)width
-                                                height:(CGFloat)height
+                                                adSize:(GADAdSize)size
                                       customAdPosition:(CGPoint)customAdPosition;
 
 /// A reference to the Unity native express ad client.
@@ -48,9 +46,6 @@
 
 /// The will leave application callback into Unity.
 @property(nonatomic, assign) GADUAdViewWillLeaveApplicationCallback willLeaveAppCallback;
-
-// Returns the mediation adapter class name.
-@property(nonatomic, readonly, copy) NSString *mediationAdapterClassName;
 
 /// Requests a native express ad. Additional targeting options can be supplied with a request
 /// object.
