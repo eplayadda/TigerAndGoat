@@ -104,6 +104,8 @@ public class MainMenuUI : MonoBehaviour
 			uiManager.gamePlayUI.gameObject.SetActive (true);
 			GameManager.instance.OnGameModeSelected (a);
 		} else if (a == 4) {
+			AdsHandler.Instance.HideBannerAdsMenuPage ();
+			AdsHandler.Instance.HideBannerAdsPausePage ();
 			gameManager.isRandomPlayer = true;
 			ServerRoomPanel.SetActive (true);
 		} else {
@@ -146,6 +148,7 @@ public class MainMenuUI : MonoBehaviour
 
 	public void OnCloseServerPanel ()
 	{
+		AdsHandler.Instance.ShowBannerAdsMenuPage ();
 		ServerRoomPanel.SetActive (false);
 
 	}
