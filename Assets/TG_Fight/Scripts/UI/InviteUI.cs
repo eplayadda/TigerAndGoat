@@ -27,18 +27,23 @@ public class InviteUI : MonoBehaviour
 			if (friendAnimalType == 1) {
 				GameManager.instance.currTurnStatus = eTurnStatus.friend;
 				friendAnimalType = 2;
+				uiManager.gamePlayUI.tigerText.text = "You";
+				uiManager.gamePlayUI.goatText.text = "Friend";
 			} else {
+				uiManager.gamePlayUI.tigerText.text = "Friend";
+				uiManager.gamePlayUI.goatText.text = "You";
 				friendAnimalType = 1;
 				GameManager.instance.currTurnStatus = eTurnStatus.my;
 			}
 			GameManager.instance.friendAnimalType = (eAnimalType)friendAnimalType;
 			ConnectionManager.Instance.IacceptChallage (1);
 			uiManager.OnFriendInviteAccepted ();
+			uiManager.friendDecliendPanel.SetActive (false);
 		} else {
 			ConnectionManager.Instance.IacceptChallage (0);
 
 		}
-		playerNameTxt.text = "Guest";
+		playerNameTxt.text = "Friend";
 	}
 
 }

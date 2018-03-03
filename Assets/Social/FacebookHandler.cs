@@ -142,6 +142,8 @@ public class FacebookHandler : MonoBehaviour
 	void GetFriendAsGuest ()
 	{
 		DestroyFriendsList ();
+
+
 		List<string> onlyGuest = new List<string> ();
 		for (int i = 0; i < ConnectionManager.Instance.onlineFriends.Count; i++) {
 			string str = ConnectionManager.Instance.onlineFriends [i];

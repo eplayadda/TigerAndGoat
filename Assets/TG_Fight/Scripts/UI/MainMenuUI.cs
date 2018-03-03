@@ -73,7 +73,7 @@ public class MainMenuUI : MonoBehaviour
 				uiManager.gamePlayUI.tigerText.text = "You";
 				uiManager.gamePlayUI.goatText.text = "Player 2";
 			}
-			if (a == 3) {
+			if (a == 3 || a == 4) {
 				uiManager.gamePlayUI.tigerText.text = "You";
 				uiManager.gamePlayUI.goatText.text = "Friend";
 			}
@@ -91,7 +91,7 @@ public class MainMenuUI : MonoBehaviour
 				uiManager.gamePlayUI.tigerText.text = "Player 2";
 				uiManager.gamePlayUI.goatText.text = "You";
 			}
-			if (a == 3) {
+			if (a == 3 || a == 4) {
 				uiManager.gamePlayUI.tigerText.text = "Friend";
 				uiManager.gamePlayUI.goatText.text = "You";
 			}

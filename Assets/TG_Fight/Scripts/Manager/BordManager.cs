@@ -354,7 +354,7 @@ public class BordManager : MonoBehaviour {
 					if(!isMe)
 						turnMsg.text = "Player 2";
 					else
-						turnMsg.text = "Player 1";
+						turnMsg.text = "You";
 				}
 				break;
 			case eGameMode.vServerMulltiPlayer:
