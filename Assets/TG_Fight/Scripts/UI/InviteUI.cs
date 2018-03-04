@@ -21,6 +21,7 @@ public class InviteUI : MonoBehaviour
 		gameObject.SetActive (false);
 
 		if (isAccepted) {
+			GameManager.instance.currGameStatus = eGameStatus.play;
 			GameManager.instance.currGameMode = eGameMode.vServerMulltiPlayer;
 			GameManager.instance.currPlayerIdentity = ePlayerIdentity.client;
 			GameManager.instance.myAnimalType = (eAnimalType)friendAnimalType;
@@ -39,6 +40,16 @@ public class InviteUI : MonoBehaviour
 			ConnectionManager.Instance.IacceptChallage (1);
 			uiManager.OnFriendInviteAccepted ();
 			uiManager.friendDecliendPanel.SetActive (false);
+			if (uiManager.pausePanel.activeInHierarchy) {
+				Time.timeScale = 1.0f;
+				uiManager.pauseMenuUI.PauseMenuUICallBack ();
+			}
+			if (uiManager.mainMenuUI.settingPanle.activeInHierarchy) {
+				uiManager.mainMenuUI.OnClickBackSetting ();
+			}
+			if (uiManager.mainMenuUI.selectPlayerPanel.activeInHierarchy) {
+				uiManager.mainMenuUI.PlayerSelectionBack ();
+			}
 		} else {
 			ConnectionManager.Instance.IacceptChallage (0);
 
