@@ -259,6 +259,7 @@ public class FacebookHandler : MonoBehaviour
 		Debug.Log ("SetFriendsId : " + id);
 		FB.API ("https" + "://graph.facebook.com/" + id + "/picture?width=128&height=128", HttpMethod.GET, delegate(IGraphResult avatarResult) {
 			if (avatarResult.Error != null) {
+				SocialManager.Instance.SetDefaultAvatar ();
 				Debug.Log (avatarResult.Error);
 			} else {
 
