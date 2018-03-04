@@ -24,7 +24,7 @@ public class SocialManager : MonoBehaviour
 	public ShareApp shareApplication;
 	public Image userProfile;
 	public Image friendProfile;
-	public Image defaultAvatar;
+	public Sprite defaultAvatar;
 
 	// Use this for initialization
 	void Start ()
@@ -140,7 +140,7 @@ public class SocialManager : MonoBehaviour
 
 	public void SetDefaultAvatar ()
 	{
-		friendProfile.sprite = defaultAvatar.sprite;
+		friendProfile.sprite = defaultAvatar;
 	}
 
 	public void ShareWithWhatsApp ()
