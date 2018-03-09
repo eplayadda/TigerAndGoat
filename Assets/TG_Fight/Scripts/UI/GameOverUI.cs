@@ -9,7 +9,10 @@ public class GameOverUI : MonoBehaviour
 
 	public Text msgTxt;
 	public Text winStatus;
-	public GameObject WinnerImage;
+	public GameObject[] WinnerImage;
+	public GameObject winnerLogo;
+	public Sprite[] winnerSprites;
+	public GameObject shareButton;
 	public bool isGameOver;
 
 	void OnEnable ()
@@ -19,9 +22,11 @@ public class GameOverUI : MonoBehaviour
 		AdsHandler.Instance.HideBannerAdsPausePage ();
 		uiManager = UIManager.instance;
 		if (BordManager.instace.currWinStatus == BordManager.eWinStatus.tiger) {
-			GameManager.instance.currGameStatus = eGameStatus.gameover;	
+			GameManager.instance.currGameStatus = eGameStatus.gameover;
+			winnerLogo.GetComponent<Image> ().sprite = winnerSprites [0];
 			msgTxt.text = "Tiger Win The Game";
 		} else {
+			winnerLogo.GetComponent<Image> ().sprite = winnerSprites [1];
 			GameManager.instance.currGameStatus = eGameStatus.gameover;	
 			msgTxt.text = "Goat Win The Game";
 		}
@@ -39,8 +44,10 @@ public class GameOverUI : MonoBehaviour
 			AudioManager.Instance.PlaySound (AudioManager.SoundType.Success);
 
 		} else {
-			winStatus.text = "You Lose";
-			WinnerImage.SetActive (false);
+			winStatus.text = "You Lost";
+			shareButton.SetActive (false);
+			WinnerImage [0].SetActive (false);
+			WinnerImage [1].SetActive (false);
 			AudioManager.Instance.PlaySound (AudioManager.SoundType.GameOver);
 
 		}
