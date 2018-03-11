@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
 	public GameObject exitPanel;
 	public Transform exitStartPos;
 	public Transform exitEndPos;
+	private bool isTutorialDone = false;
 
 	private float tutorialDelay = 5.0f;
 
@@ -50,14 +51,15 @@ public class UIManager : MonoBehaviour
 	void Update ()
 	{
 		if (Input.GetKeyDown (KeyCode.Escape)) {
-			if (GameManager.instance.currGameStatus == eGameStatus.play) {
-				//if (GameManager.instance.currGameMode != eGameMode.vServerMulltiPlayer) 
-				{
-					//pausePanel.SetActive (true);
-					//GameManager.instance.currGameStatus = eGameStatus.pause;
-					//Time.timeScale = 0;
-					gamePlayUI.OnBackClicked ();
-				} 
+			if (isTutorialDone) {
+				if (GameManager.instance.currGameStatus == eGameStatus.play) {
+					//if (GameManager.instance.currGameMode != eGameMode.vServerMulltiPlayer) 
+					{
+						//pausePanel.SetActive (true);
+						//GameManager.instance.currGameStatus = eGameStatus.pause;
+						//Time.timeScale = 0;
+						gamePlayUI.OnBackClicked ();
+					} 
 //					else {
 //					GameManager.instance.currGameStatus = eGameStatus.none;
 //					pausePanel.SetActive (false);
@@ -67,20 +69,21 @@ public class UIManager : MonoBehaviour
 //					Time.timeScale = 1;
 //				}
 
-			}
-			if (GameManager.instance.currGameStatus == eGameStatus.pause) {
-				pauseMenuUI.OnClickResume ();
+				}
+				if (GameManager.instance.currGameStatus == eGameStatus.pause) {
+					pauseMenuUI.OnClickResume ();
 				
-			}
-			if (GameManager.instance.currGameStatus == eGameStatus.setting) {
-				mainMenuUI.OnClickBackSetting ();
+				}
+				if (GameManager.instance.currGameStatus == eGameStatus.setting) {
+					mainMenuUI.OnClickBackSetting ();
 				
-			}
-			if (GameManager.instance.currGameStatus == eGameStatus.playerselection) {
-				mainMenuUI.PlayerSelectionBack ();
-			} 
-			if (GameManager.instance.currGameStatus == eGameStatus.mainmenu || GameManager.instance.currGameStatus == eGameStatus.gameover) {
-				ExitPanleActive ();
+				}
+				if (GameManager.instance.currGameStatus == eGameStatus.playerselection) {
+					mainMenuUI.PlayerSelectionBack ();
+				} 
+				if (GameManager.instance.currGameStatus == eGameStatus.mainmenu || GameManager.instance.currGameStatus == eGameStatus.gameover) {
+					ExitPanleActive ();
+				}
 			}
 //			if (GameManager.instance.currGameStatus == eGameStatus.exit) {
 //				OnClickNo ();
@@ -182,6 +185,7 @@ public class UIManager : MonoBehaviour
 	public void DisplayTutorial ()
 	{
 		if (GameManager.instance.showTutorial) {
+			isTutorialDone = false;
 			tutorialParent.SetActive (true);
 			tutorialLeft.SetActive (true);
 			UIAnimationController.Instance.TutorialAnimation (tutorialLeft);
@@ -205,6 +209,7 @@ public class UIManager : MonoBehaviour
 		tutorialRight.SetActive (false);
 		tutorialLeft.transform.localScale = Vector3.zero;
 		tutorialRight.transform.localScale = Vector3.zero;
+		isTutorialDone = true;
 	}
 
 	public void OnDicliend ()

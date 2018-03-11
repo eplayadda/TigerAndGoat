@@ -13,6 +13,8 @@ public class GameOverUI : MonoBehaviour
 	public GameObject winnerLogo;
 	public Sprite[] winnerSprites;
 	public GameObject shareButton;
+	public GameObject replayBtn1;
+	public GameObject replayBtn2;
 	public bool isGameOver;
 
 	void OnEnable ()
@@ -46,6 +48,8 @@ public class GameOverUI : MonoBehaviour
 		} else {
 			winStatus.text = "You Lost";
 			shareButton.SetActive (false);
+			replayBtn1.SetActive (false);
+			replayBtn2.SetActive (true);
 			WinnerImage [0].SetActive (false);
 			WinnerImage [1].SetActive (false);
 			AudioManager.Instance.PlaySound (AudioManager.SoundType.GameOver);
