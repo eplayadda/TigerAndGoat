@@ -162,7 +162,7 @@ public class FacebookHandler : MonoBehaviour
 				btn.group = toggleGroup;
 				string id = str;
 				//g.GetComponent<FriendsDetails> ().ID = System.Convert.ToInt64 (id);
-				AddListener (btn, id);
+				AddListener (btn, id, str);
 				if (ConnectionManager.Instance.onlineFriends.Contains (id)) {
 					g.GetComponent<FriendsDetails> ().SetOnline (true);
 				} else {
@@ -170,6 +170,7 @@ public class FacebookHandler : MonoBehaviour
 				}
 			}
 		}
+
 	}
 
 	void GetFreindCallback (IResult result)
@@ -194,13 +195,14 @@ public class FacebookHandler : MonoBehaviour
 			g.transform.localScale = Vector3.one;
 			g.transform.position = Vector3.zero;
 			FriendsObjectList.Add (g);
-			g.GetComponent<FriendsDetails> ().Name.text = resultValue ["name"].ToString ();
+			string name = resultValue ["name"].ToString ();
+			g.GetComponent<FriendsDetails> ().Name.text = name;
 			Toggle btn = g.GetComponentInChildren<Toggle> ();
 			btn.group = toggleGroup;
 			Debug.Log (resultValue ["name"].ToString () + "  , " + resultValue ["id"].ToString ());
 			string id = resultValue ["id"].ToString ();
 			g.GetComponent<FriendsDetails> ().ID = System.Convert.ToInt64 (id);
-			AddListener (btn, id);
+			AddListener (btn, id, name);
 			if (ConnectionManager.Instance.onlineFriends.Contains (id)) {
 				g.GetComponent<FriendsDetails> ().SetOnline (true);
 			} else {
@@ -229,11 +231,12 @@ public class FacebookHandler : MonoBehaviour
 		FriendsObjectList.Clear ();
 	}
 
-	private void AddListener (Toggle btn, string fbID)
+	private void AddListener (Toggle btn, string fbID, string name)
 	{
 		btn.onValueChanged.AddListener ((bool value) => {
 			if (value)
 				SetFriendsId (fbID);
+			SocialManager.Instance.UpdateFriendName (name);
 		});
 
 	}
@@ -269,6 +272,8 @@ public class FacebookHandler : MonoBehaviour
 		});
 
 	}
+
+
 
 
 	public void DownloadImageByID (string id)

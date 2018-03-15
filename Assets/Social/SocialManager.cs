@@ -148,4 +148,9 @@ public class SocialManager : MonoBehaviour
 		shareApplication.shareText ();
 	}
 
+	public void UpdateFriendName (string name)
+	{
+		UIManager.instance.mainMenuUI.selectedFriendName.text = name;
+	}
+
 }

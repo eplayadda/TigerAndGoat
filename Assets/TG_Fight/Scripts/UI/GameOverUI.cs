@@ -23,12 +23,12 @@ public class GameOverUI : MonoBehaviour
 		AdsHandler.Instance.ShowBannerAdsMenuPage ();
 		AdsHandler.Instance.HideBannerAdsPausePage ();
 		uiManager = UIManager.instance;
+		winnerLogo.GetComponent<Image> ().sprite = winnerSprites [(int)GameManager.instance.myAnimalType - 1];
 		if (BordManager.instace.currWinStatus == BordManager.eWinStatus.tiger) {
 			GameManager.instance.currGameStatus = eGameStatus.gameover;
-			winnerLogo.GetComponent<Image> ().sprite = winnerSprites [0];
 			msgTxt.text = "Tiger Win The Game";
 		} else {
-			winnerLogo.GetComponent<Image> ().sprite = winnerSprites [1];
+			
 			GameManager.instance.currGameStatus = eGameStatus.gameover;	
 			msgTxt.text = "Goat Win The Game";
 		}
@@ -42,8 +42,10 @@ public class GameOverUI : MonoBehaviour
 	{
 		if (BordManager.instace.currWinStatus.ToString () == GameManager.instance.myAnimalType.ToString ()) {
 			ScoreHandler.instance.SetScore ();
-			winStatus.text = "You Win";
+			winStatus.text = "You Won";
 			AudioManager.Instance.PlaySound (AudioManager.SoundType.Success);
+			WinnerImage [0].SetActive (true);
+			WinnerImage [1].SetActive (true);
 
 		} else {
 			winStatus.text = "You Lost";

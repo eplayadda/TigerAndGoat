@@ -18,6 +18,7 @@ public class MainMenuUI : MonoBehaviour
 	UIManager uiManager;
 	public Text username;
 	public  Image ProfilePic;
+	public Text selectedFriendName;
 	int curMode;
 
 	void OnEnable ()
