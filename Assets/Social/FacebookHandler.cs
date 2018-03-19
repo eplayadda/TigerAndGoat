@@ -25,6 +25,15 @@ public class FacebookHandler : MonoBehaviour
 	private List<string> FriendsIdList = new List<string> ();
 	private List<GameObject> FriendsObjectList = new List<GameObject> ();
 
+	void Start ()
+	{
+		int loginValue = PlayerPrefs.GetInt ("IsFbLogedIn");
+		if (loginValue == 1) {
+			UIManager.instance.loginPanel.SetActive (false);
+			UIManager.instance.mainMenuUI.gameObject.SetActive (true);
+		}
+	}
+
 	public void mStart ()
 	{ 
 		FB.Init (OnInitComplete, OnHideUnity);
@@ -59,6 +68,7 @@ public class FacebookHandler : MonoBehaviour
 		if (!FB.IsLoggedIn) { 
 			CallFBLogin (); 
 		} else {
+			PlayerPrefs.SetInt ("IsFbLogedIn", 1);
 			GameManager.instance.currentGameType = GameType.OnLine;
 			var token = Facebook.Unity.AccessToken.CurrentAccessToken;
 			userId = token.UserId.ToString ();
@@ -84,20 +94,23 @@ public class FacebookHandler : MonoBehaviour
 
 	private void CallFBLogin ()
 	{
+		Debug.Log ("CallFBLogin Methohd");
 		FB.LogInWithReadPermissions (new List<string> (){ "public_profile", "email", "user_friends" }, this.FBLoginCallBack);
-		FB.LogInWithPublishPermissions (new List<string> () { "publish_actions" }, this.FBLoginCallBack);
+		//FB.LogInWithPublishPermissions (new List<string> () { "publish_actions" }, this.FBLoginCallBack);
 	}
 
 	private void FBLoginCallBack (ILoginResult result)
 	{
+		Debug.Log ("Result " + result.ToString ());
 		if (result.Error == null) {
 			//debugText.text += "Login Success";
-			Debug.Log ("LoginSuccess" + result.RawResult);
 			var token = Facebook.Unity.AccessToken.CurrentAccessToken;
 			userId = token.UserId.ToString ();
+			Debug.Log ("LoginSuccess" + userId);
 			ConnectionManager.Instance.myID = userId;
 			//debugText.text += "\n" + userId;
 			UserProfile ();
+			PlayerPrefs.SetInt ("IsFbLogedIn", 1);
 			UIManager.instance.mainMenuUI.gameObject.SetActive (true);
 			UIManager.instance.loginPanel.SetActive (false);
 			ConnectionManager.Instance.MakeConnection ();
@@ -126,12 +139,13 @@ public class FacebookHandler : MonoBehaviour
 	private void LoginForFriendsList ()
 	{
 		FB.LogInWithReadPermissions (new List<string> (){ "public_profile", "email", "user_friends" }, this.FBLoginGetFriendCallBack);
-		FB.LogInWithPublishPermissions (new List<string> () { "publish_actions" }, this.FBLoginGetFriendCallBack);
+		//FB.LogInWithPublishPermissions (new List<string> () { "publish_actions" }, this.FBLoginGetFriendCallBack);
 	}
 
 	void FBLoginGetFriendCallBack (ILoginResult result)
 	{
 		if (string.IsNullOrEmpty (result.Error)) {
+			PlayerPrefs.SetInt ("IsFbLogedIn", 1);
 			GetFriends ();
 		}	
 	}
@@ -296,7 +310,7 @@ public class FacebookHandler : MonoBehaviour
 	{
 		Debug.Log ("OnFacebookShare");
 		if (FB.IsLoggedIn) {
-			FB.ShareLink (new System.Uri (appStoreLink), "MindSsmash", "want to bit me ? Download and play the Game", null, callback: ShareCallBck);
+			FB.ShareLink (new System.Uri (appStoreLink), "Huliya", "want to bit me ? Download and play the Game", null, callback: ShareCallBck);
 
 		} else {
 			Debug.Log ("Please Login");
@@ -536,6 +550,7 @@ public class FacebookHandler : MonoBehaviour
 	private void InviteFreindLoginCallback (ILoginResult result)
 	{
 		if (string.IsNullOrEmpty (result.Error)) {
+			PlayerPrefs.SetInt ("IsFbLogedIn", 1);
 			InviteFriends ();
 		}
 	}

@@ -46,6 +46,9 @@ public class GameOverUI : MonoBehaviour
 			AudioManager.Instance.PlaySound (AudioManager.SoundType.Success);
 			WinnerImage [0].SetActive (true);
 			WinnerImage [1].SetActive (true);
+			shareButton.SetActive (true);
+			replayBtn1.SetActive (true);
+			replayBtn2.SetActive (false);
 
 		} else {
 			winStatus.text = "You Lost";
