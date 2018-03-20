@@ -25,6 +25,7 @@ public class SocialManager : MonoBehaviour
 	public Image userProfile;
 	public Image friendProfile;
 	public Sprite defaultAvatar;
+	public bool isFriendsSelected;
 
 	// Use this for initialization
 	void Start ()

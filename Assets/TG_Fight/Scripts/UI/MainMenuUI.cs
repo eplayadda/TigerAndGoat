@@ -19,6 +19,7 @@ public class MainMenuUI : MonoBehaviour
 	public Text username;
 	public  Image ProfilePic;
 	public Text selectedFriendName;
+	public Text selectFriendPopup;
 	int curMode;
 
 	void OnEnable ()
@@ -138,12 +139,18 @@ public class MainMenuUI : MonoBehaviour
 
 	public void OnCreateRoom (int a)
 	{
-		uiManager.DisableAllUI ();
-		uiManager.gamePlayUI.gameObject.SetActive (true);
-		uiManager.gamePlayUI.WaittingFriendBtn ();
-		GameManager.instance.OnGameModeSelected (a);
-		SocialManager.Instance.facebookManager.GetFriendsNameByID (ConnectionManager.Instance.friedID);
-		ConnectionManager.Instance.OnSendRequest ("100", (int)gameManager.friendAnimalType + "");
+		if (SocialManager.Instance.isFriendsSelected) {
+			selectFriendPopup.text = "";
+			uiManager.DisableAllUI ();
+			uiManager.gamePlayUI.gameObject.SetActive (true);
+			uiManager.gamePlayUI.WaittingFriendBtn ();
+			GameManager.instance.OnGameModeSelected (a);
+			SocialManager.Instance.facebookManager.GetFriendsNameByID (ConnectionManager.Instance.friedID);
+			ConnectionManager.Instance.OnSendRequest ("100", (int)gameManager.friendAnimalType + "");
+		} else {
+			Debug.Log ("Select One friend to connect");
+			selectFriendPopup.text = "Select one friend to connect";
+		}
 	}
 
 
@@ -151,6 +158,7 @@ public class MainMenuUI : MonoBehaviour
 	{
 		AdsHandler.Instance.ShowBannerAdsMenuPage ();
 		ServerRoomPanel.SetActive (false);
+		selectFriendPopup.text = "";
 
 	}
 

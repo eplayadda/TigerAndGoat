@@ -27,15 +27,17 @@ public class FacebookHandler : MonoBehaviour
 
 	void Start ()
 	{
+		PlayerPrefs.DeleteAll ();
+
+	}
+
+	public void mStart ()
+	{ 
 		int loginValue = PlayerPrefs.GetInt ("IsFbLogedIn");
 		if (loginValue == 1) {
 			UIManager.instance.loginPanel.SetActive (false);
 			UIManager.instance.mainMenuUI.gameObject.SetActive (true);
 		}
-	}
-
-	public void mStart ()
-	{ 
 		FB.Init (OnInitComplete, OnHideUnity);
 		toggleGroup = SocialManager.Instance.GetComponent<ToggleGroup> ();
 	}
@@ -249,7 +251,8 @@ public class FacebookHandler : MonoBehaviour
 	{
 		btn.onValueChanged.AddListener ((bool value) => {
 			if (value)
-				SetFriendsId (fbID);
+				SocialManager.Instance.isFriendsSelected = true;
+			SetFriendsId (fbID);
 			SocialManager.Instance.UpdateFriendName (name);
 		});
 
