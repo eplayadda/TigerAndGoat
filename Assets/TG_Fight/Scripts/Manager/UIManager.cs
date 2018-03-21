@@ -132,9 +132,10 @@ public class UIManager : MonoBehaviour
 		mainMenuUI.gameObject.SetActive (true);
 	}
 
-	public void OnSendRequest (int price, int type)
+	public void OnSendRequest (int price, int type,string pName)
 	{
-		
+		Debug.Log (">>>>>>>>>>>>>>>>>>>>>>>."+pName);
+		inviteUI.playerNameTxt.text = pName;
 		inviteUI.gameObject.SetActive (true);
 		inviteUI.friendAnimalType = type;
 	}

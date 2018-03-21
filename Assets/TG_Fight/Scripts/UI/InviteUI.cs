@@ -54,7 +54,7 @@ public class InviteUI : MonoBehaviour
 			ConnectionManager.Instance.IacceptChallage (0);
 
 		}
-		playerNameTxt.text = "Friend";
+//		playerNameTxt.text = "Friend";
 	}
 
 }

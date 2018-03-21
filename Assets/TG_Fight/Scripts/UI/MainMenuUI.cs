@@ -140,13 +140,14 @@ public class MainMenuUI : MonoBehaviour
 	public void OnCreateRoom (int a)
 	{
 		if (SocialManager.Instance.isFriendsSelected) {
+			string pName = "Chandan";
 			selectFriendPopup.text = "";
 			uiManager.DisableAllUI ();
 			uiManager.gamePlayUI.gameObject.SetActive (true);
 			uiManager.gamePlayUI.WaittingFriendBtn ();
 			GameManager.instance.OnGameModeSelected (a);
 			SocialManager.Instance.facebookManager.GetFriendsNameByID (ConnectionManager.Instance.friedID);
-			ConnectionManager.Instance.OnSendRequest ("100", (int)gameManager.friendAnimalType + "");
+			ConnectionManager.Instance.OnSendRequest ("100", (int)gameManager.friendAnimalType + "",pName);
 		} else {
 			Debug.Log ("Select One friend to connect");
 			selectFriendPopup.text = "Select one friend to connect";
