@@ -134,7 +134,6 @@ public class UIManager : MonoBehaviour
 
 	public void OnSendRequest (int price, int type)
 	{
-		
 		inviteUI.gameObject.SetActive (true);
 		inviteUI.friendAnimalType = type;
 	}
@@ -214,23 +213,29 @@ public class UIManager : MonoBehaviour
 
 	public void OnDicliend ()
 	{
+		inviteUI.gameObject.SetActive (false);
 		friendDecliendPanel.SetActive (true);
 	}
 
 	public void OnMenuBttnClicked ()
 	{
-		if (GameManager.instance.currGameMode != eGameMode.vServerMulltiPlayer) {
-			pausePanel.SetActive (true);
-			Invoke ("PauseDelay", 0.2f);
+		GameManager.instance.currGameStatus = eGameStatus.none;
+		pausePanel.SetActive (false);
+		gamePlayUI.gameObject.SetActive (false);
+		mainMenuUI.gameObject.SetActive (true);
+		Time.timeScale = 1;
+		friendDecliendPanel.SetActive (false);
+		inviteUI.gameObject.SetActive (false);
+		mainMenuUI.ServerRoomPanel.SetActive (false);
+		fbFriendsPanel.SetActive (false);
+		mainMenuUI.settingPanle.SetActive (false);
+		mainMenuUI.selectPlayerPanel.SetActive (false);
+	}
 
-		} else {
-			GameManager.instance.currGameStatus = eGameStatus.none;
-			pausePanel.SetActive (false);
-			gamePlayUI.gameObject.SetActive (false);
-			mainMenuUI.gameObject.SetActive (true);
-			Time.timeScale = 1;
-			friendDecliendPanel.SetActive (false);
-		}
+	public void BackButtonClickSingePlayer ()
+	{
+		pausePanel.SetActive (true);
+		Invoke ("PauseDelay", 0.2f);
 	}
 
 	void PauseDelay ()

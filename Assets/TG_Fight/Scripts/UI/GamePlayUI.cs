@@ -30,7 +30,7 @@ public class GamePlayUI : MonoBehaviour
 		AudioManager.Instance.PlaySound (AudioManager.SoundType.ButtonClick);
 
 		if (GameManager.instance.currGameMode != eGameMode.vServerMulltiPlayer) {
-			uiManager.OnMenuBttnClicked ();
+			uiManager.BackButtonClickSingePlayer ();
 		} else {
 			uiManager.OnMenuBttnClicked ();
 			ConnectionManager.Instance.OnGameOverSendData ();
