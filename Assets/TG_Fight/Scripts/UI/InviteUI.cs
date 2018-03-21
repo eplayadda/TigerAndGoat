@@ -20,6 +20,7 @@ public class InviteUI : MonoBehaviour
 	{
 		gameObject.SetActive (false);
 
+		UIManager.instance.mainMenuUI.selectFriendPopup.text = "";
 		if (isAccepted) {
 			GameManager.instance.currGameStatus = eGameStatus.play;
 			GameManager.instance.currGameMode = eGameMode.vServerMulltiPlayer;
