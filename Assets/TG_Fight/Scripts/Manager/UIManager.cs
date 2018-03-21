@@ -164,6 +164,7 @@ public class UIManager : MonoBehaviour
 
 	public void OnCancleFriendList ()
 	{
+		SocialManager.Instance.isFriendsSelected = false;
 		fbFriendsPanel.SetActive (false);
 	}
 

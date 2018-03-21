@@ -247,13 +247,17 @@ public class FacebookHandler : MonoBehaviour
 		FriendsObjectList.Clear ();
 	}
 
+	string friendName = "";
+
 	private void AddListener (Toggle btn, string fbID, string name)
 	{
 		btn.onValueChanged.AddListener ((bool value) => {
-			if (value)
-				SocialManager.Instance.isFriendsSelected = true;
-			SetFriendsId (fbID);
-			SocialManager.Instance.UpdateFriendName (name);
+			if (value) {
+				
+				SetFriendsId (fbID);
+				friendName = name;
+				SocialManager.Instance.UpdateFriendName (name);
+			}
 		});
 
 	}
@@ -580,7 +584,7 @@ public class FacebookHandler : MonoBehaviour
 					string friendID = resultValue ["id"].ToString ();
 					if (id == friendID) {
 						UIManager.instance.inviteUI.playerNameTxt.text = resultValue ["name"].ToString ();
-						Debug.Log (resultValue ["name"].ToString ());
+						//Debug.Log (resultValue ["name"].ToString ());
 					}
 				}
 			}
@@ -590,6 +594,11 @@ public class FacebookHandler : MonoBehaviour
 	public void FacebookLike ()
 	{
 		Application.OpenURL ("https://www.facebook.com/akash.renewin");
+	}
+
+	public string GetSelectedFriend ()
+	{
+		return friendName;
 	}
 }
 

@@ -101,6 +101,7 @@ public class SocialManager : MonoBehaviour
 
 	public void OnClickInvite ()
 	{
+		isFriendsSelected = true;
 		UIManager.instance.fbFriendsPanel.SetActive (false);
 	}
 
