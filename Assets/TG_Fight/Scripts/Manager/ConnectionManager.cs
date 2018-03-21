@@ -168,13 +168,14 @@ public class ConnectionManager : MonoBehaviour
 	List <string> usersID = new List<string> ();
 
 	// Sending Request
-	public void OnSendRequest (string pTablePrice, string pCurrSubjectType)
+	public void OnSendRequest (string pTablePrice, string pCurrSubjectType,string pName)
 	{
 		usersID.Clear ();
 		usersID.Add (myID);
 		usersID.Add (friedID);
 		usersID.Add (pTablePrice);
 		usersID.Add (pCurrSubjectType);
+		usersID.Add (pName);
 		Debug.Log (myID + "Send Request" + friedID);
 		signalRConnection [HUB_NAME].Call ("SendRequest", usersID);
 		GameManager.instance.currGameMode = eGameMode.vServerMulltiPlayer;
@@ -201,8 +202,10 @@ public class ConnectionManager : MonoBehaviour
 		friedID = str [0].ToString ();
 		int tablePrice = Convert.ToInt32 (str [2].ToString ());
 		int subjectType = Convert.ToInt32 (str [3].ToString ());
+		string pName = str [4].ToString ();
+		Debug.Log ("Request came"+pName);
 
-		UIManager.instance.OnSendRequest (tablePrice, subjectType);
+		UIManager.instance.OnSendRequest (tablePrice, subjectType,pName);
 
 	}
 
