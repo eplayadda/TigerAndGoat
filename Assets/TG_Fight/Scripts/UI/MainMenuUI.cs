@@ -154,6 +154,11 @@ public class MainMenuUI : MonoBehaviour
 			GameManager.instance.OnGameModeSelected (a);
 			SocialManager.Instance.facebookManager.GetFriendsNameByID (ConnectionManager.Instance.friedID);
 			ConnectionManager.Instance.OnSendRequest ("100", (int)gameManager.friendAnimalType + "", pName);
+
+			SocialManager.Instance.SetDefaultAvatar ();
+			SocialManager.Instance.UpdateFriendName ("");
+			UIManager.instance.mainMenuUI.selectFriendPopup.text = "";
+			SocialManager.Instance.isFriendsSelected = false;
 		} else {
 			Debug.Log ("Select One friend to connect");
 			selectFriendPopup.text = "Select one friend to connect";
