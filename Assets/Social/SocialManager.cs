@@ -95,13 +95,16 @@ public class SocialManager : MonoBehaviour
 
 	public void GetFriendFB ()
 	{
+		SocialManager.Instance.UpdateFriendName ("");
+		SocialManager.Instance.SetDefaultAvatar ();
+		UIManager.instance.mainMenuUI.selectFriendPopup.text = "";
+		isFriendsSelected = false;
 		UIManager.instance.fbFriendsPanel.SetActive (true);
 		facebookManager.GetFriends ();
 	}
 
 	public void OnClickInvite ()
 	{
-		isFriendsSelected = true;
 		UIManager.instance.fbFriendsPanel.SetActive (false);
 	}
 

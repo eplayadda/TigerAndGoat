@@ -19,7 +19,10 @@ public class InviteUI : MonoBehaviour
 	public void OnInviteClicked (bool isAccepted)
 	{
 		gameObject.SetActive (false);
-
+		SocialManager.Instance.SetDefaultAvatar ();
+		SocialManager.Instance.UpdateFriendName ("");
+		UIManager.instance.mainMenuUI.selectFriendPopup.text = "";
+		SocialManager.Instance.isFriendsSelected = false;
 		UIManager.instance.mainMenuUI.selectFriendPopup.text = "";
 		if (isAccepted) {
 			GameManager.instance.currGameStatus = eGameStatus.play;

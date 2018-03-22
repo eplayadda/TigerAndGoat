@@ -56,6 +56,10 @@ public class MainMenuUI : MonoBehaviour
 
 	public void SelectPlayer ()
 	{
+		selectFriendPopup.text = "";
+		SocialManager.Instance.isFriendsSelected = false;
+		SocialManager.Instance.SetDefaultAvatar ();
+
 		int a = curMode;
 //		selectPlayerPanel.SetActive (true);
 		Debug.Log (a + "---");

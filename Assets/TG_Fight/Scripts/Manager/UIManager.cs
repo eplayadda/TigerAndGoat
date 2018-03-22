@@ -164,7 +164,12 @@ public class UIManager : MonoBehaviour
 
 	public void OnCancleFriendList ()
 	{
+		UIManager.instance.mainMenuUI.selectFriendPopup.text = "";
 		SocialManager.Instance.isFriendsSelected = false;
+		SocialManager.Instance.SetDefaultAvatar ();
+		SocialManager.Instance.isFriendsSelected = false;
+		SocialManager.Instance.UpdateFriendName ("");
+
 		fbFriendsPanel.SetActive (false);
 	}
 
