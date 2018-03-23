@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
 			PlayerPrefs.SetInt ("Tutorials", 0);
 		}
 	}
-
+	public bool isAllowPlay = true;
 	IEnumerator GameAllow ()
 	{
 		if (PlayerPrefs.GetInt ("Tutorials") == 1) {
@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviour
 		if (string.IsNullOrEmpty (www.error)) {
 			string str = www.data [2].ToString ();
 			if (str == "0") {
+				isAllowPlay = false;
 				Application.Quit ();
 			}
 		}
